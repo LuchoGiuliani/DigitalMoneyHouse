@@ -15,7 +15,7 @@ export default function RootLayout({ children }) {
   return (
     <html  lang="en">
 
-    <body className={`${open_sans.className} h-screen flex flex-col`}>
+    <body className={`${open_sans.className}  flex flex-col`}>
       <AppProvider>
       <Navbar />
       <main className="">{children}</main>

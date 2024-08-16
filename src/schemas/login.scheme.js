@@ -1,7 +1,7 @@
 import * as yup from "yup";
 
 const LoginScheme = yup.object({
-    email: yup.string().email('El correo electrónico debe tener un formato válido').required('El correo electrónico es obligatorio'),
+    email: yup.string().email('Formato invalido').required('El correo electrónico es obligatorio'),
     //  password: yup.string().required()
 }).required();
 

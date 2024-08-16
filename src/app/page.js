@@ -2,7 +2,7 @@ import Image from "next/image";
 
 export default function Home() {
   return (
-    <main className="background_hero relative">
+    <main className="background_hero relative ">
       <div className="bg-color-primary absolute bottom-0 w-full h-[25%] rounded-t-2xl"></div>
       <section className="w-[60%] h-[50%] pt-8 pl-5 md:pl-6 flex flex-col gap-2 ">
         <h1 className="text-white font-semibold md:text-[48px] md:leading-10 text-[27px] leading-6 md:font-normal">

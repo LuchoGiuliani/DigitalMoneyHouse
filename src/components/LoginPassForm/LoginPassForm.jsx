@@ -32,7 +32,7 @@ const LoginPassForm = () => {
       window.localStorage.setItem("user_id", JSON.stringify(userData.user_id));
       window.localStorage.setItem("account_id", JSON.stringify(userData.id));
 
-      router.push("/");
+      router.push("/dashboard");
     } catch (error) {
       console.error(error.message);
       setServerError("Ha ocurrido un error. Intente más tarde.");

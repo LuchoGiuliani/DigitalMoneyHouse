@@ -1,7 +1,7 @@
 import axios from "axios";
 
 export const getUserById = async (user_id, token) => {
-  const BASE_URL = "https://digitalmoney.digitalhouse.com";
+  const BASE_URL = process.env.NEXT_PUBLIC_API_URL
 
 
   if (!token) {
@@ -9,7 +9,7 @@ export const getUserById = async (user_id, token) => {
     return;
   }
   try {
-    const response = await axios.get(`${BASE_URL}/api/users/${user_id}`, {
+    const response = await axios.get(`${BASE_URL}/users/${user_id}`, {
       headers: {
         Authorization: token,
         "Content-Type": "application/json",

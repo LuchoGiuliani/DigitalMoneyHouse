@@ -7,7 +7,6 @@ import Footer from '@/components/footer/Footer'
 const RegisterSuccess = () => {
   return (
     <div className="h-screen bg-color-darker flex flex-col justify-between">
-     
       <div className="flex flex-col items-center justify-center flex-grow">
         <Image 
           src="/RegistroExitoso.png" 

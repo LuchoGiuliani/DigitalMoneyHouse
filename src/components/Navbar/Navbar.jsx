@@ -14,7 +14,7 @@ const Navbar = () => {
   const [isLoading, setIsLoading] = useState(true);
   const pathname = usePathname();
   const [user_id, setUser_id] = useState();
-console.log(user_id);
+  
 
   useEffect(() => {
     const fetchData = async () => {
@@ -46,10 +46,10 @@ console.log(user_id);
   const navbarClass =
     isLoginPage || isLoginPass || isRegister ? "bg-color-primary" : "bg-color-darker";
   const logoSrc = isLoginPage || isLoginPass || isRegister ? "/logo2.png" : "/logo1.png";
-  const loginButtom = isLoginPage || isRegister || isLoginPass
+  const loginButtom = isLoginPage  || isLoginPass
     ? "hidden"
     : "border border-color-primary p-2 rounded-md text-color-primary font-bold";
-  const registerStyle = isRegister ? "hidden" : "";
+
 
   return (
     <div className={`${navbarClass} flex justify-between px-4 py-3 items-center  `}>
@@ -92,7 +92,7 @@ console.log(user_id);
                   height={43}
                   priority
                 />
-                <h1 className={`${registerStyle} hidden md:block`}>
+                <h1 className={` hidden md:block`}>
                   Hola, {userData?.firstname ? userData.firstname : ""} bienvenido
                 </h1>
               </Link>
@@ -105,7 +105,7 @@ console.log(user_id);
             </button>
           </>
         ) : (
-          <div className={`${registerStyle} flex gap-2`}>
+          <div className={` flex gap-2`}>
             <Link
               href={"/login"}
               className={`${loginButtom}`}
@@ -114,7 +114,7 @@ console.log(user_id);
             </Link>
             <Link
               href={"/register"}
-              className={`${loginButtom}`}
+              className={`bg-color-primary rounded-md text-color-darker font-bold p-2`}
             >
               Crear Cuenta
             </Link>
