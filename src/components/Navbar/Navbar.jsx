@@ -14,6 +14,7 @@ const Navbar = () => {
   const [isLoading, setIsLoading] = useState(true);
   const pathname = usePathname();
   const [user_id, setUser_id] = useState();
+console.log(user_id);
 
   useEffect(() => {
     const fetchData = async () => {
