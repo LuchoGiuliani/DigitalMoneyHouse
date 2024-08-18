@@ -1,6 +1,6 @@
 "use client";
 import { createContext, useContext, useState, useEffect, useMemo } from "react";
-
+import { useRouter } from "next/navigation";
 const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
@@ -8,13 +8,14 @@ export const AuthProvider = ({ children }) => {
   const [token, setToken] = useState(null);
   const [email, setEmail] = useState(null);
   const [tokenExpirationTimeout, setTokenExpirationTimeout] = useState(null);
+  const router = useRouter()
 
   const logout = () => {
     setUser(null);
     setToken(null);
     localStorage.removeItem("token");
     localStorage.removeItem("user");
-
+    router.push("/")
     // Limpiar el timeout de expiración del token si existe
     if (tokenExpirationTimeout) {
       clearTimeout(tokenExpirationTimeout);

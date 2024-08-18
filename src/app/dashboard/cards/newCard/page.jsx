@@ -51,7 +51,7 @@ const Page = () => {
       
         const cardData = {
           cod: 0,
-          expiration_date: "08/2025",  // Asegúrate de enviar la fecha de expiración correcta
+          expiration_date: "08/2025", 
           first_last_name: state.name,
           number_id: 0,        // Asegúrate de enviar el número correcto
         };

@@ -129,7 +129,7 @@ const Page = () => {
         <div className="h-screen px-6 py-4 flex flex-col gap-4 w-full">
           <article className="bg-white flex flex-col rounded-md p-4 drop-shadow-md">
             <div>
-              <h1 className="font-bold text-[24px]">Tus datos</h1>
+              <h1 className="font-bold text-[24px] pb-4">Tus datos</h1>
             </div>
             <div className="flex justify-between gap-2 w-full border-b">
               <div className="flex gap-6 w-full items-center">
@@ -185,10 +185,10 @@ const Page = () => {
           </article>
           <article className="bg-color-primary p-4 flex  w-full rounded-md drop-shadow-md">
             <Link
-              className="text-2xl font-bold flex justify-between w-full"
+              className="text-xl font-bold flex justify-between w-full"
               href=""
             >
-              Gestiona los medios de pago
+              Gestioná los medios de pago
               <Image
                 width={42}
                 height={8}
@@ -199,7 +199,7 @@ const Page = () => {
             </Link>
           </article>
           {accountData && (
-            <article className="bg-black text-white p-4 rounded-md drop-shadow-md flex flex-col gap-4">
+            <article className="bg-color-darker text-white p-4 rounded-md drop-shadow-md flex flex-col gap-4">
               <h2 className="text-white">
                 Copia tu CVU o alias para ingresar o transferir dinero desde
                 otra cuenta
