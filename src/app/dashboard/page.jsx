@@ -34,10 +34,10 @@ const Page = () => {
           {accountData && (
             <article className="bg-color-darker p-4 rounded-lg drop-shadow-lg">
               <div className="flex justify-end gap-2">
-                <Link className="text-white underline" href="/dashboard/perfil">
+                <Link className="text-white underline" href="/dashboard/profile">
                   Ver tarjetas
                 </Link>
-                <Link className="text-white underline" href="/dashboard/perfil">
+                <Link className="text-white underline" href="/dashboard/profile">
                   Ver CVU
                 </Link>
               </div>

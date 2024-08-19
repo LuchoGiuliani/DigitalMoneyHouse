@@ -4,7 +4,9 @@ import { useAuth } from "@/hooks/useAuth";
 const BASE_URL = "https://digitalmoney.digitalhouse.com";
 
 export const getCards = async (accountId, token) => {
-
+  
+  console.log("token", token);
+  
   try {
     const response = await axios.get(`${BASE_URL}/api/accounts/${accountId}/cards`, {
       headers: {
@@ -20,9 +22,7 @@ export const getCards = async (accountId, token) => {
 };
 
 export const addCard = async (account_id, cardData, token) => {
-  console.log("Enviando tarjeta:", cardData);
-  console.log("Token:", token);
-  console.log("Account ID:", account_id);
+
 
   try {
     const response = await axios.post(`${BASE_URL}/api/accounts/${account_id}/cards`, cardData, {
@@ -40,8 +40,8 @@ export const addCard = async (account_id, cardData, token) => {
   }
 };
 
-export const deleteCard = async (accountId, cardId) => {
-  const { token } = useAuth();
+export const deleteCard = async (accountId, cardId, token) => {
+ 
   try {
     await axios.delete(`${BASE_URL}/api/accounts/${accountId}/cards/${cardId}`, {
       headers: {

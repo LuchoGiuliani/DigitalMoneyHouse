@@ -70,7 +70,7 @@ const Navbar = () => {
         </Link>
       </section>
       <section className="flex gap-1 items-center">
-        {isLandingPage ?   <Link href={"/login"} className={`${loginButtom}`}>
+        {isLandingPage && !isAuthenticated() ?   <Link href={"/login"} className={`${loginButtom}`}>
           Ingresar
         </Link> : <div></div> }
         {isAuthenticated()  ? <><Link href="/dashboard" className="text-white flex gap-2">
@@ -86,7 +86,7 @@ const Navbar = () => {
           Logout
         </button> </>  : <div></div>}
        
-        {isLandingPage ?   <Link
+        {isLandingPage && !isAuthenticated() ?    <Link
           href={"/register"}
           className={`bg-color-primary rounded-md text-color-darker font-bold p-2`}
         >

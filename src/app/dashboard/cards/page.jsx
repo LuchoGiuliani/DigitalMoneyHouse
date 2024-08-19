@@ -1,32 +1,30 @@
 "use client";
 import LeftSidebar from "@/components/LeftSidebar/LeftSidebar";
-
 import Image from "next/image";
 import Link from "next/link";
-import React, { useState, useEffect, useContext } from "react";
-
+import React, { useState, useEffect } from "react";
 import "react-credit-cards-2/dist/es/styles-compiled.css";
-import axios from "axios";
 import { useRouter } from "next/navigation";
 import { useAuth } from "@/hooks/useAuth";
 import getAccountActivity from "@/services/getAccountActivity";
 import useCards from "@/hooks/useCards";
 
-const BASE_URL = "https://digitalmoney.digitalhouse.com";
-
 const Page = () => {
   const [accountData, setAccountData] = useState(null);
-  const { token } = useAuth();
   const [accountActivity, setAccountActivity] = useState(null);
+  const { token } = useAuth();
+  const router = useRouter();
+
   const account_id = accountData?.id;
+
+  const { cards, handleAddCard, handleDeleteCard } = useCards(account_id);
+
   useEffect(() => {
     if (token) {
       getAccountActivity(setAccountData, setAccountActivity, token);
     }
   }, [token, account_id]);
 
-  const { allCards } = useCards();
-  const router = useRouter();
   const [state, setState] = useState({
     number: "",
     expiry: "",
@@ -34,28 +32,6 @@ const Page = () => {
     name: "",
     focus: "",
   });
-  const [cards, setCards] = useState([]);
-
-  useEffect(() => {
-    async function fetchCards() {
-      try {
-        const response = await axios.get(
-          `${BASE_URL}/api/accounts/${account_id}/cards`,
-          {
-            headers: {
-              Authorization: token,
-              "Content-Type": "application/json",
-            },
-          }
-        );
-        setCards(response.data);
-        console.log(response.data);
-      } catch (error) {
-        console.error("Error fetching cards:", error);
-      }
-    }
-    fetchCards();
-  }, [token, account_id]);
 
   const handleInputChange = (evt) => {
     const { name, value } = evt.target;
@@ -77,41 +53,10 @@ const Page = () => {
     };
 
     try {
-      const response = await axios.post(
-        `${BASE_URL}/api/accounts/${account_id}/cards`,
-        cardData,
-        {
-          headers: {
-            Authorization: token,
-            "Content-Type": "application/json",
-          },
-        }
-      );
-
-      // Redirigir y actualizar la lista de tarjetas
+      await handleAddCard(cardData);
       router.push("/dashboard/tarjetas");
-      setCards([...cards, response.data]);
     } catch (error) {
       console.error("Error:", error);
-    }
-  };
-
-  const handleDelete = async (cardId) => {
-    try {
-      await axios.delete(
-        `${BASE_URL}/api/accounts/${account_id}/cards/${cardId}`,
-        {
-          headers: {
-            Authorization: token,
-            "Content-Type": "application/json",
-          },
-        }
-      );
-
-      // Actualizar la lista de tarjetas después de eliminar una
-      setCards(cards.filter((card) => card.id !== cardId));
-    } catch (error) {
-      console.error("Error deleting card:", error);
     }
   };
 
@@ -129,21 +74,38 @@ const Page = () => {
               className="flex gap-4 justify-between"
             >
               <div className="flex gap-4">
-                <Image src={"/cruz.png"} width={22} height={22} alt="Cruz" />
+                <Image
+                  src={"/cruz.png"}
+                  width={22}
+                  height={22}
+                  alt="Cruz"
+                  className="w-auto h-auto"
+                />
                 <h2 className="font-bold text-color-primary">Nueva tarjeta</h2>
               </div>
-              <Image alt="arrow" src={"/arrow.png"} width={22} height={0} />
+              <Image
+                alt="arrow"
+                src={"/arrow.png"}
+                width={22}
+                height={8}
+                className="w-auto h-auto"
+              />
             </Link>
           </div>
           <div className="flex flex-col bg-white p-6 gap-4 rounded-md">
             <h2 className="font-semibold">Tus tarjetas</h2>
-            {cards.map((card) => (
+            {cards?.map((card) => (
               <div key={card.id} className="flex justify-between border-b p-2">
                 <div className="flex gap-4 ">
                   <div className="rounded-full h-6 w-6 bg-color-primary"></div>
                   <h2>Terminada en {card.number_id}</h2>
                 </div>
-                <button className="font-semibold" onClick={() => handleDelete(card.id)}>Eliminar</button>
+                <button
+                  className="font-semibold"
+                  onClick={() => handleDeleteCard(card.id)}
+                >
+                  Eliminar
+                </button>
               </div>
             ))}
           </div>
