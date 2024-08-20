@@ -31,7 +31,7 @@ const Page = () => {
       const response = await createUser({ ...data, dni: Number(data.dni) });
       reset();
       if (response) {
-        router.push("/registerSuccess");
+        router.push("/register/registerSuccess");
       }
     } catch (error) {
       console.error("Error en el registro:", error);

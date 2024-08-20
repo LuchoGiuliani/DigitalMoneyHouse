@@ -94,20 +94,30 @@ const Page = () => {
           </div>
           <div className="flex flex-col bg-white p-6 gap-4 rounded-md">
             <h2 className="font-semibold">Tus tarjetas</h2>
-            {cards?.map((card) => (
-              <div key={card.id} className="flex justify-between border-b p-2">
-                <div className="flex gap-4 ">
-                  <div className="rounded-full h-6 w-6 bg-color-primary"></div>
-                  <h2>Terminada en {card.number_id}</h2>
-                </div>
-                <button
-                  className="font-semibold"
-                  onClick={() => handleDeleteCard(card.id)}
+
+            {cards?.length > 0 ? (
+              cards.map((card) => (
+                <div
+                  key={card.id}
+                  className="flex justify-between border-b p-2"
                 >
-                  Eliminar
-                </button>
-              </div>
-            ))}
+                  <div className="flex gap-4">
+                    <div className="rounded-full h-6 w-6 bg-color-primary"></div>
+                    <h2>Terminada en {card.number_id}</h2>
+                  </div>
+                  <button
+                    className="font-semibold"
+                    onClick={() => handleDeleteCard(card.id)}
+                  >
+                    Eliminar
+                  </button>
+                </div>
+              ))
+            ) : (
+              <p className="text-gray-500">
+                No hay tarjetas asociadas a esta cuenta
+              </p>
+            )}
           </div>
         </div>
       </div>

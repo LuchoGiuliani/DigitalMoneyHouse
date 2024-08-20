@@ -1,72 +1,76 @@
-"use client";
-import LeftSidebar from "@/components/LeftSidebar/LeftSidebar";
-import React, { useState , useEffect} from "react";
+"use client"
+import { useState, useEffect } from "react";
+import { useRouter } from "next/navigation";
 import Cards from "react-credit-cards-2";
 import "react-credit-cards-2/dist/es/styles-compiled.css";
-import { useRouter } from "next/navigation";
-import { addCard } from "@/services/getCards";
+import LeftSidebar from "@/components/LeftSidebar/LeftSidebar";
+import { addCard, getCards } from "@/services/getCards";
 import { useAuth } from "@/hooks/useAuth";
 import getAccountId from "@/services/getAccountId";
 
-
+const MAX_CARDS = 10;
 
 const Page = () => {
-    const router = useRouter();
-    const { token } = useAuth();
-    const [account_id, setAccountId] = useState(null);
-  
-    useEffect(() => {
-      const fetchAccountId = async () => {
-        if (token) {
-          const id = await getAccountId(token);
-          setAccountId(id);
-        }
-      };
-  
-      fetchAccountId();
-    }, [token]);
-  
-    console.log("account_id", account_id);
-  
-    const [state, setState] = useState({
-      number: "",
-      expiry: "",
-      cvc: "",
-      name: "",
-      focus: "",
-    });
-  
-    const handleInputChange = (evt) => {
-      const { name, value } = evt.target;
-      setState((prev) => ({ ...prev, [name]: value }));
+  const router = useRouter();
+  const { token } = useAuth();
+  const [account_id, setAccountId] = useState(null);
+  const [cardsCount, setCardsCount] = useState(0);
+  const [state, setState] = useState({
+    number: "",
+    expiry: "",
+    cvc: "",
+    name: "",
+    focus: "",
+  });
+
+  useEffect(() => {
+    const fetchAccountData = async () => {
+      if (token) {
+        const id = await getAccountId(token);
+        setAccountId(id);
+        const cards = await getCards(id, token);
+        setCardsCount(cards.length);
+      }
     };
-  
-    const handleInputFocus = (evt) => {
-      setState((prev) => ({ ...prev, focus: evt.target.name }));
+
+    fetchAccountData();
+  }, [token]);
+
+  const handleInputChange = (evt) => {
+    const { name, value } = evt.target;
+    setState((prev) => ({ ...prev, [name]: value }));
+  };
+
+  const handleInputFocus = (evt) => {
+    setState((prev) => ({ ...prev, focus: evt.target.name }));
+  };
+
+  const handleSubmit = async (evt) => {
+    evt.preventDefault();
+
+    if (cardsCount >= MAX_CARDS) {
+      alert("Se ha alcanzado el límite de 10 tarjetas asociadas a esta cuenta.");
+      return;
+    }
+
+    const cardData = {
+      cod: 0,
+      expiration_date: "08/2025",
+      first_last_name: state.name,
+      number_id: 0,
     };
-  
-   
-    const handleSubmit = async (evt) => {
-        evt.preventDefault();
-      
-        const cardData = {
-          cod: 0,
-          expiration_date: "08/2025", 
-          first_last_name: state.name,
-          number_id: 0,        // Asegúrate de enviar el número correcto
-        };
-      
-        try {
-          if (account_id) {
-            await addCard(account_id, cardData, token);
-            router.push("/dashboard/cards");
-          } else {
-            console.error("account_id no disponible");
-          }
-        } catch (error) {
-          console.error("Error:", error);
-        }
-      };
+
+    try {
+      if (account_id) {
+        await addCard(account_id, cardData, token);
+        router.push("/dashboard/cards");
+      } else {
+        console.error("account_id no disponible");
+      }
+    } catch (error) {
+      console.error("Error:", error);
+    }
+  };
 
   return (
     <div>
@@ -88,7 +92,7 @@ const Page = () => {
               <input
                 type="text"
                 name="number"
-                placeholder="Numero de tarjeta"
+                placeholder="Número de tarjeta"
                 value={state.number}
                 onChange={handleInputChange}
                 onFocus={handleInputFocus}
@@ -98,7 +102,7 @@ const Page = () => {
                 type="text"
                 name="expiry"
                 placeholder="Fecha de vencimiento"
-                value="08/2025"
+                value={state.expiry}
                 onChange={handleInputChange}
                 onFocus={handleInputFocus}
                 className="p-4 rounded-md drop-shadow-lg"
@@ -115,14 +119,13 @@ const Page = () => {
               <input
                 type="text"
                 name="cvc"
-                placeholder="Codigo de seguridad"
+                placeholder="Código de seguridad"
                 value={state.cvc}
                 onChange={handleInputChange}
                 onFocus={handleInputFocus}
                 className="p-4 rounded-md drop-shadow-lg"
               />
             </div>
-
             <button
               type="submit"
               className="bg-gray-300 p-4 rounded-md w-fit"
