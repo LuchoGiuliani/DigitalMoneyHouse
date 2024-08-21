@@ -6,6 +6,7 @@ import { TokenContext } from "@/context/tokenContext";
 import { useAuth } from "@/hooks/useAuth";
 import getAccountDetail from "@/services/getUserAccount";
 import { getUserById } from "@/services/getUserById";
+import updateAccountAlias from "@/services/updateAccountAlias";
 
 
 
@@ -26,6 +27,7 @@ const Page = () => {
     cuit: "",
     phone: "",
     password: "******",
+    alias: ""
   });
 
   const [editState, setEditState] = useState({
@@ -35,6 +37,7 @@ const Page = () => {
     cuit: false,
     phone: false,
     password: false,
+    alias: false
   });
 
   useEffect(() => {
@@ -60,6 +63,8 @@ const Page = () => {
         try {
           const data = await getUserById(userId, tokenFromStorage);
           setUserData(data);
+          
+          
         } catch (error) {
           console.error("Error fetching user data:", error);
         }
@@ -70,14 +75,15 @@ const Page = () => {
   }, [token]); // Dependencia en el token
 
   useEffect(() => {
-    if (userData) {
+    if (userData && accountData) {
       setFormState({
         email: userData.email,
         firstname: userData.firstname,
         lastname: userData.lastname,
         cuit: userData.cuit,
         phone: userData.phone,
-        password: "******", // No mostrar la contraseña real
+        password: "******", 
+        alias: accountData.alias
       });
     }
   }, [userData]);
@@ -96,9 +102,12 @@ const Page = () => {
     setToken(tokenFromStorage);
     try {
       await updateUser({ [field]: formState[field] }, userData.id, tokenFromStorage);
+      await updateAccountAlias({ [field]: formState[field] }, accountData.id, tokenFromStorage);
       setEditState((prevState) => ({ ...prevState, [field]: false }));
       const updatedUserData = await getUserById(userData.id, tokenFromStorage);
       setUserData(updatedUserData);
+      const updateAccountAliasData = await getUserById(userData.id, tokenFromStorage);
+      setAccountData(updateAccountAliasData);
     } catch (error) {
       console.error("Failed to update user data:", error);
     }
@@ -145,7 +154,7 @@ const Page = () => {
                 />
               </div>
             </div>
-            {["firstname", "lastname", "cuit", "phone", "password"].map(
+            {["firstname", "lastname", "cuit", "phone", "password", "alias"].map(
               (field, index) => (
                 <div
                   key={index}

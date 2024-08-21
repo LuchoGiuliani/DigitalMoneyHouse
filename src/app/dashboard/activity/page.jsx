@@ -28,7 +28,7 @@ const page = () => {
   const indexOfFirstItem = indexOfLastItem - itemsPerPage
   const currentItems = accountActivity.slice(indexOfFirstItem, indexOfLastItem)
 
-  // Cambiar página
+
   const paginate = (pageNumber) => setCurrentPage(pageNumber)
 
   return (

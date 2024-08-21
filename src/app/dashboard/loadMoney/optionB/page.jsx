@@ -1,4 +1,5 @@
 import LeftSidebar from '@/components/LeftSidebar/LeftSidebar'
+import Link from 'next/link'
 import React from 'react'
 
 const page = () => {
@@ -14,7 +15,7 @@ const page = () => {
               <h2>Tarjetas</h2>
               <div className='flex gap-4 items-center'>
                 <div className='bg-color-primary w-4 h-4 rounded-full'></div>
-                <h3 className='font-semibold'>Terminada en 0000</h3>
+                <Link href={"./optionB/stepOne"} className='font-semibold'>Terminada en 0000</Link>
               </div>
             </div>
           </div>
