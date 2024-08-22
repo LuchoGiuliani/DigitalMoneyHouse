@@ -1,4 +1,5 @@
 import { AuthProvider } from "@/hooks/useAuth";
+import { UserProvider } from "./userContext";
 
 
 const { EmailProvider } = require("./emailContext");
@@ -6,10 +7,12 @@ const { EmailProvider } = require("./emailContext");
 const AppProvider = ({ children }) => {
   return (
     <EmailProvider>
-      <AuthProvider>
+    <AuthProvider>
+      <UserProvider>
         {children}
-      </AuthProvider>
-    </EmailProvider>
+      </UserProvider>
+    </AuthProvider>
+  </EmailProvider>
   );
 };
 

@@ -2,8 +2,11 @@
 import LeftSidebar from "@/components/LeftSidebar/LeftSidebar";
 import { useAuth } from "@/hooks/useAuth";
 import getAccountDetail from "@/services/getUserAccount";
+import { getUserById } from "@/services/getUserById";
 import Image from "next/image";
 import React, { useEffect, useState } from "react";
+import { Toaster, toast } from "sonner";
+
 
 const page = () => {
 
@@ -48,7 +51,7 @@ const page = () => {
       .writeText(text)
       .then(() => {
         console.log("Copied to clipboard:", text);
-        alert("Copiado al portapapeles!");
+        toast.success("Copiado al portapapeles!")
       })
       .catch((error) => {
         console.error("Failed to copy:", error);
@@ -58,6 +61,16 @@ const page = () => {
 
   return (
     <div className="flex">
+        <Toaster
+        toastOptions={{
+          unstyled: true,
+          classNames: {
+            toast: "bg-color-primary rounded-lg p-4 flex items-center gap-2",
+            title: "text-black",
+          },
+        }}
+        position="bottom-right"
+      />
       <LeftSidebar />
       <div className="bg-color-gray w-full p-6">
         {accountData && (

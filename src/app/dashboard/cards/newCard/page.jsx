@@ -54,8 +54,8 @@ const Page = () => {
     }
 
     const cardData = {
-      cod: 0,
-      expiration_date: "08/2025",
+      cod: parseInt(state.number, 10),
+      expiration_date: state.expiry,
       first_last_name: state.name,
       number_id: 0,
     };

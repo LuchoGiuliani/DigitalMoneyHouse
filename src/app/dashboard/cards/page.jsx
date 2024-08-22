@@ -46,12 +46,12 @@ const Page = () => {
     evt.preventDefault();
 
     const cardData = {
-      cod: 0,
-      expiration_date: "08/2025",
+      cod: parseInt(state.number, 10),
+      expiration_date: state.expiry,
       first_last_name: state.name,
       number_id: state.number,
     };
-
+    
     try {
       await handleAddCard(cardData);
       router.push("/dashboard/tarjetas");
@@ -60,6 +60,9 @@ const Page = () => {
     }
   };
 
+
+  const lastFourDigits = cards.cod ? cards.cod.slice(-4) : 'N/A';
+  
   return (
     <div>
       <div className="flex">
@@ -96,14 +99,14 @@ const Page = () => {
             <h2 className="font-semibold">Tus tarjetas</h2>
 
             {cards?.length > 0 ? (
-              cards.map((card) => (
+              cards?.map((card) => (
                 <div
                   key={card.id}
                   className="flex justify-between border-b p-2"
                 >
                   <div className="flex gap-4">
                     <div className="rounded-full h-6 w-6 bg-color-primary"></div>
-                    <h2>Terminada en {card.number_id}</h2>
+                    <h2>Terminada en {card.cod.toString().slice(-4)}</h2>
                   </div>
                   <button
                     className="font-semibold"

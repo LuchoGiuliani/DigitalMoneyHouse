@@ -1,24 +1,26 @@
 "use client";
 import LeftSidebar from "@/components/LeftSidebar/LeftSidebar";
 
-
 import { TokenContext } from "@/context/tokenContext";
 import { useAuth } from "@/hooks/useAuth";
 import getAccountDetail from "@/services/getUserAccount";
 import { getUserById } from "@/services/getUserById";
 import updateAccountAlias from "@/services/updateAccountAlias";
 
-
+import { Toaster, toast } from "sonner";
 
 import updateUser from "@/services/updateUser"; // Importa la función de actualización
 import Image from "next/image";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
+
 import React, { useContext, useEffect, useState } from "react";
 
 const Page = () => {
   const [userData, setUserData] = useState(null);
   const [accountData, setAccountData] = useState(null);
   const { token, setToken } = useAuth();
+  const router = useRouter();
 
   const [formState, setFormState] = useState({
     email: "",
@@ -27,7 +29,7 @@ const Page = () => {
     cuit: "",
     phone: "",
     password: "******",
-    alias: ""
+    alias: "",
   });
 
   const [editState, setEditState] = useState({
@@ -37,7 +39,7 @@ const Page = () => {
     cuit: false,
     phone: false,
     password: false,
-    alias: false
+    alias: false,
   });
 
   useEffect(() => {
@@ -63,8 +65,7 @@ const Page = () => {
         try {
           const data = await getUserById(userId, tokenFromStorage);
           setUserData(data);
-          
-          
+          router.refresh();
         } catch (error) {
           console.error("Error fetching user data:", error);
         }
@@ -82,8 +83,8 @@ const Page = () => {
         lastname: userData.lastname,
         cuit: userData.cuit,
         phone: userData.phone,
-        password: "******", 
-        alias: accountData.alias
+        password: "******",
+        alias: accountData.alias,
       });
     }
   }, [userData]);
@@ -101,13 +102,25 @@ const Page = () => {
     const tokenFromStorage = JSON.parse(window.localStorage.getItem("token"));
     setToken(tokenFromStorage);
     try {
-      await updateUser({ [field]: formState[field] }, userData.id, tokenFromStorage);
-      await updateAccountAlias({ [field]: formState[field] }, accountData.id, tokenFromStorage);
+      await updateUser(
+        { [field]: formState[field] },
+        userData.id,
+        tokenFromStorage
+      );
+      await updateAccountAlias(
+        { [field]: formState[field] },
+        accountData.id,
+        tokenFromStorage
+      );
       setEditState((prevState) => ({ ...prevState, [field]: false }));
       const updatedUserData = await getUserById(userData.id, tokenFromStorage);
       setUserData(updatedUserData);
-      const updateAccountAliasData = await getUserById(userData.id, tokenFromStorage);
+      const updateAccountAliasData = await getUserById(
+        userData.id,
+        tokenFromStorage
+      );
       setAccountData(updateAccountAliasData);
+      toast.success("Datos editados correctamente");
     } catch (error) {
       console.error("Failed to update user data:", error);
     }
@@ -118,7 +131,7 @@ const Page = () => {
       .writeText(text)
       .then(() => {
         console.log("Copied to clipboard:", text);
-        alert("Copiado al portapapeles!");
+        toast.success("Copiado al portapapeles!");
       })
       .catch((error) => {
         console.error("Failed to copy:", error);
@@ -130,9 +143,18 @@ const Page = () => {
     return <div>Loading...</div>;
   }
 
-
   return (
     <main className="bg-gray-200">
+      <Toaster
+        toastOptions={{
+          unstyled: true,
+          classNames: {
+            toast: "bg-color-primary rounded-lg p-4 flex items-center gap-2",
+            title: "text-black",
+          },
+        }}
+        position="bottom-right"
+      />
       <section className="flex">
         <LeftSidebar />
         <div className="h-screen px-6 py-4 flex flex-col gap-4 w-full">
@@ -150,47 +172,52 @@ const Page = () => {
                   name="email"
                   value={formState.email || ""}
                   disabled
-                  className=""
+                  className="bg-white"
                 />
               </div>
             </div>
-            {["firstname", "lastname", "cuit", "phone", "password", "alias"].map(
-              (field, index) => (
-                <div
-                  key={index}
-                  className="flex justify-between gap-2 w-full border-b"
-                >
-                  <div className="flex gap-6 w-full items-center">
-                    <h2 className="font-semibold min-w-[220px] capitalize">
-                      {field}
-                    </h2>
-                    <input
-                      type={field === "password" ? "password" : "text"}
-                      name={field}
-                      value={formState[field] || ""}
-                      onChange={handleInputChange}
-                      disabled={!editState[field]}
-                      className={editState[field] ? "" : ""}
-                    />
-                  </div>
-                  <button
-                    onClick={() =>
-                      editState[field] ? handleSave(field) : handleEdit(field)
-                    }
-                    className={` ${
-                      editState[field] ? "bg-color-primary" : "bg-white"
-                    } text-white p-2 rounded`}
-                  >
-                    <Image
-                      width={22}
-                      height={22}
-                      alt="iconoEdit"
-                      src="/iconoEdit.png"
-                    />
-                  </button>
+            {[
+              "firstname",
+              "lastname",
+              "cuit",
+              "phone",
+              "password",
+              "alias",
+            ].map((field, index) => (
+              <div
+                key={index}
+                className="flex justify-between gap-2 w-full border-b"
+              >
+                <div className="flex gap-6 w-full items-center">
+                  <h2 className="font-semibold min-w-[220px] capitalize">
+                    {field}
+                  </h2>
+                  <input
+                    type={field === "password" ? "password" : "text"}
+                    name={field}
+                    value={formState[field] || ""}
+                    onChange={handleInputChange}
+                    disabled={!editState[field]}
+                    className={editState[field] ? "" : "bg-white"}
+                  />
                 </div>
-              )
-            )}
+                <button
+                  onClick={() =>
+                    editState[field] ? handleSave(field) : handleEdit(field)
+                  }
+                  className={` ${
+                    editState[field] ? "bg-color-primary" : "bg-white"
+                  } text-white p-2 rounded`}
+                >
+                  <Image
+                    width={22}
+                    height={22}
+                    alt="iconoEdit"
+                    src="/iconoEdit.png"
+                  />
+                </button>
+              </div>
+            ))}
           </article>
           <article className="bg-color-primary p-4 flex  w-full rounded-md drop-shadow-md">
             <Link
@@ -246,7 +273,7 @@ const Page = () => {
                       height={22}
                       alt="iconoCopy"
                       src="/iconoCopy.png"
-                       className="w-auto h-auto"
+                      className="w-auto h-auto"
                     />
                   </button>
                 </div>

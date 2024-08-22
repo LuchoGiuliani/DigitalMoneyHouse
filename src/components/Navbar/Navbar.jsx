@@ -14,6 +14,7 @@ const Navbar = () => {
   const [isLoading, setIsLoading] = useState(true);
   const pathname = usePathname();
   const [user_id, setUser_id] = useState();
+  const router = useRouter();
 
   useEffect(() => {
     const fetchData = async () => {
@@ -27,6 +28,7 @@ const Navbar = () => {
         try {
           const data = await getUserById(user_idStorage, tokenFromStorage);
           setUserData(data);
+          router.refresh(); 
         } catch (error) {
           console.error("Error fetching user data:", error);
         }
@@ -42,6 +44,7 @@ const Navbar = () => {
   const isLoginPage = pathname === "/login";
   const isRegister = pathname === "/register";
   const isLandingPage = pathname === "/";
+  const isDashboardPage = pathname.startsWith("/dashboard");
 
   const navbarClass =
     isLoginPage || isLoginPass || isRegister
@@ -56,7 +59,9 @@ const Navbar = () => {
   const registerButtom = isRegister ? "" : "";
 
   return (
-    <div className={`${navbarClass} flex justify-between px-4 py-3 items-center max-h-[68px]  `}>
+    <div
+      className={`${navbarClass} flex justify-between px-4 py-3 items-center max-h-[68px]  `}
+    >
       <section>
         <Link href={"/"}>
           <Image
@@ -70,32 +75,53 @@ const Navbar = () => {
         </Link>
       </section>
       <section className="flex gap-1 items-center">
-        {isLandingPage && !isAuthenticated() ?   <Link href={"/login"} className={`${loginButtom}`}>
-          Ingresar
-        </Link> : <div></div> }
-        {isAuthenticated()  ? <><Link href="/dashboard" className="text-white flex gap-2">
-          <div className="bg-color-primary text-black px-2 rounded-md">
-            {userData?.firstname[0].toUpperCase()}
-            {userData?.lastname[0].toUpperCase()}
-          </div>
-          <h1 className={` hidden md:block`}>
-            Hola, {userData?.firstname ? userData.firstname : ""} bienvenido
-          </h1>
-        </Link>
-        <button onClick={logout} className={`${loginButtom}`}>
-          Logout
-        </button> </>  : <div></div>}
-       
-        {isLandingPage && !isAuthenticated() ?    <Link
-          href={"/register"}
-          className={`bg-color-primary rounded-md text-color-darker font-bold p-2`}
-        >
-          Crear Cuenta
-        </Link> : <div></div>}
-       {isRegister ? <Link href={"/login"} className={`bg-color-dark text-white p-2 rounded-md font-bold`}>
-          Iniciar sesion
-        </Link> : <div></div> }
-        
+        {isLandingPage && !isAuthenticated() ? (
+          <Link href={"/login"} className={`${loginButtom}`}>
+            Ingresar
+          </Link>
+        ) : (
+          <div></div>
+        )}
+        {isAuthenticated() ? (
+          <>
+            <Link href="/dashboard" className="text-white flex gap-2">
+              <div className="bg-color-primary text-black px-2 rounded-md">
+                {userData?.firstname[0].toUpperCase()}
+                {userData?.lastname[0].toUpperCase()}
+              </div>
+              <h1 className={` hidden md:block`}>
+                Hola, {userData?.firstname ? userData.firstname : ""} bienvenido
+              </h1>
+            </Link>
+            {!isDashboardPage ?  <button onClick={logout} className={`${loginButtom}`}>
+              Logout
+            </button> : ""}
+           
+          </>
+        ) : (
+          <div></div>
+        )}
+
+        {isLandingPage && !isAuthenticated() ? (
+          <Link
+            href={"/register"}
+            className={`bg-color-primary rounded-md text-color-darker font-bold p-2`}
+          >
+            Crear Cuenta
+          </Link>
+        ) : (
+          <div></div>
+        )}
+        {isRegister ? (
+          <Link
+            href={"/login"}
+            className={`bg-color-dark text-white p-2 rounded-md font-bold`}
+          >
+            Iniciar sesion
+          </Link>
+        ) : (
+          <div></div>
+        )}
       </section>
     </div>
   );

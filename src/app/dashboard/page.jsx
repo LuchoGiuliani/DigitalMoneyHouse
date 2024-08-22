@@ -25,7 +25,7 @@ const Page = () => {
   }, [token]);
 
   if (loading) {
-    return <div>Cargando...</div>; // Mostrar un indicador de carga
+    return <div>Cargando...</div>;
   }
 
   return (
@@ -108,9 +108,9 @@ const Page = () => {
                         <p className="font-semibold text-right">
                           {act.type === "Transfer" &&
                           act.origin === accountData.cvu ? (
-                            <>-${act.amount.toFixed(2)}</>
+                            <>${act.amount.toFixed(2)}</>
                           ) : (
-                            <>+${act.amount.toFixed(2)}</>
+                            <>${act.amount.toFixed(2)}</>
                           )}
                         </p>
                         <p className="text-gray-500 text-sm">
