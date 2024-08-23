@@ -20,6 +20,7 @@ export const AuthProvider = ({ children }) => {
     if (tokenExpirationTimeout) {
       clearTimeout(tokenExpirationTimeout);
     }
+    router.refresh()
   };
 
   const login = (userData, token) => {
@@ -30,6 +31,7 @@ export const AuthProvider = ({ children }) => {
 
     // Establecer la expiración del token
     setTokenExpiration(15 * 60 * 1000); // 15 minutos
+    router.refresh()
   };
 
   const setTokenExpiration = (timeout) => {
@@ -62,7 +64,7 @@ export const AuthProvider = ({ children }) => {
         logout();
       }
     }
-  }, []);
+  }, [token, user]);
 
   const isAuthenticated = () => {
     return !!token;

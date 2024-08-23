@@ -156,7 +156,7 @@ const Page = () => {
         position="bottom-right"
       />
       <section className="flex">
-        <LeftSidebar />
+     
         <div className="h-screen px-6 py-4 flex flex-col gap-4 w-full">
           <article className="bg-white flex flex-col rounded-md p-4 drop-shadow-md">
             <div>

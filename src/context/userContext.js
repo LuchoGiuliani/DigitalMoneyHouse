@@ -1,4 +1,4 @@
-"use client"
+"use client";
 import { createContext, useContext, useState, useEffect } from "react";
 import { getUserById } from "@/services/getUserById";
 import { useAuth } from "@/hooks/useAuth";
@@ -13,7 +13,7 @@ export const UserProvider = ({ children }) => {
   useEffect(() => {
     const fetchUserData = async () => {
       const user_id = JSON.parse(window.localStorage.getItem("user_id"));
-      
+
       if (user_id && token) {
         try {
           const data = await getUserById(user_id, token);
@@ -25,9 +25,9 @@ export const UserProvider = ({ children }) => {
 
       setIsLoading(false);
     };
-
+    
     fetchUserData();
-  }, [token, userData]);
+  }, [token]);
 
   return (
     <UserContext.Provider value={{ userData, isLoading, setUserData }}>

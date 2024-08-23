@@ -31,7 +31,7 @@ const Page = () => {
   return (
     <main>
       <section className="flex">
-        <LeftSidebar />
+       
         <div className="h-screen px-6 py-4 flex flex-col gap-2 w-full bg-[#EEEAEA]">
           {accountData && (
             <article className="bg-color-darker p-4 rounded-lg drop-shadow-lg">

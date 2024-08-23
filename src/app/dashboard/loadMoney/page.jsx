@@ -5,8 +5,8 @@ import React from 'react'
 
 const page = () => {
   return (
-    <div className='flex'>
-      <LeftSidebar />
+    <div className='flex min-h-screen'>
+   
       <div className='bg-color-gray w-full p-6'>
           <Link className='bg-color-darker drop-shadow-lg rounded-lg font-bold gap-2 text-color-primary justify-between flex p-6 m-6 items-center min-h-[200px]' href={"/dashboard/loadMoney/optionA"}>
           <div className='flex gap-2'>

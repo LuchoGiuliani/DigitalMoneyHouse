@@ -60,7 +60,7 @@ const page = () => {
   };
 
   return (
-    <div className="flex">
+    <div className="flex min-h-screen">
         <Toaster
         toastOptions={{
           unstyled: true,
@@ -71,7 +71,7 @@ const page = () => {
         }}
         position="bottom-right"
       />
-      <LeftSidebar />
+   
       <div className="bg-color-gray w-full p-6">
         {accountData && (
           <article className="bg-color-darker text-white p-6 rounded-md drop-shadow-md flex flex-col gap-4">

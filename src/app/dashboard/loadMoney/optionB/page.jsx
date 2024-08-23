@@ -6,8 +6,8 @@ const page = () => {
 
   
   return (
-    <div className='flex'>
-      <LeftSidebar />
+    <div className='flex min-h-screen'>
+     
       <div className='bg-color-gray w-full p-6'> 
           <div className='bg-color-darker p-6 rounded-lg flex flex-col gap-6'>
             <h1 className='text-color-primary font-bold'>Seleccionar tarjetas</h1>

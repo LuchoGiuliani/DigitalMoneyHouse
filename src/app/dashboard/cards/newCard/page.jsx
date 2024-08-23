@@ -74,8 +74,8 @@ const Page = () => {
 
   return (
     <div>
-      <div className="flex">
-        <LeftSidebar />
+      <div className="flex  min-h-screen">
+       
         <div className="px-8 py-6 w-full flex flex-col items-center">
           <Cards
             number={state.number}

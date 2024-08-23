@@ -65,8 +65,8 @@ const Page = () => {
   
   return (
     <div>
-      <div className="flex">
-        <LeftSidebar />
+      <div className="flex min-h-screen">
+      
         <div className="flex flex-col bg-gray-300 w-full px-8 py-4 gap-4">
           <div className="bg-[#201F22] flex flex-col rounded-md p-6 gap-4">
             <h2 className="text-white font-semibold">

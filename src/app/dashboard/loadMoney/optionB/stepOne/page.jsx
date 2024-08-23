@@ -8,8 +8,8 @@ const page = () => {
   const router = useRouter();
 
   return (
-    <div className="flex">
-      <LeftSidebar />
+    <div className="flex min-h-screen">
+   
       <div className="bg-color-gray w-full p-8 ">
         <div className="bg-color-darker p-8 rounded-lg flex flex-col gap-6 ">
           <h1 className="text-color-primary font-bold">
