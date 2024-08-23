@@ -27,10 +27,10 @@ export const UserProvider = ({ children }) => {
     };
 
     fetchUserData();
-  }, [token]);
+  }, [token, userData]);
 
   return (
-    <UserContext.Provider value={{ userData, isLoading }}>
+    <UserContext.Provider value={{ userData, isLoading, setUserData }}>
       {children}
     </UserContext.Provider>
   );

@@ -7,10 +7,11 @@ import Link from "next/link";
 import { useAuth } from "@/hooks/useAuth";
 import { useEffect, useState } from "react";
 import { getUserById } from "@/services/getUserById";
+import { useUser } from "@/context/userContext";
 
 const Navbar = () => {
   const { isAuthenticated, logout, token, setToken } = useAuth();
-  const [userData, setUserData] = useState(null);
+  const {userData , setUserData} = useUser()
   const [isLoading, setIsLoading] = useState(true);
   const pathname = usePathname();
   const [user_id, setUser_id] = useState();
