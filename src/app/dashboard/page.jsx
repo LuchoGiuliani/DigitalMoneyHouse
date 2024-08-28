@@ -60,13 +60,13 @@ const Page = () => {
           <article className="flex gap-2 justify-center items-center">
             <Link
               className="bg-color-primary w-full text-center p-4 text-xl font-bold rounded-lg drop-shadow-lg"
-              href=""
+              href="/dashboard/loadMoney"
             >
               Cargar dinero
             </Link>
             <Link
               className="bg-color-primary w-full text-center p-4 text-xl font-bold rounded-lg drop-shadow-lg"
-              href=""
+              href="/dashboard/payServices"
             >
               Pago de servicios
             </Link>

@@ -9,16 +9,16 @@ import updateAccountAlias from "@/services/updateAccountAlias";
 
 import { Toaster, toast } from "sonner";
 
-import updateUser from "@/services/updateUser"; // Importa la función de actualización
+import updateUser from "@/services/updateUser";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 
 import React, { useContext, useEffect, useState } from "react";
+import { useUser } from "@/context/userContext";
 
 const Page = () => {
-  const [userData, setUserData] = useState(null);
-  const [accountData, setAccountData] = useState(null);
+  const { userData, setUserData, accountData, setAccountData } = useUser();
   const { token, setToken } = useAuth();
   const router = useRouter();
 
@@ -29,7 +29,6 @@ const Page = () => {
     cuit: "",
     phone: "",
     password: "******",
-    alias: "",
   });
 
   const [editState, setEditState] = useState({
@@ -39,7 +38,6 @@ const Page = () => {
     cuit: false,
     phone: false,
     password: false,
-    alias: false,
   });
 
   useEffect(() => {
@@ -81,13 +79,12 @@ const Page = () => {
         email: userData.email,
         firstname: userData.firstname,
         lastname: userData.lastname,
-        cuit: userData.cuit,
+        cuit: userData.dni,
         phone: userData.phone,
         password: "******",
-        alias: accountData.alias,
       });
     }
-  }, [userData]);
+  }, [userData, accountData]);
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -107,19 +104,11 @@ const Page = () => {
         userData.id,
         tokenFromStorage
       );
-      await updateAccountAlias(
-        { [field]: formState[field] },
-        accountData.id,
-        tokenFromStorage
-      );
+
       setEditState((prevState) => ({ ...prevState, [field]: false }));
       const updatedUserData = await getUserById(userData.id, tokenFromStorage);
       setUserData(updatedUserData);
-      const updateAccountAliasData = await getUserById(
-        userData.id,
-        tokenFromStorage
-      );
-      setAccountData(updateAccountAliasData);
+
       toast.success("Datos editados correctamente");
     } catch (error) {
       console.error("Failed to update user data:", error);
@@ -156,7 +145,6 @@ const Page = () => {
         position="bottom-right"
       />
       <section className="flex">
-     
         <div className="h-screen px-6 py-4 flex flex-col gap-4 w-full">
           <article className="bg-white flex flex-col rounded-md p-4 drop-shadow-md">
             <div>
@@ -172,56 +160,53 @@ const Page = () => {
                   name="email"
                   value={formState.email || ""}
                   disabled
-                  className="bg-white"
+                  className="bg-white text-gray-300"
                 />
               </div>
             </div>
-            {[
-              "firstname",
-              "lastname",
-              "cuit",
-              "phone",
-              "password",
-              "alias",
-            ].map((field, index) => (
-              <div
-                key={index}
-                className="flex justify-between gap-2 w-full border-b"
-              >
-                <div className="flex gap-6 w-full items-center">
-                  <h2 className="font-semibold min-w-[220px] capitalize">
-                    {field}
-                  </h2>
-                  <input
-                    type={field === "password" ? "password" : "text"}
-                    name={field}
-                    value={formState[field] || ""}
-                    onChange={handleInputChange}
-                    disabled={!editState[field]}
-                    className={editState[field] ? "" : "bg-white"}
-                  />
-                </div>
-                <button
-                  onClick={() =>
-                    editState[field] ? handleSave(field) : handleEdit(field)
-                  }
-                  className={` ${
-                    editState[field] ? "bg-color-primary" : "bg-white"
-                  } text-white p-2 rounded`}
+            {["firstname", "lastname", "cuit", "phone", "password"].map(
+              (field, index) => (
+                <div
+                  key={index}
+                  className="flex justify-between gap-2 w-full border-b"
                 >
-                  <Image
-                    width={22}
-                    height={22}
-                    alt="iconoEdit"
-                    src="/iconoEdit.png"
-                  />
-                </button>
-              </div>
-            ))}
+                  <div className="flex gap-6 w-full items-center">
+                    <h2 className="font-semibold min-w-[220px] capitalize ">
+                      {field}
+                    </h2>
+                    <input
+                      type={field === "password" ? "password" : "text"}
+                      name={field}
+                      value={formState[field] || ""}
+                      onChange={handleInputChange}
+                      disabled={!editState[field]}
+                      className={
+                        editState[field] ? " " : "bg-white text-gray-300"
+                      }
+                    />
+                  </div>
+                  <button
+                    onClick={() =>
+                      editState[field] ? handleSave(field) : handleEdit(field)
+                    }
+                    className={` ${
+                      editState[field] ? "bg-color-primary" : "bg-white"
+                    } text-white p-2 rounded`}
+                  >
+                    <Image
+                      width={22}
+                      height={22}
+                      alt="iconoEdit"
+                      src="/iconoEdit.png"
+                    />
+                  </button>
+                </div>
+              )
+            )}
           </article>
           <article className="bg-color-primary p-4 flex  w-full rounded-md drop-shadow-md">
             <Link
-              className="text-xl font-bold flex justify-between w-full"
+              className="text-xl font-semibold flex justify-between w-full"
               href=""
             >
               Gestioná los medios de pago
@@ -230,7 +215,7 @@ const Page = () => {
                 height={8}
                 alt="iconoflecha"
                 className="w-auto h-auto"
-                src="/iconoFlecha.png"
+                src="/arrowBlack.svg"
               />
             </Link>
           </article>
@@ -254,7 +239,7 @@ const Page = () => {
                       width={22}
                       height={22}
                       alt="iconoCopy"
-                      src="/iconoCopy.png"
+                      src="/copy.svg"
                       className="w-auto h-auto"
                     />
                   </button>
@@ -272,7 +257,7 @@ const Page = () => {
                       width={22}
                       height={22}
                       alt="iconoCopy"
-                      src="/iconoCopy.png"
+                      src="/copy.svg"
                       className="w-auto h-auto"
                     />
                   </button>

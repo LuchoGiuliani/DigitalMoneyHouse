@@ -9,6 +9,7 @@ export const UserProvider = ({ children }) => {
   const { token } = useAuth();
   const [userData, setUserData] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
+  const [accountData, setAccountData] = useState(null)
 
   useEffect(() => {
     const fetchUserData = async () => {
@@ -30,7 +31,7 @@ export const UserProvider = ({ children }) => {
   }, [token]);
 
   return (
-    <UserContext.Provider value={{ userData, isLoading, setUserData }}>
+    <UserContext.Provider value={{ userData, isLoading, setUserData, accountData, setAccountData }}>
       {children}
     </UserContext.Provider>
   );

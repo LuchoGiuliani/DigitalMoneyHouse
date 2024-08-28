@@ -1,26 +1,33 @@
 "use client";
 import { createContext, useContext, useState, useEffect, useMemo } from "react";
 import { useRouter } from "next/navigation";
+
+
 const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [token, setToken] = useState(null);
-  const [email, setEmail] = useState(null);
+  const   
+ [email, setEmail] = useState(null);
   const [tokenExpirationTimeout, setTokenExpirationTimeout] = useState(null);
-  const router = useRouter()
+  const router = useRouter();
 
   const logout = () => {
+    // Clear the token expiration timeout
+    if (tokenExpirationTimeout) {
+      clearTimeout(tokenExpirationTimeout);
+    }
+
+    // Remove the user data and token from local storage
     setUser(null);
     setToken(null);
     localStorage.removeItem("token");
     localStorage.removeItem("user");
-    router.push("/")
-    // Limpiar el timeout de expiración del token si existe
-    if (tokenExpirationTimeout) {
-      clearTimeout(tokenExpirationTimeout);
-    }
-    router.refresh()
+    localStorage.removeItem("account_id");
+    localStorage.removeItem("user_id");
+    router.push("/");
+    router.refresh();
   };
 
   const login = (userData, token) => {
@@ -29,9 +36,9 @@ export const AuthProvider = ({ children }) => {
     localStorage.setItem("token", JSON.stringify(token));
     localStorage.setItem("user", JSON.stringify(userData));
 
-    // Establecer la expiración del token
-    setTokenExpiration(15 * 60 * 1000); // 15 minutos
-    router.refresh()
+    // Set the token expiration timeout
+    setTokenExpiration(15 * 60 * 1000); // 15 minutes
+    router.refresh();
   };
 
   const setTokenExpiration = (timeout) => {
@@ -40,7 +47,7 @@ export const AuthProvider = ({ children }) => {
     }
 
     const newTimeout = setTimeout(() => {
-      logout(); // Desloguear automáticamente
+      logout(); // Log the user out if the token has expired
     }, timeout);
 
     setTokenExpirationTimeout(newTimeout);
@@ -57,14 +64,25 @@ export const AuthProvider = ({ children }) => {
         if (parsedUser) {
           setUser(parsedUser);
         }
-        // Establecer la expiración del token
-        setTokenExpiration(15 * 60 * 1000); // 15 minutos
+        // Set the token expiration timeout
+        setTokenExpiration(15 * 60 * 1000); // 15 minutes
       } catch (e) {
         console.error("Error parsing saved user:", e);
         logout();
       }
     }
   }, [token, user]);
+
+  useEffect(() => {
+    // Check if the token has expired and log the user out if it has
+    if (token && tokenExpirationTimeout) {
+      const now = new Date().getTime();
+      const expirationTime = tokenExpirationTimeout + now;
+      if (now > expirationTime) {
+        logout();
+      }
+    }
+  }, [token, tokenExpirationTimeout]);
 
   const isAuthenticated = () => {
     return !!token;

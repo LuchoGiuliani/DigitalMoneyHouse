@@ -1,39 +1,47 @@
 "use client";
 
-import { useRouter, usePathname } from "next/navigation";
+import {  usePathname } from "next/navigation";
 import Image from "next/image";
 import Link from "next/link";
 import { useAuth } from "@/hooks/useAuth";
 import { useUser } from "@/context/userContext";
-import { useEffect } from "react";
-
+import { useEffect, useMemo } from "react";
+import { useRouter } from "next/navigation";
 const Navbar = () => {
   const { isAuthenticated, logout } = useAuth();
   const { userData, isLoading } = useUser();
   const pathname = usePathname();
-  const router = useRouter();
+  const router = useRouter()
 
   useEffect(() => {
-    // This effect will run whenever userData changes
-  }, [userData]);
+  
+  }, [userData, isAuthenticated, logout]);
 
   const isLoginPass = pathname === "/login/loginPassword";
   const isLoginPage = pathname === "/login";
-  const isRegister = pathname === "/register";
+  const isRegister = pathname.startsWith("/register");
   const isLandingPage = pathname === "/";
   const isDashboardPage = pathname.startsWith("/dashboard");
 
-  const navbarClass =
-    isLoginPage || isLoginPass || isRegister
+  const navbarClass = useMemo(() => {
+    return isLoginPage || isLoginPass || isRegister
       ? "bg-color-primary"
       : "bg-color-darker";
-  const logoSrc =
-    isLoginPage || isLoginPass || isRegister ? "/logo2.png" : "/logo1.png";
-  const loginButton =
-    isLoginPage || isLoginPass
+  }, [isLoginPass, isLoginPage, isRegister]);
+
+  const logoSrc = useMemo(() => {
+    return isLoginPage || isLoginPass || isRegister ? "/logo2.png" : "/logo1.png";
+  }, [isLoginPass, isLoginPage, isRegister]);
+
+  const loginButton = useMemo(() => {
+    return isLoginPage || isLoginPass
       ? "hidden"
-      : "border border-color-primary p-2  m-1 rounded-md text-color-primary font-bold";
-  const registerButton = isRegister ? "" : "";
+      : "border border-color-primary p-2  m-1 rounded-md text-color-primary font-bold";
+  }, [isLoginPass, isLoginPage]);
+
+  const registerButton = useMemo(() => {
+    return isRegister ? "" : "";
+  }, [isRegister]);
 
   return (
     <div
@@ -57,7 +65,7 @@ const Navbar = () => {
             Ingresar
           </Link>
         )}
-        {isAuthenticated() && !isLoading && (
+        {isAuthenticated() && !isLoading && !isRegister && (
           <>
             <Link href="/dashboard" className="text-white flex gap-2">
               <div className="bg-color-primary text-black px-2 rounded-md">
@@ -65,7 +73,7 @@ const Navbar = () => {
                 {userData?.lastname[0]?.toUpperCase()}
               </div>
               <h1 className={` hidden md:block`}>
-                Hola, {userData?.firstname} bienvenido
+                Hola, {userData?.firstname}  {userData?.lastname}
               </h1>
             </Link>
             {!isDashboardPage && (

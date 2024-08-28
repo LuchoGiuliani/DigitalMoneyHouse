@@ -30,7 +30,6 @@ const getAccountActivity = async (setAccountData,setAccountActivity, token) => {
 
          
       
-          console.log(account_id);
         } catch (error) {
            console.error(error)
           return; 

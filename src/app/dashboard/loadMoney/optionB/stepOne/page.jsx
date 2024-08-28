@@ -20,9 +20,9 @@ const page = () => {
               <input className="rounded-xl p-2 " type="text" placeholder="$0" />
             </div>
             <div className="w-full flex justify-end">
-              <button className="bg-color-gray rounded-lg p-2  ">
+              <Link href={"./stepOne/confirmation"} className="bg-color-gray rounded-lg p-2  ">
                 Continuar
-              </button>
+              </Link>
             </div>
           </form>
         </div>
