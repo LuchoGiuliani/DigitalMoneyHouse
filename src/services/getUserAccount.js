@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const BASE_URL = "https://digitalmoney.digitalhouse.com";
+const BASE_URL = process.env.NEXT_PUBLIC_API_URL
 
 
 const getAccountDetail = async (setAccountData, token) => {
@@ -10,7 +10,7 @@ const getAccountDetail = async (setAccountData, token) => {
     return;
    }
     try {
-        const response = await axios.get(`${BASE_URL}/api/account`, {
+        const response = await axios.get(`${BASE_URL}/account`, {
             headers: {
                 Authorization: token,
                 'Content-Type': 'application/json'

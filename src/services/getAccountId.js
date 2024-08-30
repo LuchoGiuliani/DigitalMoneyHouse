@@ -2,7 +2,7 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 
 
-const BASE_URL = "https://digitalmoney.digitalhouse.com";
+const BASE_URL = process.env.NEXT_PUBLIC_API_URL
 
 const getAccountId = async (token) => {
     if (!token) {
@@ -10,7 +10,7 @@ const getAccountId = async (token) => {
     }
   
     try {
-      const responseAccountDetail = await axios.get(`${BASE_URL}/api/account`, {
+      const responseAccountDetail = await axios.get(`${BASE_URL}/account`, {
         headers: {
           Authorization: token,
           "Content-Type": "application/json",

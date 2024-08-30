@@ -1,14 +1,14 @@
 import axios from "axios";
-import { useAuth } from "@/hooks/useAuth";
 
-const BASE_URL = "https://digitalmoney.digitalhouse.com";
+
+const BASE_URL = process.env.NEXT_PUBLIC_API_URL
 
 export const getCards = async (accountId, token) => {
   
-  console.log("token", token);
+
   
   try {
-    const response = await axios.get(`${BASE_URL}/api/accounts/${accountId}/cards`, {
+    const response = await axios.get(`${BASE_URL}/accounts/${accountId}/cards`, {
       headers: {
         Authorization: token,
         "Content-Type": "application/json",
@@ -25,7 +25,7 @@ export const addCard = async (account_id, cardData, token) => {
 
 
   try {
-    const response = await axios.post(`${BASE_URL}/api/accounts/${account_id}/cards`, cardData, {
+    const response = await axios.post(`${BASE_URL}/accounts/${account_id}/cards`, cardData, {
       headers: {
         Authorization: token,
         "Content-Type": "application/json",
@@ -43,7 +43,7 @@ export const addCard = async (account_id, cardData, token) => {
 export const deleteCard = async (accountId, cardId, token) => {
  
   try {
-    await axios.delete(`${BASE_URL}/api/accounts/${accountId}/cards/${cardId}`, {
+    await axios.delete(`${BASE_URL}/accounts/${accountId}/cards/${cardId}`, {
       headers: {
         Authorization: token,
         "Content-Type": "application/json",

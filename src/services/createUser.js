@@ -1,10 +1,11 @@
 import axios from "axios";
 
 export const createUser = async (userDataToSend) => {
-  const BASE_URL = "https://digitalmoney.digitalhouse.com";
+  const BASE_URL = process.env.NEXT_PUBLIC_API_URL
+  
 
   try {
-    const response = await axios.post(`${BASE_URL}/api/users`, userDataToSend, {
+    const response = await axios.post(`${BASE_URL}/users`, userDataToSend, {
       headers: {
         "Content-Type": "application/json",
       },

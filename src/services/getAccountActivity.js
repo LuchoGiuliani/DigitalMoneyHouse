@@ -2,7 +2,7 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 
 
-const BASE_URL = "https://digitalmoney.digitalhouse.com";
+const BASE_URL = process.env.NEXT_PUBLIC_API_URL
 
 
 const getAccountActivity = async (setAccountData,setAccountActivity, token) => {
@@ -14,7 +14,7 @@ const getAccountActivity = async (setAccountData,setAccountActivity, token) => {
         let account_id = null;
     
         try {
-          const responseAccountDetail = await axios.get(`${BASE_URL}/api/account`, {
+          const responseAccountDetail = await axios.get(`${BASE_URL}/account`, {
             headers: {
               "Authorization": token,
               'Content-Type': 'application/json',
@@ -41,7 +41,7 @@ const getAccountActivity = async (setAccountData,setAccountActivity, token) => {
         }
       
         try {
-          const response = await axios.get(`${BASE_URL}/api/accounts/${account_id}/activity`, {
+          const response = await axios.get(`${BASE_URL}/accounts/${account_id}/activity`, {
             headers: {
               Authorization: token,
               'Content-Type': 'application/json',

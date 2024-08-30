@@ -1,10 +1,10 @@
 import { useRouter } from "next/navigation";
 
-const BASE_URL = "https://digitalmoney.digitalhouse.com";
+const BASE_URL = process.env.NEXT_PUBLIC_API_URL
 
 export const loginUser = async (data) => {
   try {
-    const response = await fetch(`${BASE_URL}/api/login`, {
+    const response = await fetch(`${BASE_URL}/login`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -25,7 +25,7 @@ export const loginUser = async (data) => {
 
 export const fetchUserAccount = async (token) => {
   try {
-    const response = await fetch(`${BASE_URL}/api/account`, {
+    const response = await fetch(`${BASE_URL}/account`, {
       headers: {
         Authorization: token,
         "Content-Type": "application/json",

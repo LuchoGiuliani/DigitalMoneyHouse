@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const BASE_URL = "https://digitalmoney.digitalhouse.com";
+const BASE_URL = process.env.NEXT_PUBLIC_API_URL
 
 // Function to fetch all transactions related to an account
 export const getTransactions = async (
@@ -14,7 +14,7 @@ export const getTransactions = async (
     let account_id = null
   
   try {
-    const responseAccountDetail = await axios.get(`${BASE_URL}/api/account`, {
+    const responseAccountDetail = await axios.get(`${BASE_URL}/account`, {
       headers: {
         Authorization: token,
         "Content-Type": "application/json",
@@ -41,7 +41,7 @@ export const getTransactions = async (
 
   try {
     const response = await axios.get(
-      `${BASE_URL}/api/accounts/${account_id}/transferences`,
+      `${BASE_URL}/accounts/${account_id}/transferences`,
       {
         headers: {
           Authorization: token,
@@ -62,7 +62,7 @@ export const getTransactions = async (
 export const addTransaction = async (account_id, transactionData, token) => {
   try {
     const response = await axios.post(
-      `${BASE_URL}/api/accounts/${account_id}/transferences`,
+      `${BASE_URL}/accounts/${account_id}/transferences`,
       transactionData,
       {
         headers: {
@@ -85,7 +85,7 @@ export const addTransaction = async (account_id, transactionData, token) => {
 export const deleteTransaction = async (account_id, transactionId, token) => {
   try {
     await axios.delete(
-      `${BASE_URL}/api/accounts/${account_id}/transferences/${transactionId}`,
+      `${BASE_URL}/accounts/${account_id}/transferences/${transactionId}`,
       {
         headers: {
           Authorization: token,

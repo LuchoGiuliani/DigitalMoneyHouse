@@ -88,7 +88,7 @@ const page = () => {
               </h1>
             </div>
             <button
-              className="bg-color-primary p-2  rounded-lg drop-shadow-lg  flex gap-2 items-center font-semibold"
+              className="bg-color-primary p-2 px-4  rounded-lg drop-shadow-lg  flex gap-2 items-center font-semibold"
               onClick={handleClick}
             >
               Filtrar
@@ -96,7 +96,7 @@ const page = () => {
                 src={"/filter.png"}
                 width={2}
                 height={0}
-                className=" h-auto w-fit"
+                className=" h-auto w-auto"
                 alt="search"
               />
             </button>
