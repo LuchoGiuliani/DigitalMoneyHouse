@@ -3,7 +3,7 @@ import React, { Suspense } from "react";
 import { useSearchParams } from "next/navigation";
 import LoginForm from "@/components/LoginForm/LoginForm";
 
-const Page = () => {
+const page = () => {
   const searchParams = useSearchParams();
   const email = searchParams.get("email");
 
@@ -25,4 +25,4 @@ const Page = () => {
   );
 };
 
-export default Page;
+export default page;
