@@ -1,5 +1,5 @@
 "use client";
-import React from "react";
+import React, { Suspense } from "react";
 import { useSearchParams } from "next/navigation";
 import LoginForm from "@/components/LoginForm/LoginForm";
 
@@ -15,7 +15,9 @@ const Page = () => {
             ¡Hola! Ingresá tu e-mail!
           </h1>
           <div>
-            <LoginForm />
+          <Suspense fallback={<div>Loading...</div>}> 
+            <LoginForm email={email} />
+            </Suspense>
           </div>
         </div>
       </section>

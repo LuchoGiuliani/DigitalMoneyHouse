@@ -6,7 +6,7 @@ import { useRouter } from "next/navigation";
 import {useEmail} from "@/context/emailContext"
 import Link from "next/link";
 
-const LoginForm = () => {
+const LoginForm = (email) => {
 
     const router = useRouter();
     const [serverError, setServerError] = useState(null);
