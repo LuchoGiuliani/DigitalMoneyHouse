@@ -10,7 +10,7 @@ const LeftSidebar = () => {
   const pathname = usePathname()
 
   return (
-    <main className='flex flex-col min-h-screen bg-color-primary w-fit min-w-[320px] p-4 gap-2'>
+    <main className='tablet:flex flex-col min-h-screen bg-color-primary w-fit min-w-[220px] p-4 gap-2 hidden '>
       <Link href="/dashboard" className={pathname === '/dashboard' ? 'font-bold' : ''}>
         Inicio
       </Link>

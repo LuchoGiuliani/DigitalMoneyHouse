@@ -30,15 +30,15 @@ const Page = () => {
 
   return (
     <main>
-      <section className="flex">
+      <section className="flex text-[16px] tablet:text-[24px]">
        
-        <div className="h-screen px-6 py-4 flex flex-col gap-2 w-full bg-[#EEEAEA]">
+        <div className=" px-6 py-4 flex flex-col gap-2 w-full bg-[#EEEAEA]">
           {accountData && (
             <article className="bg-color-darker p-4 rounded-lg drop-shadow-lg">
               <div className="flex justify-end gap-2">
                 <Link
                   className="text-white underline"
-                  href="/dashboard/profile"
+                  href="/dashboard/cards"
                 >
                   Ver tarjetas
                 </Link>
@@ -51,21 +51,21 @@ const Page = () => {
               </div>
               <div>
                 <h3 className="text-white p-2 font-bold">Dinero disponible</h3>
-                <h1 className="text-white border border-color-primary w-fit p-2 rounded-full text-4xl font-bold">
+                <h1 className="text-white border border-color-primary w-fit p-2 rounded-full text-[24px] tablet:text-[28px] font-bold">
                   $ {accountData.available_amount}
                 </h1>
               </div>
             </article>
           )}
-          <article className="flex gap-2 justify-center items-center">
+          <article className="flex gap-2 justify-center items-center flex-col desktop:flex-row">
             <Link
-              className="bg-color-primary w-full text-center p-4 text-xl font-bold rounded-lg drop-shadow-lg"
+              className="bg-color-primary w-full text-center p-4  font-bold rounded-lg drop-shadow-lg"
               href="/dashboard/loadMoney"
             >
               Cargar dinero
             </Link>
             <Link
-              className="bg-color-primary w-full text-center p-4 text-xl font-bold rounded-lg drop-shadow-lg"
+              className="bg-color-primary w-full text-center p-4  font-bold rounded-lg drop-shadow-lg"
               href="/dashboard/payServices"
             >
               Pago de servicios
@@ -79,9 +79,9 @@ const Page = () => {
               alt="search"
               className="max-w-[24px] max-h-[20px]"
             />
-            <h2 className="text-lg p-2">Buscar en tu actividad</h2>
+            <h2 className="p-2">Buscar en tu actividad</h2>
           </article>
-          <article className="bg-white rounded-lg p-6 drop-shadow-lg h-full">
+          <article className="bg-white rounded-lg p-6 drop-shadow-lg ">
             <h1 className="font-bold pb-6">Tu actividad</h1>
             {accountActivity && accountActivity.length > 0 ? (
               <div>

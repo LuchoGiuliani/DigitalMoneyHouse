@@ -1,20 +1,13 @@
 "use client";
-import LeftSidebar from "@/components/LeftSidebar/LeftSidebar";
-
-import { TokenContext } from "@/context/tokenContext";
 import { useAuth } from "@/hooks/useAuth";
 import getAccountDetail from "@/services/getUserAccount";
 import { getUserById } from "@/services/getUserById";
-import updateAccountAlias from "@/services/updateAccountAlias";
-
 import { Toaster, toast } from "sonner";
-
 import updateUser from "@/services/updateUser";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-
-import React, { useContext, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useUser } from "@/context/userContext";
 
 const Page = () => {
@@ -24,8 +17,7 @@ const Page = () => {
 
   const [formState, setFormState] = useState({
     email: "",
-    firstname: "",
-    lastname: "",
+    fullname: "",
     cuit: "",
     phone: "",
     password: "******",
@@ -33,8 +25,7 @@ const Page = () => {
 
   const [editState, setEditState] = useState({
     email: false,
-    firstname: false,
-    lastname: false,
+    fullname: false,
     cuit: false,
     phone: false,
     password: false,
@@ -77,11 +68,10 @@ const Page = () => {
     if (userData && accountData) {
       setFormState({
         email: userData.email,
-        firstname: userData.firstname,
-        lastname: userData.lastname,
+        fullname: `${userData.firstname} ${userData.lastname}`, // Combina firstname y lastname
         cuit: userData.dni,
-        phone: userData.phone,
-        password: "******",
+        Télefono: userData.phone,
+        Contraseña: "******",
       });
     }
   }, [userData, accountData]);
@@ -99,11 +89,16 @@ const Page = () => {
     const tokenFromStorage = JSON.parse(window.localStorage.getItem("token"));
     setToken(tokenFromStorage);
     try {
-      await updateUser(
-        { [field]: formState[field] },
-        userData.id,
-        tokenFromStorage
-      );
+      // Dividir fullname en firstname y lastname
+      const [firstname, ...lastnameParts] = formState.fullname.split(" ");
+      const lastname = lastnameParts.join(" ");
+      
+      const updatedData =
+        field === "fullname"
+          ? { firstname, lastname } // Actualiza firstname y lastname
+          : { [field]: formState[field] };
+
+      await updateUser(updatedData, userData.id, tokenFromStorage);
 
       setEditState((prevState) => ({ ...prevState, [field]: false }));
       const updatedUserData = await getUserById(userData.id, tokenFromStorage);
@@ -164,45 +159,44 @@ const Page = () => {
                 />
               </div>
             </div>
-            {["firstname", "lastname", "cuit", "phone", "password"].map(
-              (field, index) => (
-                <div
-                  key={index}
-                  className="flex justify-between gap-2 w-full border-b"
-                >
-                  <div className="flex gap-6 w-full items-center">
-                    <h2 className="font-semibold min-w-[220px] capitalize ">
-                      {field}
-                    </h2>
-                    <input
-                      type={field === "password" ? "password" : "text"}
-                      name={field}
-                      value={formState[field] || ""}
-                      onChange={handleInputChange}
-                      disabled={!editState[field]}
-                      className={
-                        editState[field] ? " " : "bg-white text-gray-300"
-                      }
-                    />
-                  </div>
-                  <button
-                    onClick={() =>
-                      editState[field] ? handleSave(field) : handleEdit(field)
+            {["fullname", "cuit", "Télefono", "Contraseña"].map((field, index) => (
+              <div
+                key={index}
+                className="flex justify-between gap-2 w-full border-b"
+              >
+                <div className="flex gap-6 w-full items-center">
+                  <h2 className="font-semibold min-w-[220px] capitalize ">
+                    {field === "fullname" ? "Nombre y apellido" : field}
+                  </h2>
+                  <input
+                    type={field === "password" ? "password" : "text"}
+                    name={field}
+                    value={formState[field] || ""}
+                    onChange={handleInputChange}
+                    placeholder={field === "fullname" ? "Nombre y apellido" : ""}
+                    disabled={!editState[field]}
+                    className={
+                      editState[field] ? " " : "bg-white text-gray-300"
                     }
-                    className={` ${
-                      editState[field] ? "bg-color-primary" : "bg-white"
-                    } text-white p-2 rounded`}
-                  >
-                    <Image
-                      width={22}
-                      height={22}
-                      alt="iconoEdit"
-                      src="/iconoEdit.png"
-                    />
-                  </button>
+                  />
                 </div>
-              )
-            )}
+                <button
+                  onClick={() =>
+                    editState[field] ? handleSave(field) : handleEdit(field)
+                  }
+                  className={` ${
+                    editState[field] ? "bg-color-primary" : "bg-white"
+                  } text-white p-2 rounded`}
+                >
+                  <Image
+                    width={22}
+                    height={22}
+                    alt="iconoEdit"
+                    src="/iconoEdit.png"
+                  />
+                </button>
+              </div>
+            ))}
           </article>
           <article className="bg-color-primary p-4 flex  w-full rounded-md drop-shadow-md">
             <Link

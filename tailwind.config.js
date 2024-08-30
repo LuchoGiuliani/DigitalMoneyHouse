@@ -18,10 +18,10 @@ module.exports = {
         "color-dark": "#3A393E",
         "color-gray": "#EEEAEA",
       },
-      maxWidth:{
-        "desktop": "1440px",
-        "tablet": "834px",
+      screens:{
         "mobile": "390px",
+        "tablet": "834px",
+        "desktop": "1440px",
       }
     },
   },

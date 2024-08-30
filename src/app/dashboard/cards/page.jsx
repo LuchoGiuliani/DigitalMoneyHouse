@@ -61,7 +61,7 @@ const Page = () => {
   };
 
 
-  const lastFourDigits = cards.cod ? cards.cod.slice(-4) : 'N/A';
+
   
   return (
     <div>

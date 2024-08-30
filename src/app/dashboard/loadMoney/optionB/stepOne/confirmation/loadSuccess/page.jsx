@@ -33,9 +33,9 @@ const page = () => {
         </div>
       </div>
       <div className="flex  gap-4 justify-end">
-        <button className="bg-gray-300 rounded-lg drop-shadow-lg p-2 font-semibold">
+        <Link href={"/dashboard"} className="bg-gray-300 rounded-lg drop-shadow-lg p-2 font-semibold">
           Ir al inicio
-        </button>
+        </Link>
         <button className=" bg-color-primary rounded-lg drop-shadow-lg p-2 font-semibold">
           Descargar comprobante
         </button>

@@ -72,10 +72,18 @@ const Navbar = () => {
                 {userData?.firstname[0]?.toUpperCase()}
                 {userData?.lastname[0]?.toUpperCase()}
               </div>
-              <h1 className={` hidden md:block`}>
+              <h1 className={` hidden tablet:block`}>
                 Hola, {userData?.firstname}  {userData?.lastname}
               </h1>
-            </Link>
+              </Link>
+              <Image
+                 className="w-auto h-auto tablet:hidden"
+                 src="/menuBurger.svg"
+                 alt="Logo"
+                 width={96}
+                 height={43}
+                 priority
+                />
             {!isDashboardPage && (
               <button onClick={logout} className={`${loginButton}`}>
                 Logout
