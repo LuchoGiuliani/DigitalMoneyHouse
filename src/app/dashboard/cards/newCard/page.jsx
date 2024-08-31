@@ -85,10 +85,10 @@ const Page = () => {
             focused={state.focus}
           />
           <form
-            className="flex flex-col p-4 gap-4 items-end"
+            className="flex flex-col p-4 gap-4 tablet:items-end"
             onSubmit={handleSubmit}
           >
-            <div className="grid grid-cols-2 gap-4">
+            <div className="grid tablet:grid-cols-2 gap-4 ">
               <input
                 type="text"
                 name="number"
@@ -96,7 +96,7 @@ const Page = () => {
                 value={state.number}
                 onChange={handleInputChange}
                 onFocus={handleInputFocus}
-                className="p-4 rounded-md drop-shadow-lg"
+                className="p-2 rounded-md drop-shadow-lg "
               />
               <input
                 type="text"
@@ -105,7 +105,7 @@ const Page = () => {
                 value={state.expiry}
                 onChange={handleInputChange}
                 onFocus={handleInputFocus}
-                className="p-4 rounded-md drop-shadow-lg"
+                className="p-2 rounded-md drop-shadow-lg"
               />
               <input
                 type="text"
@@ -114,7 +114,7 @@ const Page = () => {
                 value={state.name}
                 onChange={handleInputChange}
                 onFocus={handleInputFocus}
-                className="p-4 rounded-md drop-shadow-lg"
+                className="p-2 rounded-md drop-shadow-lg"
               />
               <input
                 type="text"
@@ -123,7 +123,7 @@ const Page = () => {
                 value={state.cvc}
                 onChange={handleInputChange}
                 onFocus={handleInputFocus}
-                className="p-4 rounded-md drop-shadow-lg"
+                className="p-2 rounded-md drop-shadow-lg"
               />
             </div>
             <button

@@ -23,8 +23,9 @@ const Activity = () => {
   const itemsPerPage = 10;
   const indexOfLastItem = currentPage * itemsPerPage;
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
-  const currentItems = accountActivity.slice(indexOfFirstItem, indexOfLastItem);
+  const currentItems = accountActivity?.slice(indexOfFirstItem, indexOfLastItem);
   const { token } = useAuth();
+console.log(currentItems);
 
   useEffect(() => {
     if (token) {
@@ -54,13 +55,13 @@ const Activity = () => {
                 <p className="font-semibold">Ingresaste dinero</p>
               )}
             </div>
-            <div className="flex flex-col">
+            <div className="flex flex-col items-end">
               <p className="font-semibold text-right">
                 {activity.type === "Transfer" &&
                 activity.origin === accountData.cvu ? (
-                  <>-${activity.amount.toFixed(2)}</>
+                  <>${activity.amount.toFixed(2)}</>
                 ) : (
-                  <>+${activity.amount.toFixed(2)}</>
+                  <>${activity.amount.toFixed(2)}</>
                 )}
               </p>
               <p className="text-gray-500 text-sm">

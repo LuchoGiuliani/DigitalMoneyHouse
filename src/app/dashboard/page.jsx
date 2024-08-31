@@ -31,7 +31,7 @@ const Page = () => {
 
   return (
     <main>
-      <section className="flex text-[16px] tablet:text-[24px]">
+      <section className="flex text-[16px] tablet:text-[24px] min-h-screen">
        
         <div className=" px-6 py-4 flex flex-col gap-2 w-full bg-[#EEEAEA]">
           {accountData && (

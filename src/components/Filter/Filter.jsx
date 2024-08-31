@@ -1,20 +1,27 @@
 import { useActivity } from "@/context/activityContext";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import dayjs from "dayjs";
+import isBetween from "dayjs/plugin/isBetween";
+import isYesterday from "dayjs/plugin/isYesterday";
+import isToday from "dayjs/plugin/isToday";
 import "dayjs/locale/es";
 
+dayjs.extend(isBetween)
+dayjs.extend(isYesterday)
+dayjs.extend(isToday)
 
 const Filter = ( {openFilter, setOpenFilter} ) => {
-  const [filter, setFilter] = useState(""); // State to manage the selected filter
-  const { register, handleSubmit, reset } = useForm(); // react-hook-form
+  const [filter, setFilter] = useState(""); 
+  const { register, handleSubmit, reset } = useForm(); 
   const {setAccountActivity, accountData, accountActivity} = useActivity()
 
+
   const clearFilter = () => {
-    setFilter(""); // Clear the filter state
-    setAccountActivity(accountData); // Reset the account activity to all data
-    reset(); // Reset the form
-    setOpenFilter(false); // Close the filter modal
+    setFilter(""); 
+    setAccountActivity(Array.isArray(accountData) ? accountData : []);
+    reset(); 
+    setOpenFilter(false); 
   };
 
 
@@ -37,12 +44,12 @@ const Filter = ( {openFilter, setOpenFilter} ) => {
         case "lastYear":
           return activityDate.isBetween(dayjs().subtract(1, "year"), dayjs());
         default:
-          return true; // If no filter is selected, return all activities
+          return true; 
       }
     });
 
     setAccountActivity(filteredActivities);
-    setFilter(period); // Update the selected filter
+    setFilter(period);
   };
   return (
     <div>

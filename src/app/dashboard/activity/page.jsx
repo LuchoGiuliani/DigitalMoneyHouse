@@ -13,7 +13,7 @@ const ActivityPage = () => {
   const handleClick = () => {
     setOpenFilter(!openFilter);
   };
-console.log(openFilter);
+
 
   return (
     <main className="bg-color-gray min-h-screen text-[18px] tablet-[12px]">
