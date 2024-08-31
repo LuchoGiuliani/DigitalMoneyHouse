@@ -4,9 +4,6 @@ import { useSearchParams } from "next/navigation";
 import LoginForm from "@/components/LoginForm/LoginForm";
 
 const page = () => {
-
-
-
   return (
     <div className="h-screen bg-color-darker">
       <section className="flex flex-col h-screen items-center justify-center p-4 gap-4">
@@ -15,9 +12,7 @@ const page = () => {
             ¡Hola! Ingresá tu e-mail!
           </h1>
           <div>
-         
-            <LoginForm/>
-           
+            <LoginForm />
           </div>
         </div>
       </section>

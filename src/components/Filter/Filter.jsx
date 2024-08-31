@@ -1,9 +1,94 @@
-import React from 'react'
+import { useActivity } from "@/context/activityContext";
+import React, { useState } from "react";
+import { useForm } from "react-hook-form";
+import dayjs from "dayjs";
+import "dayjs/locale/es";
 
-const Filter = () => {
+
+const Filter = ( {openFilter, setOpenFilter} ) => {
+  const [filter, setFilter] = useState(""); // State to manage the selected filter
+  const { register, handleSubmit, reset } = useForm(); // react-hook-form
+  const {setAccountActivity, accountData, accountActivity} = useActivity()
+
+  const clearFilter = () => {
+    setFilter(""); // Clear the filter state
+    setAccountActivity(accountData); // Reset the account activity to all data
+    reset(); // Reset the form
+    setOpenFilter(false); // Close the filter modal
+  };
+
+
+  const applyFilter = (data) => {
+    const { period } = data;
+
+    const filteredActivities = accountActivity.filter((activity) => {
+      const activityDate = dayjs(activity.dated);
+      console.log(activityDate);
+      
+      switch (period) {
+        case "today":
+          return activityDate.isToday();
+        case "yesterday":
+          return activityDate.isYesterday();
+        case "lastWeek":
+          return activityDate.isBetween(dayjs().subtract(1, "week"), dayjs());
+        case "lastMonth":
+          return activityDate.isBetween(dayjs().subtract(1, "month"), dayjs());
+        case "lastYear":
+          return activityDate.isBetween(dayjs().subtract(1, "year"), dayjs());
+        default:
+          return true; // If no filter is selected, return all activities
+      }
+    });
+
+    setAccountActivity(filteredActivities);
+    setFilter(period); // Update the selected filter
+  };
   return (
-    <div>Filter</div>
-  )
-}
+    <div>
+      <div
+        className={`fixed top-0 right-0 tablet:w-1/4 bg-white p-4 shadow-lg transform transition-transform duration-300 ${
+          openFilter ? "translate-x-0" : "translate-x-full"
+        }`}
+      >
+        <form onSubmit={handleSubmit(applyFilter)}>
+          <h3 className="font-bold mb-4">Filtrar</h3>
+          <div className="flex flex-col gap-4">
+            <label className="flex items-center">
+              <input type="radio" value="today" {...register("period")} />
+              <span className="ml-2">Hoy</span>
+            </label>
+            <label className="flex items-center">
+              <input type="radio" value="yesterday" {...register("period")} />
+              <span className="ml-2">Ayer</span>
+            </label>
+            <label className="flex items-center">
+              <input type="radio" value="lastWeek" {...register("period")} />
+              <span className="ml-2">Última semana</span>
+            </label>
+            <label className="flex items-center">
+              <input type="radio" value="lastMonth" {...register("period")} />
+              <span className="ml-2">Último mes</span>
+            </label>
+            <label className="flex items-center">
+              <input type="radio" value="lastYear" {...register("period")} />
+              <span className="ml-2">Último año</span>
+            </label>
+            <button type="submit" className="bg-color-primary p-2 rounded-lg">
+              Aplicar
+            </button>
+            <button
+              type="button"
+              className="bg-color-secondary p-2 rounded-lg"
+              onClick={clearFilter}
+            >
+              Borrar filtros
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  );
+};
 
-export default Filter
+export default Filter;

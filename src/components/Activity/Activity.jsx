@@ -1,22 +1,39 @@
-import React from "react";
+// components/Activity/Activity.js
+"use client";
+
+import React, { useEffect } from "react";
 import dayjs from "dayjs";
 import "dayjs/locale/es";
+import { useAuth } from "@/hooks/useAuth";
+import getAccountActivity from "@/services/getAccountActivity";
+import { useActivity } from "@/context/activityContext";
 
 dayjs.locale("es");
 
-const Activity = ({
-  accountActivity,
-  itemsPerPage,
-  accountData,
-  currentPage,
-  setCurrentPage,
-}) => {
+const Activity = () => {
+  const {
+    accountData,
+    setAccountData,
+    accountActivity,
+    setAccountActivity,
+    currentPage,
+    setCurrentPage,
+  } = useActivity();
 
+  const itemsPerPage = 10;
   const indexOfLastItem = currentPage * itemsPerPage;
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
   const currentItems = accountActivity.slice(indexOfFirstItem, indexOfLastItem);
+  const { token } = useAuth();
+
+  useEffect(() => {
+    if (token) {
+      getAccountActivity(setAccountData, setAccountActivity, token);
+    }
+  }, [token]);
 
   const paginate = (pageNumber) => setCurrentPage(pageNumber);
+
   return (
     <>
       <div>
@@ -37,7 +54,7 @@ const Activity = ({
                 <p className="font-semibold">Ingresaste dinero</p>
               )}
             </div>
-            <div className="flex  flex-col">
+            <div className="flex flex-col">
               <p className="font-semibold text-right">
                 {activity.type === "Transfer" &&
                 activity.origin === accountData.cvu ? (

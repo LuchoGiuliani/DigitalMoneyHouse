@@ -59,7 +59,7 @@ const Navbar = () => {
           />
         </Link>
       </section>
-      <section className="flex gap-1 items-center">
+      <section className="flex gap-2 items-center">
         {isLandingPage && !isAuthenticated() && (
           <Link href={"/login"} className={`${loginButton}`}>
             Ingresar
@@ -94,7 +94,7 @@ const Navbar = () => {
         {isLandingPage && !isAuthenticated() && (
           <Link
             href={"/register"}
-            className={`bg-color-primary rounded-md text-color-darker font-bold p-2`}
+            className={`bg-color-primary rounded-md text-color-darker font-bold p-2 `}
           >
             Crear Cuenta
           </Link>

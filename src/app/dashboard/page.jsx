@@ -8,6 +8,7 @@ import { useAuth } from "@/hooks/useAuth";
 import Image from "next/image";
 import search from "../../../public/search.png";
 import "dayjs/locale/es";
+import Activity from "@/components/Activity/Activity";
 dayjs.locale("es");
 
 const Page = () => {
@@ -82,48 +83,10 @@ const Page = () => {
             <h2 className="p-2">Buscar en tu actividad</h2>
           </article>
           <article className="bg-white rounded-lg p-6 drop-shadow-lg ">
-            <h1 className="font-bold pb-6">Tu actividad</h1>
-            {accountActivity && accountActivity.length > 0 ? (
-              <div>
-               
-                <h1>
-                  {accountActivity.map((act, index) => (
-                    <div
-                      key={index}
-                      className="flex justify-between items-start border-y py-2"
-                    >
-                      <div className="flex items-center gap-2">
-                        <div className="w-4 h-4 rounded-full bg-lime-500"></div>
-
-                        {act.type === "Transfer" &&
-                        act.origin === accountData.cvu ? (
-                          <p className="font-semibold">
-                            Transferiste a {act.destination}
-                          </p>
-                        ) : (
-                          <p className="font-semibold">Ingresaste dinero</p>
-                        )}
-                      </div>
-                      <div className="flex  flex-col">
-                        <p className="font-semibold text-right">
-                          {act.type === "Transfer" &&
-                          act.origin === accountData.cvu ? (
-                            <>${act.amount.toFixed(2)}</>
-                          ) : (
-                            <>${act.amount.toFixed(2)}</>
-                          )}
-                        </p>
-                        <p className="text-gray-500 text-sm">
-                          {dayjs(act.dated).format("dddd")}
-                        </p>
-                      </div>
-                    </div>
-                  ))}
-                </h1>
-              </div>
-            ) : (
-              <div>No hay actividad disponible</div>
-            )}
+         
+            <h2 className="font-bold pb-6">Tu actividad</h2>
+            <Activity />
+     
           </article>
         </div>
       </section>
