@@ -1,12 +1,12 @@
 import { FormProvider, useForm } from "react-hook-form";
 import { yupResolver } from '@hookform/resolvers/yup';
 import LoginScheme from "@/schemas/login.scheme";
-import { useState } from "react";
+import { Suspense, useState } from "react";
 import { useRouter } from "next/navigation";
 import {useEmail} from "@/context/emailContext"
 import Link from "next/link";
 
-const LoginForm = (email) => {
+const LoginForm = () => {
 
     const router = useRouter();
     const [serverError, setServerError] = useState(null);
@@ -25,6 +25,7 @@ const LoginForm = (email) => {
 
     return (
     <FormProvider {...methods}>
+      
   <form className="flex flex-col gap-4" onSubmit={handleSubmit(onSubmit)}>
     <input
       {...methods.register("email")}
@@ -43,6 +44,7 @@ const LoginForm = (email) => {
       Crear cuenta
     </Link>
   </form>
+ 
 </FormProvider>
     );
 }

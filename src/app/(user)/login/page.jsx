@@ -4,8 +4,8 @@ import { useSearchParams } from "next/navigation";
 import LoginForm from "@/components/LoginForm/LoginForm";
 
 const page = () => {
-  const searchParams = useSearchParams();
-  const email = searchParams.get("email");
+
+
 
   return (
     <div className="h-screen bg-color-darker">
@@ -15,9 +15,9 @@ const page = () => {
             ¡Hola! Ingresá tu e-mail!
           </h1>
           <div>
-          <Suspense fallback={<div>Loading...</div>}> 
-            <LoginForm email={email} />
-            </Suspense>
+         
+            <LoginForm/>
+           
           </div>
         </div>
       </section>
