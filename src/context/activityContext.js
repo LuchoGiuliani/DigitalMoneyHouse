@@ -12,6 +12,9 @@ export const ActivityProvider = ({ children }) => {
   const [accountActivity, setAccountActivity] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [openFilter, setOpenFilter] = useState(false);
+  const [filter, setFilter] = useState(null)
+  
+
 
   return (
     <ActivityContext.Provider
@@ -24,6 +27,8 @@ export const ActivityProvider = ({ children }) => {
         setCurrentPage,
         openFilter,
         setOpenFilter,
+        filter,
+        setFilter
       }}
     >
       {children}

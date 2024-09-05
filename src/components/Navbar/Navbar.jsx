@@ -1,21 +1,25 @@
 "use client";
 
-import {  usePathname } from "next/navigation";
+import { usePathname } from "next/navigation";
 import Image from "next/image";
 import Link from "next/link";
 import { useAuth } from "@/hooks/useAuth";
 import { useUser } from "@/context/userContext";
 import { useEffect, useMemo } from "react";
 import { useRouter } from "next/navigation";
+
 const Navbar = () => {
-  const { isAuthenticated, logout } = useAuth();
-  const { userData, isLoading } = useUser();
+  const { isAuthenticated, logout, token } = useAuth();
+  const { userData, isLoading , accountData} = useUser();
   const pathname = usePathname();
-  const router = useRouter()
+  const router = useRouter();
 
   useEffect(() => {
-  
-  }, [userData, isAuthenticated, logout]);
+    const fetchData = () => {
+      router.refresh()
+    }
+    fetchData()
+  }, [userData, isAuthenticated, logout, token,accountData]);
 
   const isLoginPass = pathname === "/login/loginPassword";
   const isLoginPage = pathname === "/login";
@@ -30,7 +34,9 @@ const Navbar = () => {
   }, [isLoginPass, isLoginPage, isRegister]);
 
   const logoSrc = useMemo(() => {
-    return isLoginPage || isLoginPass || isRegister ? "/logo2.png" : "/logo1.png";
+    return isLoginPage || isLoginPass || isRegister
+      ? "/logo2.png"
+      : "/logo1.png";
   }, [isLoginPass, isLoginPage, isRegister]);
 
   const loginButton = useMemo(() => {
@@ -73,17 +79,17 @@ const Navbar = () => {
                 {userData?.lastname[0]?.toUpperCase()}
               </div>
               <h1 className={` hidden tablet:block`}>
-                Hola, {userData?.firstname}  {userData?.lastname}
+                Hola, {userData?.firstname} {userData?.lastname}
               </h1>
-              </Link>
-              <Image
-                 className="w-auto h-auto tablet:hidden"
-                 src="/menuBurger.svg"
-                 alt="Logo"
-                 width={96}
-                 height={43}
-                 priority
-                />
+            </Link>
+            <Image
+              className="w-auto h-auto tablet:hidden"
+              src="/menuBurger.svg"
+              alt="Logo"
+              width={96}
+              height={43}
+              priority
+            />
             {!isDashboardPage && (
               <button onClick={logout} className={`${loginButton}`}>
                 Logout

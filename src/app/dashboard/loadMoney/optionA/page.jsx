@@ -93,7 +93,7 @@ const page = () => {
                     width={22}
                     height={22}
                     alt="iconoCopy"
-                    src="/iconoCopy.png"
+                    src="/copy.svg"
                     className="w-auto h-auto"
                   />
                 </button>
@@ -111,7 +111,7 @@ const page = () => {
                     width={22}
                     height={22}
                     alt="iconoCopy"
-                    src="/iconoCopy.png"
+                    src="/copy.svg"
                     className="w-auto h-auto"
                   />
                 </button>

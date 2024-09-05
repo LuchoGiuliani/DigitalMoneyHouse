@@ -4,7 +4,6 @@ import Navbar from "@/components/Navbar/Navbar";
 import Footer from "@/components/Footer/Footer";
 import AppProvider from "@/context/context";
 
-
 const open_sans = Open_Sans({ subsets: ["latin"] });
 
 export const metadata = {
@@ -14,17 +13,14 @@ export const metadata = {
 
 export default function RootLayout({ children }) {
   return (
-    <html  lang="en">
-
-    <body className={`${open_sans.className}  flex flex-col`}>
-
-      <AppProvider>
-      <Navbar />
-      <main className="">{children}</main>
-      <Footer />
-      </AppProvider>
-    
-    </body>
-  </html>
+    <html lang="en">
+      <body className={`${open_sans.className}  flex flex-col`}>
+        <AppProvider>
+          <Navbar />
+          <main className="">{children}</main>
+          <Footer />
+        </AppProvider>
+      </body>
+    </html>
   );
 }

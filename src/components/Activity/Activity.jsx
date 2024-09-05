@@ -18,14 +18,24 @@ const Activity = () => {
     setAccountActivity,
     currentPage,
     setCurrentPage,
+    filter, // Get the filter value from context
   } = useActivity();
 
   const itemsPerPage = 10;
   const indexOfLastItem = currentPage * itemsPerPage;
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
-  const currentItems = accountActivity?.slice(indexOfFirstItem, indexOfLastItem);
+
+  const filteredItems = Array.isArray(accountActivity)
+  ? accountActivity.filter((activity) => {
+      // lógica de filtrado aquí
+      if (!filter) return true; // No filter applied
+      const typeMatch = activity.type === filter; // Example filter logic
+      return typeMatch;
+    })
+  : [];
+
+  const currentItems = filteredItems?.slice(indexOfFirstItem, indexOfLastItem);
   const { token } = useAuth();
-console.log(currentItems);
 
   useEffect(() => {
     if (token) {
@@ -44,25 +54,18 @@ console.log(currentItems);
             className="flex justify-between items-start border-y py-2"
           >
             <div className="flex items-center gap-2">
-              <div className="w-4 h-4 rounded-full bg-lime-500"></div>
+              <div className="w-4 h-4 rounded-full bg-color-primary"></div>
 
               {activity.type === "Transfer" &&
               activity.origin === accountData.cvu ? (
-                <p className="font-semibold">
-                  Transferiste a {activity.destination}
-                </p>
+                <p>Transferiste a {activity.destination}</p>
               ) : (
-                <p className="font-semibold">Ingresaste dinero</p>
+                <p>Ingresaste dinero</p>
               )}
             </div>
             <div className="flex flex-col items-end">
               <p className="font-semibold text-right">
-                {activity.type === "Transfer" &&
-                activity.origin === accountData.cvu ? (
-                  <>${activity.amount.toFixed(2)}</>
-                ) : (
-                  <>${activity.amount.toFixed(2)}</>
-                )}
+                ${activity.amount.toFixed(2)}
               </p>
               <p className="text-gray-500 text-sm">
                 {dayjs(activity.dated).format("dddd")}
@@ -71,15 +74,14 @@ console.log(currentItems);
           </div>
         ))}
       </div>
-      {/* Paginación */}
       <div className="flex justify-center mt-4">
         {Array.from({
-          length: Math.ceil(accountActivity.length / itemsPerPage),
+          length: Math.ceil(filteredItems.length / itemsPerPage),
         }).map((_, i) => (
           <button
             key={i}
             className={`px-3 py-1 border ${
-              currentPage === i + 1 ? "bg-gray-200" : ""
+              currentPage === i + 1 ? "bg-color-primary rounded-full" : "rounded-full"
             }`}
             onClick={() => paginate(i + 1)}
           >
