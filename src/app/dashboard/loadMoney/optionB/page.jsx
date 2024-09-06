@@ -1,21 +1,33 @@
-"use client"
-import LeftSidebar from '@/components/LeftSidebar/LeftSidebar'
+"use client";
+import LeftSidebar from '@/components/LeftSidebar/LeftSidebar';
+import StepOne from '@/components/LoadMoney/StepOne';
+import StepThree from '@/components/LoadMoney/StepThree';
+import StepTwo from '@/components/LoadMoney/StepTwo';
 import { useAuth } from '@/hooks/useAuth';
 import useCards from '@/hooks/useCards';
 import getAccountActivity from '@/services/getAccountActivity';
-import Link from 'next/link'
-import { useRouter } from 'next/navigation';
-import React, { useEffect, useState } from 'react'
+import { postDeposit } from '@/services/postDeposit';
+import React, { useEffect, useState } from 'react';
+import { useForm, FormProvider } from "react-hook-form";
 
-const page = () => {
+
+const Page = () => {
   const [accountData, setAccountData] = useState(null);
   const [accountActivity, setAccountActivity] = useState(null);
   const { token } = useAuth();
-  const router = useRouter();
+  const [step, setStep] = useState(0); // Estado para manejar los pasos
+  const [selectedCard, setSelectedCard] = useState(null); // Estado para la tarjeta seleccionada
+
+  const methods = useForm({
+    defaultValues: {
+      card_id: "",
+      amount: 0,
+    },
+  });
 
   const account_id = accountData?.id;
-
-  const { cards, handleAddCard, handleDeleteCard } = useCards(account_id);
+  const { cards } = useCards(account_id);
+console.log(account_id);
 
   useEffect(() => {
     if (token) {
@@ -23,82 +35,72 @@ const page = () => {
     }
   }, [token, account_id]);
 
-  const [state, setState] = useState({
-    number: "",
-    expiry: "",
-    cvc: "",
-    name: "",
-    focus: "",
-  });
+  const handleNextStep = () => setStep(prevStep => prevStep + 1);
+  const handleBackStep = () => setStep(prevStep => prevStep - 1);
 
-  const handleInputChange = (evt) => {
-    const { name, value } = evt.target;
-    setState((prev) => ({ ...prev, [name]: value }));
+  const handleSelectCard = (card) => {
+    setSelectedCard(card);
+   
+    handleNextStep(); // Ir al siguiente paso
   };
 
-  const handleInputFocus = (evt) => {
-    setState((prev) => ({ ...prev, focus: evt.target.name }));
-  };
-
-  const handleSubmit = async (evt) => {
-    evt.preventDefault();
-
-    const cardData = {
-      cod: parseInt(state.number, 10),
-      expiration_date: state.expiry,
-      first_last_name: state.name,
-      number_id: state.number,
-    };
+  const handleSubmit = async (data) => {
+    const {amount } = data
+    const amountNumber = parseFloat(amount);
     
     try {
-      await handleAddCard(cardData);
-      router.push("/dashboard/tarjetas");
+      // Llama a postDeposit pasando todos los parámetros necesarios
+      await postDeposit(token, account_id, amountNumber);
+      console.log(amount);
+      
+      handleNextStep(); // Ir al siguiente paso después de enviar los datos
     } catch (error) {
-      console.error("Error:", error);
+      console.error("Error al enviar el depósito:", error);
     }
   };
 
-  
   return (
-    <div className='flex min-h-screen'>
-     
-      <div className='bg-color-gray w-full p-6'> 
+    <FormProvider {...methods}>
+      <div className='flex min-h-screen'>
+        <div className='bg-color-gray w-full p-6'>
           <div className='bg-color-darker p-6 rounded-lg flex flex-col gap-6'>
-            <h1 className='text-color-primary font-bold'>Seleccionar tarjetas</h1>
-            <div className='bg-white p-4 rounded-lg flex flex-col gap-4 font-bold'>
-              <h2>Tarjetas</h2>
-              <div className='flex flex-col gap-4 '>
-                
-            {cards?.length > 0 ? (
-              cards?.map((card) => (
-                <div
-                  key={card.id}
-                  className="flex justify-between border-b p-2"
-                >
-                  <div className="flex gap-4">
-                    <div className="rounded-full h-6 w-6 bg-color-primary"></div>
-                    <h2>Terminada en {card.cod.toString().slice(-4)}</h2>
-                  </div>
-                  <Link
-                    className="font-semibold"
-                   href={"/dashboard/loadMoney/optionB/stepOne"}
-                  >
-                    Seleccionar
-                  </Link>
-                </div>
-              ))
-            ) : (
-              <p className="text-gray-500">
-                No hay tarjetas asociadas a esta cuenta
-              </p>
-            )}
-              
-              </div>
-            </div>
-          </div>
-      </div>
-    </div>
-  )
-}
+            <h1 className='text-color-primary font-bold'>
+              {step === 0 ? 'Seleccionar tarjetas' : 'Cargar dinero'}
+            </h1>
 
-export default page
+            {step === 0 && (
+              <div className='bg-white p-4 rounded-lg flex flex-col gap-4 font-bold'>
+                <h2>Tarjetas</h2>
+                <div className='flex flex-col gap-4 '>
+                  {cards?.length > 0 ? (
+                    cards?.map((card) => (
+                      <div
+                        key={card.id}
+                        className="flex justify-between border-b p-2 cursor-pointer"
+                        onClick={() => handleSelectCard(card)}
+                      >
+                        <div className="flex gap-4">
+                          <div className="rounded-full h-6 w-6 bg-color-primary"></div>
+                          <h2>Terminada en {card.cod.toString().slice(-4)}</h2>
+                        </div>
+                        <span className="font-semibold">Seleccionar</span>
+                      </div>
+                    ))
+                  ) : (
+                    <p className="text-gray-500">No hay tarjetas asociadas a esta cuenta</p>
+                  )}
+                </div>
+              </div>
+            )}
+
+            {step === 1 && <StepOne handleNextStep={handleNextStep} />}
+            {step === 2 && <StepTwo cvu={accountData?.cvu} handleBackStep={handleBackStep}  handleSubmit={methods.handleSubmit(handleSubmit)}  />}
+            {step === 3 && <StepThree cvu={accountData?.cvu} />}
+          </div>
+        </div>
+      </div>
+    </FormProvider>
+  );
+};
+
+export default Page;
