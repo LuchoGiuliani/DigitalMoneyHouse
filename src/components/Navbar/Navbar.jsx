@@ -51,7 +51,7 @@ const Navbar = () => {
 
   return (
     <div
-      className={`${navbarClass} flex justify-between px-4 py-3 items-center max-h-[68px]`}
+      className={`${navbarClass} flex justify-between px-4 py-3 items-center max-h-[64px]`}
     >
       <section>
         <Link href={"/"}>

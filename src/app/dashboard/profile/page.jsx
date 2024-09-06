@@ -187,7 +187,7 @@ const Page = () => {
                   }
                   className={` ${
                     editState[field] ? "bg-color-primary" : "bg-white"
-                  } text-white p-2 rounded`}
+                  } text-white p-2 rounded hover:scale-90 `}
                 >
                   <Image
                     width={22}
@@ -199,9 +199,9 @@ const Page = () => {
               </div>
             ))}
           </article>
-          <article className="bg-color-primary p-4 flex  w-full rounded-md drop-shadow-md">
+          <article className="bg-color-primary p-4 flex  w-full rounded-md drop-shadow-md ">
             <Link
-              className="text-xl font-semibold flex justify-between w-full"
+              className="text-xl font-semibold flex justify-between w-full hover:text-color-dark "
               href="/dashboard/loadMoney"
             >
               Gestioná los medios de pago

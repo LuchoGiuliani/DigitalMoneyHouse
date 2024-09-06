@@ -7,10 +7,15 @@ import "dayjs/locale/es";
 import { useAuth } from "@/hooks/useAuth";
 import getAccountActivity from "@/services/getAccountActivity";
 import { useActivity } from "@/context/activityContext";
+import { usePathname } from "next/navigation";
+import Link from "next/link";
+import Image from "next/image";
 
 dayjs.locale("es");
 
 const Activity = () => {
+  const pathname = usePathname();
+
   const {
     accountData,
     setAccountData,
@@ -26,13 +31,13 @@ const Activity = () => {
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
 
   const filteredItems = Array.isArray(accountActivity)
-  ? accountActivity.filter((activity) => {
-      // lógica de filtrado aquí
-      if (!filter) return true; // No filter applied
-      const typeMatch = activity.type === filter; // Example filter logic
-      return typeMatch;
-    })
-  : [];
+    ? accountActivity.filter((activity) => {
+        // lógica de filtrado aquí
+        if (!filter) return true; // No filter applied
+        const typeMatch = activity.type === filter; // Example filter logic
+        return typeMatch;
+      })
+    : [];
 
   const currentItems = filteredItems?.slice(indexOfFirstItem, indexOfLastItem);
   const { token } = useAuth();
@@ -44,6 +49,8 @@ const Activity = () => {
   }, [token]);
 
   const paginate = (pageNumber) => setCurrentPage(pageNumber);
+
+  const isDashboard = pathname === "/dashboard";
 
   return (
     <>
@@ -74,21 +81,32 @@ const Activity = () => {
           </div>
         ))}
       </div>
-      <div className="flex justify-center mt-4">
-        {Array.from({
-          length: Math.ceil(filteredItems.length / itemsPerPage),
-        }).map((_, i) => (
-          <button
-            key={i}
-            className={`px-3 py-1 border ${
-              currentPage === i + 1 ? "bg-color-primary rounded-full" : "rounded-full"
-            }`}
-            onClick={() => paginate(i + 1)}
-          >
-            {i + 1}
-          </button>
-        ))}
-      </div>
+      {isDashboard ? (
+        <>
+          <Link className="flex justify-between font-bold py-2" href={"/dashboard/activity"}> <h3 className="hover:scale-95">Ver toda tu actividad</h3>
+            <Image src={"/arrowBlack.svg"} width={20} height={20} alt="cruz" className="h-auto w-auto" />
+          </Link>
+
+        </>
+      ) : (
+        <div className="flex justify-center mt-4">
+          {Array.from({
+            length: Math.ceil(filteredItems.length / itemsPerPage),
+          }).map((_, i) => (
+            <button
+              key={i}
+              className={`px-3 py-1 border ${
+                currentPage === i + 1
+                  ? "bg-color-primary rounded-full"
+                  : "rounded-full"
+              }`}
+              onClick={() => paginate(i + 1)}
+            >
+              {i + 1}
+            </button>
+          ))}
+        </div>
+      )}
     </>
   );
 };

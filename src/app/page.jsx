@@ -1,9 +1,8 @@
-import Image from "next/image";
-
 export default function Home() {
   return (
     <main className="background_hero relative ">
-      <div className="bg-color-primary absolute bottom-0 w-full tablet:h-[25%] h-[45%] rounded-t-2xl"></div>
+     
+      <div className="bg-color-primary absolute bottom-0 w-full tablet:h-[148px] h-[148px] rounded-t-2xl"></div>
       <section className="w-[60%] h-[50%] pt-8 pl-5 md:pl-6 flex flex-col gap-2 ">
         <h1 className="text-white font-semibold tablet:text-[48px] md:leading-10 text-[27px] leading-6 md:font-normal">
           De ahora en <br /> adelante, hacés <br className="" /> más con tu
@@ -17,9 +16,9 @@ export default function Home() {
           </span>
         </h2>
       </section>
-      <section className="flex flex-col justify-center tablet:flex-row w-full gap-4 absolute top-[420px] md:top-[620px] px-6 text-[18px] md:text-[22px]">
-        <div className="bg-white rounded-xl max-w-[500px] p-4 tablet:p-2">
-          <h1 className="text-[22px] md:text-[28px] font-bold pb-2">
+      <section className="flex flex-col justify-center tablet:flex-row w-full gap-4  px-6 text-[18px] md:text-[22px] absolute bottom-4 ">
+        <div className="bg-white rounded-xl max-w-[500px] h-[246px] p-4 ">
+          <h1 className="text-[40px]  font-bold pb-2">
             Transferí dinero
           </h1>
           <h2 className="border-t-2 border-t-color-primary pt-2">
@@ -28,8 +27,8 @@ export default function Home() {
             capital en nuestra billetera virtual
           </h2>
         </div>
-        <div className="bg-white rounded-xl max-w-[500px] p-4">
-          <h1 className="text-[22px] md:text-[28px] font-bold pb-2">
+        <div className="bg-white rounded-xl max-w-[500px] h-[246px] p-4">
+          <h1 className="text-[40px] font-bold pb-2">
             Pago de servicios
           </h1>
           <h2 className="border-t-2 border-t-color-primary pt-2">

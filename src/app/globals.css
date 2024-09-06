@@ -15,7 +15,7 @@ html, body {
   background-size: cover;
   background-position: center;
   width: 100%;
-  height: 100vh;
+  height: 86vh;
  
 }
 
@@ -24,4 +24,23 @@ html, body {
     background-image: url("/bg_hero.png");
     
   }
+}
+
+/*! --------------- Propiedades del ScrollBar ----------------------  */
+
+::-webkit-scrollbar {
+  width: 13px;
+}
+
+::-webkit-scrollbar-track {
+  background: #b1b3b1; 
+}
+
+::-webkit-scrollbar-thumb {
+  background: #aadd31; 
+ 
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #C1FD35; 
 }

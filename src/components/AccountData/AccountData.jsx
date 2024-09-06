@@ -26,7 +26,7 @@ const AccountData = ({accountData, handleCopy}) => {
                       height={22}
                       alt="iconoCopy"
                       src="/copy.svg"
-                      className="w-auto h-auto"
+                      className="w-auto h-auto hover:scale-90"
                     />
                   </button>
                 </div>
@@ -44,7 +44,7 @@ const AccountData = ({accountData, handleCopy}) => {
                       height={22}
                       alt="iconoCopy"
                       src="/copy.svg"
-                      className="w-auto h-auto"
+                      className="w-auto h-auto hover:scale-90"
                     />
                   </button>
                 </div>

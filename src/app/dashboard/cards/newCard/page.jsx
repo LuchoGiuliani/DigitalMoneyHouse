@@ -98,6 +98,7 @@ const Page = () => {
                 onFocus={handleInputFocus}
                 className="p-2 rounded-md drop-shadow-lg "
               />
+              <div>
               <input
                 type="text"
                 name="expiry"
@@ -107,6 +108,8 @@ const Page = () => {
                 onFocus={handleInputFocus}
                 className="p-2 rounded-md drop-shadow-lg"
               />
+              <p className="text-[12px] text-gray-400 text-end">Ejemplo: "22/2026" </p>
+              </div>
               <input
                 type="text"
                 name="name"
@@ -128,7 +131,7 @@ const Page = () => {
             </div>
             <button
               type="submit"
-              className="bg-gray-300 p-4 rounded-md w-fit"
+              className="bg-gray-300 p-4 rounded-md w-fit hover:bg-color-primary hover:scale-95"
             >
               Continuar
             </button>

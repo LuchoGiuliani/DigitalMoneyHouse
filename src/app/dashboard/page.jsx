@@ -36,11 +36,11 @@ const Page = () => {
           {accountData && (
             <article className="bg-color-darker p-4 rounded-lg drop-shadow-lg">
               <div className="flex justify-end gap-2">
-                <Link className="text-white underline" href="/dashboard/cards">
+                <Link className="text-white underline hover:text-color-primary" href="/dashboard/cards">
                   Ver tarjetas
                 </Link>
                 <Link
-                  className="text-white underline"
+                  className="text-white underline hover:text-color-primary"
                   href="/dashboard/profile"
                 >
                   Ver CVU
@@ -58,13 +58,13 @@ const Page = () => {
           )}
           <article className="flex gap-2 justify-center items-center flex-col desktop:flex-row">
             <Link
-              className="bg-color-primary w-full text-center p-4  font-bold rounded-lg drop-shadow-lg"
+              className="bg-color-primary w-full text-center p-4  font-bold rounded-lg drop-shadow-lg hover:scale-95"
               href="/dashboard/loadMoney"
             >
               Cargar dinero
             </Link>
             <Link
-              className="bg-color-primary w-full text-center p-4  font-bold rounded-lg drop-shadow-lg"
+              className="bg-color-primary w-full text-center p-4  font-bold rounded-lg drop-shadow-lg hover:scale-95"
               href="/dashboard/payServices"
             >
               Pago de servicios
