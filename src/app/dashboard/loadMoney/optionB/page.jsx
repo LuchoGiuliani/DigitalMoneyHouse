@@ -7,6 +7,8 @@ import { useAuth } from '@/hooks/useAuth';
 import useCards from '@/hooks/useCards';
 import getAccountActivity from '@/services/getAccountActivity';
 import { postDeposit } from '@/services/postDeposit';
+import Image from 'next/image';
+import Link from 'next/link';
 import React, { useEffect, useState } from 'react';
 import { useForm, FormProvider } from "react-hook-form";
 
@@ -65,10 +67,11 @@ console.log(account_id);
         <div className='bg-color-gray w-full p-6'>
           <div className='bg-color-darker p-6 rounded-lg flex flex-col gap-6'>
             <h1 className='text-color-primary font-bold'>
-              {step === 0 ? 'Seleccionar tarjetas' : 'Cargar dinero'}
+              {step === 0 ? 'Seleccionar tarjetas' : ''}
             </h1>
 
             {step === 0 && (
+              <div className='flex flex-col gap-4'>
               <div className='bg-white p-4 rounded-lg flex flex-col gap-4 font-bold'>
                 <h2>Tarjetas</h2>
                 <div className='flex flex-col gap-4 '>
@@ -91,6 +94,23 @@ console.log(account_id);
                   )}
                 </div>
               </div>
+               <Link
+               href={"/dashboard/cards/newCard"}
+               className="flex gap-4 justify-between"
+             >
+               <div className="flex gap-4">
+                 <Image
+                   src={"/cruz.png"}
+                   width={22}
+                   height={22}
+                   alt="Cruz"
+                   className="w-auto h-auto"
+                 />
+                 <h2 className="font-bold text-color-primary">Nueva tarjeta</h2>
+               </div>
+               
+             </Link>
+             </div>
             )}
 
             {step === 1 && <StepOne handleNextStep={handleNextStep} />}

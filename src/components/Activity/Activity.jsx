@@ -23,7 +23,7 @@ const Activity = () => {
     setAccountActivity,
     currentPage,
     setCurrentPage,
-    filter, // Get the filter value from context
+    filter, 
   } = useActivity();
 
   const itemsPerPage = 10;
@@ -32,9 +32,9 @@ const Activity = () => {
 
   const filteredItems = Array.isArray(accountActivity)
     ? accountActivity.filter((activity) => {
-        // lógica de filtrado aquí
-        if (!filter) return true; // No filter applied
-        const typeMatch = activity.type === filter; // Example filter logic
+       
+        if (!filter) return true; 
+        const typeMatch = activity.type === filter; 
         return typeMatch;
       })
     : [];

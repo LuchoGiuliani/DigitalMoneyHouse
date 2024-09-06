@@ -39,7 +39,7 @@ const SearchFormActivity = () => {
             type="text"
             placeholder="Buscar en tu actividad"
             {...register("searchTerm")}
-            className="text-gray-400 text-[12px] outline-none w-full"
+            className="text-gray-400 text-[12px] mobile:text-[16px] outline-none w-full"
           />
           <button type="submit" className="hidden"></button>
         </form>

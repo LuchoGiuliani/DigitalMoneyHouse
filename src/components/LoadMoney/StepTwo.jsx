@@ -8,15 +8,15 @@ const StepTwo = ({cvu, handleBackStep, handleSubmit}) => {
 
   return (
     <section className="w-full p-5 flex flex-col gap-9 rounded-lg bg-black-primary shadow-md md:p-10 xl:pt-10 xl:pl-16 xl:pr-11 xl:pb-11">
-    <h2 className="text-lg text-primary font-semibold">
-        Revisá que todo este bien
+    <h2 className="text-lg text-primary font-semibold text-color-primary">
+        Revisá que está todo bien
     </h2>
-    <div className="flex items-end justify-between">
+    <div className="flex items-end justify-between text-white">
         <div className="pb-7">
             <div className="mb-9">
                 <div className="flex items-center gap-4 mb-2">
                     <p className="font-normal text-base">Vas a transferir</p>
-                    <Image alt="imagen" src={"/iconoEdit.svg"} width={12} height={12} className="w-auto h-auto cursor-pointer" onClick={handleBackStep} />
+                    <Image alt="imagen" src={"/copyPen.svg"} width={12} height={12} className="w-auto h-auto cursor-pointer" onClick={handleBackStep} />
                 </div>
                 <p className="font-bold text-base">
                   {(getValues("amount"))}
@@ -34,7 +34,7 @@ const StepTwo = ({cvu, handleBackStep, handleSubmit}) => {
         <button
             type="submit"
             onClick={handleSubmit}
-            className="bg-primary hover:bg-primary-dark focus:outline-2 focus:outline-primary w-full xl:w-64">
+            className="bg-color-primary p-4 rounded-lg text-black font-semibold w-full xl:w-64 ">
             Continuar
         </button>
     </div>

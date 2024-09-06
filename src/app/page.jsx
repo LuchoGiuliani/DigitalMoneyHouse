@@ -17,8 +17,8 @@ export default function Home() {
         </h2>
       </section>
       <section className="flex flex-col justify-center tablet:flex-row w-full gap-4  px-6 text-[18px] md:text-[22px] absolute bottom-4 ">
-        <div className="bg-white rounded-xl max-w-[500px] h-[246px] p-4 ">
-          <h1 className="text-[40px]  font-bold pb-2">
+        <div className="bg-white rounded-xl max-w-[500px] max-h-[246px] p-4 ">
+          <h1 className="md:text-[40px]  font-bold pb-2">
             Transferí dinero
           </h1>
           <h2 className="border-t-2 border-t-color-primary pt-2">
@@ -27,8 +27,8 @@ export default function Home() {
             capital en nuestra billetera virtual
           </h2>
         </div>
-        <div className="bg-white rounded-xl max-w-[500px] h-[246px] p-4">
-          <h1 className="text-[40px] font-bold pb-2">
+        <div className="bg-white rounded-xl max-w-[500px] max-h-[246px] p-4">
+          <h1 className="md:text-[40px] font-bold pb-2">
             Pago de servicios
           </h1>
           <h2 className="border-t-2 border-t-color-primary pt-2">

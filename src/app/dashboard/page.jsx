@@ -51,7 +51,7 @@ const Page = () => {
                   Dinero disponible
                 </h3>
                 <h1 className="text-white border border-color-primary w-fit p-2 rounded-full text-[24px] tablet:text-4xl font-bold">
-                  $ {accountData.available_amount}
+                $ {accountData.available_amount.toLocaleString("es-AR", { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
                 </h1>
               </div>
             </article>
