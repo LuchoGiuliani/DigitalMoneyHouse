@@ -9,7 +9,7 @@ import { useEffect, useMemo } from "react";
 import { useRouter } from "next/navigation";
 
 const Navbar = () => {
-  const { isAuthenticated, logout, token } = useAuth();
+  const { isAuthenticated, logout, token, login } = useAuth();
   const { userData, isLoading , accountData} = useUser();
   const pathname = usePathname();
   const router = useRouter();
@@ -19,7 +19,7 @@ const Navbar = () => {
       router.refresh()
     }
     fetchData()
-  }, [userData, isAuthenticated, logout, token,accountData]);
+  }, [userData, isAuthenticated, logout, token,accountData , login]);
 
   const isLoginPass = pathname === "/login/loginPassword";
   const isLoginPage = pathname === "/login";

@@ -14,12 +14,12 @@ export const AuthProvider = ({ children }) => {
   const router = useRouter();
 
   const logout = () => {
-    // Clear the token expiration timeout
+    
     if (tokenExpirationTimeout) {
       clearTimeout(tokenExpirationTimeout);
     }
 
-    // Remove the user data and token from local storage
+ 
     setUser(null);
     setToken(null);
     localStorage.removeItem("token");
@@ -36,7 +36,7 @@ export const AuthProvider = ({ children }) => {
     localStorage.setItem("token", JSON.stringify(token));
     localStorage.setItem("user", JSON.stringify(userData));
 
-    // Set the token expiration timeout
+    
     setTokenExpiration(15 * 60 * 1000); // 15 minutes
     router.refresh();
   };
@@ -47,7 +47,7 @@ export const AuthProvider = ({ children }) => {
     }
 
     const newTimeout = setTimeout(() => {
-      logout(); // Log the user out if the token has expired
+      logout(); 
     }, timeout);
 
     setTokenExpirationTimeout(newTimeout);
@@ -64,8 +64,8 @@ export const AuthProvider = ({ children }) => {
         if (parsedUser) {
           setUser(parsedUser);
         }
-        // Set the token expiration timeout
-        setTokenExpiration(15 * 60 * 1000); // 15 minutes
+       
+        setTokenExpiration(15 * 60 * 1000); 
       } catch (e) {
         console.error("Error parsing saved user:", e);
         logout();
@@ -74,7 +74,7 @@ export const AuthProvider = ({ children }) => {
   }, [token, user]);
 
   useEffect(() => {
-    // Check if the token has expired and log the user out if it has
+    
     if (token && tokenExpirationTimeout) {
       const now = new Date().getTime();
       const expirationTime = tokenExpirationTimeout + now;
