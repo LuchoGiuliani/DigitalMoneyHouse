@@ -63,7 +63,7 @@ const Page = () => {
     };
 
     fetchUserData();
-  }, [token]); // Dependencia en el token
+  }, [token]); 
 
   useEffect(() => {
     if (userData && accountData) {

@@ -20,7 +20,7 @@ const Navbar = () => {
  
   useEffect(() => {
     const fetchData = () => {
-      
+      router.refresh()
     };
     fetchData();
   }, [userData, isAuthenticated, logout, token, accountData, login]);

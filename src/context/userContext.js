@@ -19,9 +19,10 @@ console.log("userData del useUser", userData);
   useEffect(() => {
     const fetchUserData = async () => {
       const tokenFromStorage = JSON.parse(window.localStorage.getItem("token"));
-      if (user_id && tokenFromStorage) {
+      const userId = JSON.parse(window.localStorage.getItem("user_id"));
+      if (userId && tokenFromStorage) {
         try {
-          const data = await getUserById(user_id, tokenFromStorage);
+          const data = await getUserById(userId, tokenFromStorage);
           setUserData(data);
          
           router.refresh()
