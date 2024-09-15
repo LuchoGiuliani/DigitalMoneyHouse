@@ -1,7 +1,8 @@
 import LeftSidebar from "@/components/LeftSidebar/LeftSidebar";
+import Image from "next/image";
 import React from "react";
 
-const layout = ({children}) => {
+const layout = ({ children }) => {
   return (
     <div className="flex  min-h-screen">
       <LeftSidebar />

@@ -7,12 +7,14 @@ import { useRouter } from "next/navigation";
 import { useEmail } from "@/context/emailContext";
 import { useAuth } from "@/hooks/useAuth";
 import { loginUser, fetchUserAccount } from "@/services/getTokenAccountId";
+import { useUser } from "@/context/userContext";
 
 const LoginPassForm = () => {
   const { setToken } = useAuth();
   const { email } = useEmail();
   const router = useRouter();
   const [serverError, setServerError] = useState(null);
+  const { user_id, setUserId } = useUser();
 
   const methods = useForm({
     resolver: yupResolver(LoginScheme),
@@ -29,6 +31,7 @@ const LoginPassForm = () => {
       setToken(token);
 
       const userData = await fetchUserAccount(token);
+      setUserId(userData.user_id);
       window.localStorage.setItem("user_id", JSON.stringify(userData.user_id));
       window.localStorage.setItem("account_id", JSON.stringify(userData.id));
 

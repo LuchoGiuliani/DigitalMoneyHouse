@@ -68,15 +68,24 @@ const Page = () => {
       <div className="flex min-h-screen">
       
         <div className="flex flex-col bg-gray-300 w-full px-8 py-4 gap-4">
+        <div className="flex gap-2 tablet:hidden">
+          <Image
+           src="/arrowGray.svg"
+           width={12}
+           height={12}
+           className="w-auto h-auto"
+           alt="flecha" />
+           <h3 className="underline text-color-dark">Tarjetas</h3>
+        </div>
           <div className="bg-[#201F22] flex flex-col rounded-md p-6 gap-4">
-            <h2 className="text-white font-semibold">
+            <h2 className="text-white font-semibold text-[18px]">
               Agregá tu tarjeta de crédito o débito.
             </h2>
             <Link
               href={"/dashboard/cards/newCard"}
               className="flex gap-4 justify-between"
             >
-              <div className="flex gap-4">
+              <div className="flex gap-2">
                 <Image
                   src={"/cruz.png"}
                   width={22}
@@ -84,7 +93,7 @@ const Page = () => {
                   alt="Cruz"
                   className="w-auto h-auto"
                 />
-                <h2 className="font-bold text-color-primary">Nueva tarjeta</h2>
+                <h2 className="font-bold text-color-primary text-[22px] ">Nueva tarjeta</h2>
               </div>
               <Image
                src={"/arrow.svg"} width={20} height={20} alt="cruz" className="h-auto w-auto"
@@ -102,10 +111,10 @@ const Page = () => {
                 >
                   <div className="flex gap-4">
                     <div className="rounded-full h-6 w-6 bg-color-primary"></div>
-                    <h2>Terminada en {card.cod.toString().slice(-4)}</h2>
+                    <h2 className="text-[14px] tablet:text-[22px]">Terminada en {card.cod.toString().slice(-4)}</h2>
                   </div>
                   <button
-                    className="font-semibold"
+                    className="font-semibold text-[14px] tablet:text-[22px]"
                     onClick={() => handleDeleteCard(card.id)}
                   >
                     Eliminar

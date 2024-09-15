@@ -1,7 +1,18 @@
+"use client"
+import getServices from "@/services/getServices";
 import Image from "next/image";
-import React from "react";
+import React, { useEffect, useState } from "react";
 
 const page = () => {
+ const [services, setServices] = useState([])
+
+ useEffect(()=> {
+  getServices(setServices)
+
+ },[])
+console.log(services);
+
+
   return (
     <div className="bg-color-gray min-h-screen p-8 flex flex-col gap-4">
       <div className="rounded-lg bg-white text-gray-300 p-2">
@@ -48,6 +59,11 @@ const page = () => {
           </div>
           <div>Seleccionar</div>
         </div>
+      </div>
+      <div>
+        {services && services.map((sv) => (
+          <div>{sv.name}</div>
+        ))}
       </div>
     </div>
   );

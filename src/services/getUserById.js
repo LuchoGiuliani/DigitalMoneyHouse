@@ -17,6 +17,8 @@ export const getUserById = async (user_id, token) => {
     });
     
     response.data
+
+    
    
     
     return response.data;

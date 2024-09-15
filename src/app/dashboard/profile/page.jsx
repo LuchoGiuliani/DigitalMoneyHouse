@@ -142,6 +142,15 @@ const Page = () => {
       />
       <section className="flex">
         <div className="h-screen px-6 py-4 flex flex-col gap-4 w-full">
+        <div className="flex gap-2 tablet:hidden">
+          <Image
+           src="/arrowGray.svg"
+           width={12}
+           height={12}
+           className="w-auto h-auto"
+           alt="flecha" />
+           <h3 className="underline text-color-dark">Perfil</h3>
+        </div>
           <article className="bg-white flex flex-col rounded-md p-4  drop-shadow-md">
             <div>
               <h1 className="font-bold text-[24px] pb-4">Tus datos</h1>

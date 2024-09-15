@@ -32,11 +32,24 @@ const Page = () => {
   return (
     <main>
       <section className="flex text-[16px] tablet:text-[24px] min-h-screen">
+       
         <div className=" px-6 py-4 flex flex-col gap-2 w-full bg-[#EEEAEA]">
+        <div className="flex gap-2 tablet:hidden">
+          <Image
+           src="/arrowGray.svg"
+           width={12}
+           height={12}
+           className="w-auto h-auto"
+           alt="flecha" />
+           <h3 className="underline text-color-dark">Inicio</h3>
+        </div>
           {accountData && (
             <article className="bg-color-darker p-4 rounded-lg drop-shadow-lg">
               <div className="flex justify-end gap-2">
-                <Link className="text-white underline hover:text-color-primary" href="/dashboard/cards">
+                <Link
+                  className="text-white underline hover:text-color-primary"
+                  href="/dashboard/cards"
+                >
                   Ver tarjetas
                 </Link>
                 <Link
@@ -51,7 +64,11 @@ const Page = () => {
                   Dinero disponible
                 </h3>
                 <h1 className="text-white border border-color-primary w-fit p-2 rounded-full text-[24px] tablet:text-4xl font-bold">
-                $ {accountData.available_amount.toLocaleString("es-AR", { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
+                  ${" "}
+                  {accountData.available_amount.toLocaleString("es-AR", {
+                    minimumFractionDigits: 2,
+                    maximumFractionDigits: 2,
+                  })}
                 </h1>
               </div>
             </article>

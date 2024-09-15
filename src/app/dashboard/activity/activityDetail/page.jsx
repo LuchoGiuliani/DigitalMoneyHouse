@@ -1,8 +1,18 @@
+import Image from 'next/image'
 import React from 'react'
 
 const page = () => {
   return (
     <div className='bg-color-gray w-full min-h-screen flex flex-col gap-4 p-8 '>
+      <div className="flex gap-2 tablet:hidden">
+          <Image
+           src="/arrowGray.svg"
+           width={12}
+           height={12}
+           className="w-auto h-auto"
+           alt="flecha" />
+           <h3 className="underline text-color-dark">Inicio</h3>
+        </div>
         <div className='bg-color-darker py-4 px-8 flex flex-col gap-4 w-full rounded-lg drop-shadow-lg h-fit '>
           <div className='border-b flex justify-between pb-2'>
             <h2 className='text-color-primary font-bold'>Aprobada</h2>

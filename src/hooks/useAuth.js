@@ -2,24 +2,20 @@
 import { createContext, useContext, useState, useEffect, useMemo } from "react";
 import { useRouter } from "next/navigation";
 
-
 const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [token, setToken] = useState(null);
-  const   
- [email, setEmail] = useState(null);
+  const [email, setEmail] = useState(null);
   const [tokenExpirationTimeout, setTokenExpirationTimeout] = useState(null);
   const router = useRouter();
 
   const logout = () => {
-    
     if (tokenExpirationTimeout) {
       clearTimeout(tokenExpirationTimeout);
     }
 
- 
     setUser(null);
     setToken(null);
     localStorage.removeItem("token");
@@ -36,8 +32,7 @@ export const AuthProvider = ({ children }) => {
     localStorage.setItem("token", JSON.stringify(token));
     localStorage.setItem("user", JSON.stringify(userData));
 
-    
-    setTokenExpiration(15 * 60 * 1000); // 15 minutes
+    setTokenExpiration(30 * 60 * 1000); 
     router.refresh();
   };
 
@@ -47,7 +42,7 @@ export const AuthProvider = ({ children }) => {
     }
 
     const newTimeout = setTimeout(() => {
-      logout(); 
+      logout();
     }, timeout);
 
     setTokenExpirationTimeout(newTimeout);
@@ -64,8 +59,8 @@ export const AuthProvider = ({ children }) => {
         if (parsedUser) {
           setUser(parsedUser);
         }
-       
-        setTokenExpiration(15 * 60 * 1000); 
+
+        setTokenExpiration(30 * 60 * 1000);
       } catch (e) {
         console.error("Error parsing saved user:", e);
         logout();
@@ -74,7 +69,6 @@ export const AuthProvider = ({ children }) => {
   }, [token, user]);
 
   useEffect(() => {
-    
     if (token && tokenExpirationTimeout) {
       const now = new Date().getTime();
       const expirationTime = tokenExpirationTimeout + now;

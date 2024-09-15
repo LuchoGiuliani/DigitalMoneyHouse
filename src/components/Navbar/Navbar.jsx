@@ -5,21 +5,25 @@ import Image from "next/image";
 import Link from "next/link";
 import { useAuth } from "@/hooks/useAuth";
 import { useUser } from "@/context/userContext";
-import { useEffect, useMemo } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { useRouter } from "next/navigation";
+import MenuBurguer from "../MenuBurger/MenuBurger";
+
 
 const Navbar = () => {
   const { isAuthenticated, logout, token, login } = useAuth();
-  const { userData, isLoading , accountData} = useUser();
+  const { userData, isLoading, accountData } = useUser();
   const pathname = usePathname();
   const router = useRouter();
-
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+ console.log("userData Navbar", userData);
+ 
   useEffect(() => {
     const fetchData = () => {
-      router.refresh()
-    }
-    fetchData()
-  }, [userData, isAuthenticated, logout, token,accountData , login]);
+      
+    };
+    fetchData();
+  }, [userData, isAuthenticated, logout, token, accountData, login]);
 
   const isLoginPass = pathname === "/login/loginPassword";
   const isLoginPage = pathname === "/login";
@@ -34,25 +38,21 @@ const Navbar = () => {
   }, [isLoginPass, isLoginPage, isRegister]);
 
   const logoSrc = useMemo(() => {
-    return isLoginPage || isLoginPass || isRegister
-      ? "/logo2.png"
-      : "/logo1.png";
+    return isLoginPage || isLoginPass || isRegister ? "/logo2.png" : "/logo1.png";
   }, [isLoginPass, isLoginPage, isRegister]);
 
   const loginButton = useMemo(() => {
     return isLoginPage || isLoginPass
       ? "hidden"
-      : "border border-color-primary p-2  m-1 rounded-md text-color-primary font-bold";
+      : "border border-color-primary p-2 m-1 rounded-md text-color-primary font-bold";
   }, [isLoginPass, isLoginPage]);
 
-  const registerButton = useMemo(() => {
-    return isRegister ? "" : "";
-  }, [isRegister]);
+  const toggleMenu = () => {
+    setIsMenuOpen(!isMenuOpen);
+  };
 
   return (
-    <div
-      className={`${navbarClass} flex justify-between px-4 py-3 items-center max-h-[64px]`}
-    >
+    <div className={`${navbarClass} flex justify-between px-4 py-3 items-center max-h-[64px]`}>
       <section>
         <Link href={"/"}>
           <Image
@@ -67,7 +67,7 @@ const Navbar = () => {
       </section>
       <section className="flex gap-2 items-center">
         {isLandingPage && !isAuthenticated() && (
-          <Link href={"/login"} className={`${loginButton}`}>
+          <Link href={"/login"} className={`${loginButton} text-[16px]`}>
             Ingresar
           </Link>
         )}
@@ -83,11 +83,12 @@ const Navbar = () => {
               </h1>
             </Link>
             <Image
-              className="w-auto h-auto tablet:hidden"
+              className="w-auto h-auto tablet:hidden cursor-pointer"
               src="/menuBurger.svg"
-              alt="Logo"
+              alt="Menu"
               width={96}
               height={43}
+              onClick={toggleMenu}
               priority
             />
             {!isDashboardPage && (
@@ -100,20 +101,19 @@ const Navbar = () => {
         {isLandingPage && !isAuthenticated() && (
           <Link
             href={"/register"}
-            className={`bg-color-primary rounded-md text-color-darker font-bold p-2 `}
+            className={`bg-color-primary rounded-md text-color-darker font-bold p-2 text-[16px]`}
           >
             Crear Cuenta
           </Link>
         )}
         {isRegister && (
-          <Link
-            href={"/login"}
-            className={`bg-color-dark text-white p-2 rounded-md font-bold`}
-          >
+          <Link href={"/login"} className={`bg-color-dark text-white p-2 rounded-md font-bold`}>
             Iniciar sesión
           </Link>
         )}
       </section>
+      {/* Include the MenuBurguer component */}
+      <MenuBurguer isOpen={isMenuOpen} toggleMenu={toggleMenu} userData={userData} />
     </div>
   );
 };
