@@ -1,12 +1,12 @@
 "use client"
 import { useRouter, useSearchParams } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useEffect, useState,Suspense } from "react";
 import Image from 'next/image';
 import { useActivity } from "@/context/activityContext";
 import dayjs from "dayjs";
 import Link from "next/link";
 
-const ActivityDetail = () => {
+const ActivityDetailContent = () => {
   const searchParams = useSearchParams(); // Para obtener los parámetros de la URL
   const id = searchParams.get("id"); // Obtenemos el 'id' desde los parámetros de búsqueda
   const { accountActivity } = useActivity(); // Acceder a accountActivity desde el hook useActivity
@@ -79,5 +79,11 @@ const ActivityDetail = () => {
     </div>
   );
 };
+
+const ActivityDetail = () => (
+  <Suspense fallback={<div>Cargando...</div>}>
+    <ActivityDetailContent />
+  </Suspense>
+);
 
 export default ActivityDetail;

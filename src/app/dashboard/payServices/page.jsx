@@ -15,6 +15,16 @@ console.log(services);
 
   return (
     <div className="bg-color-gray min-h-screen p-8 flex flex-col gap-4">
+            <div className="flex gap-2 tablet:hidden">
+        <Image
+          src="/arrowGray.svg"
+          width={12}
+          height={12}
+          className="w-auto h-auto"
+          alt="flecha"
+        />
+        <h3 className="underline text-color-dark">Pagar servicio</h3>
+      </div>
       <div className="rounded-lg bg-white text-gray-300 p-2">
         Formulario busqueda: Busca entre mas de 5000 empresas
       </div>
