@@ -1,6 +1,5 @@
 "use client";
-import React, { Suspense } from "react";
-import { useSearchParams } from "next/navigation";
+import React from "react";
 import LoginForm from "@/components/LoginForm/LoginForm";
 
 const page = () => {

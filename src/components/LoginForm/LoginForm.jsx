@@ -1,7 +1,7 @@
 import { FormProvider, useForm } from "react-hook-form";
 import { yupResolver } from '@hookform/resolvers/yup';
 import LoginScheme from "@/schemas/login.scheme";
-import { Suspense, useState } from "react";
+import {  useState } from "react";
 import { useRouter } from "next/navigation";
 import {useEmail} from "@/context/emailContext"
 import Link from "next/link";
