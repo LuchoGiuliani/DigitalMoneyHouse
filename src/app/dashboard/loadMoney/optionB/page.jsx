@@ -71,10 +71,10 @@ console.log(account_id);
             </h1>
 
             {step === 0 && (
-              <div className='flex flex-col gap-4'>
-              <div className='bg-white p-4 rounded-lg flex flex-col gap-4 font-bold'>
+              <div className='flex flex-col gap-4 '>
+              <div className='bg-white p-4 rounded-lg flex flex-col gap-4 font-bold '>
                 <h2>Tarjetas</h2>
-                <div className='flex flex-col gap-4 '>
+                <div className='flex flex-col gap-4 text-[18px] '>
                   {cards?.length > 0 ? (
                     cards?.map((card) => (
                       <div
@@ -84,7 +84,7 @@ console.log(account_id);
                       >
                         <div className="flex gap-4">
                           <div className="rounded-full h-6 w-6 bg-color-primary"></div>
-                          <h2>Terminada en {card.cod.toString().slice(-4)}</h2>
+                          <h2 className='font-thin'>Terminada en {card.cod.toString().slice(-4)}</h2>
                         </div>
                         <span className="font-semibold">Seleccionar</span>
                       </div>

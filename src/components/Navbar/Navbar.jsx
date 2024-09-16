@@ -92,7 +92,7 @@ const Navbar = () => {
               priority
             />
             {!isDashboardPage && (
-              <button onClick={logout} className={`${loginButton}`}>
+              <button onClick={logout} className={`${loginButton} hidden tablet:block`}>
                 Logout
               </button>
             )}

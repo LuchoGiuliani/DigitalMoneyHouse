@@ -93,7 +93,7 @@ const Page = () => {
                   alt="Cruz"
                   className="w-auto h-auto"
                 />
-                <h2 className="font-bold text-color-primary text-[22px] ">Nueva tarjeta</h2>
+                <h2 className="font-bold text-color-primary text-[18px] tablet:text-[22px] ">Nueva tarjeta</h2>
               </div>
               <Image
                src={"/arrow.svg"} width={20} height={20} alt="cruz" className="h-auto w-auto"

@@ -1,4 +1,4 @@
-"use client"
+"use client";
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import Cards from "react-credit-cards-2";
@@ -49,7 +49,9 @@ const Page = () => {
     evt.preventDefault();
 
     if (cardsCount >= MAX_CARDS) {
-      alert("Se ha alcanzado el límite de 10 tarjetas asociadas a esta cuenta.");
+      alert(
+        "Se ha alcanzado el límite de 10 tarjetas asociadas a esta cuenta."
+      );
       return;
     }
 
@@ -75,7 +77,6 @@ const Page = () => {
   return (
     <div>
       <div className="flex  min-h-screen">
-       
         <div className="px-8 py-6 w-full flex flex-col items-center">
           <Cards
             number={state.number}
@@ -85,10 +86,10 @@ const Page = () => {
             focused={state.focus}
           />
           <form
-            className="flex flex-col  gap-4 tablet:items-end w-full tablet:w-fit"
+            className="flex flex-col  gap-4 tablet:items-end w-full mobile:w-fit"
             onSubmit={handleSubmit}
           >
-            <div className="grid tablet:grid-cols-2 gap-4 w-full tablet:w-fit p-2  ">
+            <div className="grid tablet:grid-cols-2 gap-4 w-full mobile:w-fit p-2  ">
               <input
                 type="text"
                 name="number"
@@ -98,18 +99,17 @@ const Page = () => {
                 onFocus={handleInputFocus}
                 className="p-2 rounded-md drop-shadow-lg w-full "
               />
-              <div className="w-full flex flex-col">
-              <input
-                type="text"
-                name="expiry"
-                placeholder="Fecha de vencimiento"
-                value={state.expiry}
-                onChange={handleInputChange}
-                onFocus={handleInputFocus}
-                className="p-2 rounded-md drop-shadow-lg"
-              />
-              <p className="text-[12px] text-gray-400 text-end">Ejemplo: "22/2026" </p>
-              </div>
+             
+                <input
+                  type="text"
+                  name="expiry"
+                  placeholder="Fecha de vencimiento"
+                  value={state.expiry}
+                  onChange={handleInputChange}
+                  onFocus={handleInputFocus}
+                  className="p-2 rounded-md drop-shadow-lg"
+                />
+             
               <input
                 type="text"
                 name="name"

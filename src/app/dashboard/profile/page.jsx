@@ -141,7 +141,7 @@ const Page = () => {
         position="bottom-right"
       />
       <section className="flex">
-        <div className="h-screen px-6 py-4 flex flex-col gap-4 w-full">
+        <div className="min-h-screen px-6 py-4 flex flex-col gap-4 w-full">
         <div className="flex gap-2 tablet:hidden">
           <Image
            src="/arrowGray.svg"
@@ -157,7 +157,7 @@ const Page = () => {
             </div>
             <div className="flex justify-between gap-2 w-full border-b">
               <div className="flex tablet:flex-row flex-col tablet:gap-6  w-full tablet:items-center">
-                <h2 className="font-semibold min-w-[220px] capitalize">
+                <h2 className="font-semibold min-w-[220px] capitalize py-1">
                   Email
                 </h2>
                 <input
@@ -165,14 +165,14 @@ const Page = () => {
                   name="email"
                   value={formState.email || ""}
                   disabled
-                  className="bg-white text-gray-300"
+                  className="bg-white text-gray-300 py-1"
                 />
               </div>
             </div>
             {["fullname", "cuit", "Télefono", "Contraseña"].map((field, index) => (
               <div
                 key={index}
-                className="flex justify-between gap-2 w-full border-b"
+                className="flex justify-between gap-2 w-full border-b py-1"
               >
                 <div className="flex flex-col tablet:flex-row tablet:gap-6   w-full tablet:items-center">
                   <h2 className="font-semibold min-w-[220px] capitalize ">
@@ -210,7 +210,7 @@ const Page = () => {
           </article>
           <article className="bg-color-primary p-4 flex  w-full rounded-md drop-shadow-md ">
             <Link
-              className="text-xl font-semibold flex justify-between w-full hover:text-color-dark "
+              className="text-[22px] font-semibold flex justify-between w-full hover:text-color-dark "
               href="/dashboard/loadMoney"
             >
               Gestioná los medios de pago
