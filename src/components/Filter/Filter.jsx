@@ -14,7 +14,7 @@ dayjs.extend(isYesterday);
 dayjs.extend(isToday);
 
 const Filter = () => {
-  const [filter, setFilter] = useState("");
+  
   const { register, handleSubmit, reset } = useForm();
   const {
     setAccountActivity,
@@ -22,10 +22,13 @@ const Filter = () => {
     accountActivity,
     openFilter,
     setOpenFilter,
+    filter,
+    setFilter
   } = useActivity();
   const pathname = usePathname();
   const router = useRouter();
   const isDashboardPage = pathname === "/dashboard";
+ console.log("accountActivityFilter", accountActivity);
  
   useEffect(() => {
  
@@ -44,28 +47,33 @@ const Filter = () => {
   const applyFilter = (data) => {
     const { period } = data;
 
-    const filteredActivities = accountActivity.filter((activity) => {
-      const activityDate = dayjs(activity.dated);
+  if (!Array.isArray(accountActivity)) {
+    console.error("accountActivity no es un array");
+    return;
+  }
 
-      switch (period) {
-        case "today":
-          return activityDate.isToday();
-        case "yesterday":
-          return activityDate.isYesterday();
-        case "lastWeek":
-          return activityDate.isBetween(dayjs().subtract(1, "week"), dayjs());
-        case "lastMonth":
-          return activityDate.isBetween(dayjs().subtract(1, "month"), dayjs());
-        case "lastYear":
-          return activityDate.isBetween(dayjs().subtract(1, "year"), dayjs());
-        default:
-          return true;
-      }
-    });
+  const filteredActivities = accountActivity.filter((activity) => {
+    const activityDate = dayjs(activity.dated, "YYYY-MM-DDTHH:mm:ss.SSSZ"); // Asegúrate de que el formato sea correcto
 
-    setAccountActivity(filteredActivities);
-    setFilter(period);
-  };
+    switch (period) {
+      case "today":
+        return activityDate.isToday();
+      case "yesterday":
+        return activityDate.isYesterday();
+      case "lastWeek":
+        return activityDate.isBetween(dayjs().subtract(1, "week"), dayjs());
+      case "lastMonth":
+        return activityDate.isBetween(dayjs().subtract(1, "month"), dayjs());
+      case "lastYear":
+        return activityDate.isBetween(dayjs().subtract(1, "year"), dayjs());
+      default:
+        return true;
+    }
+  });
+
+  setAccountActivity(filteredActivities);
+  setFilter(period);
+};
   return (
     <div
       className={` ${

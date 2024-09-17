@@ -1,25 +1,38 @@
 import { useActivity } from "@/context/activityContext";
-import { useState } from "react";
 import { useForm } from "react-hook-form";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
 
 const SearchFormActivity = () => {
   const { register, handleSubmit } = useForm();
-  const { setFilter, openFilter, setOpenFilter } = useActivity();
-  const pathname = usePathname()
+  const { setFilter, openFilter, setOpenFilter, accountActivity, setAccountActivity, accountData } = useActivity();
+  const pathname = usePathname();
 
-  const isDashboardPage = pathname === "/dashboard"
-
+  const isDashboardPage = pathname === "/dashboard";
 
   const handleClick = () => {
     setOpenFilter(!openFilter);
   };
 
   const onSubmit = (data) => {
-    setFilter(data.searchTerm); 
+    const searchTerm = data.searchTerm.toLowerCase(); // Convertimos el término a minúsculas
+    
+    // Validar que accountActivity sea un array antes de filtrar
+    if (!Array.isArray(accountActivity)) {
+      console.error("accountActivity is not an array:", accountActivity);
+      return;
+    }
+  
+    const filteredActivities = accountActivity.filter((activity) => {
+      const description = activity.description.toLowerCase(); // Convertimos la descripción de la actividad a minúsculas
+  
+      // Filtramos si comienza con "ingresaste dinero" o "transferiste dinero"
+      return description.startsWith(searchTerm);
+    });
+  
+    setAccountActivity(filteredActivities); // Actualizamos el estado con las actividades filtradas
+    setFilter(searchTerm); // Guardamos el término de búsqueda en el filtro
   };
-
 
   return (
     <div>

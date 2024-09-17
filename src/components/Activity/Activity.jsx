@@ -10,6 +10,7 @@ import { usePathname } from "next/navigation";
 import Link from "next/link";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
+
 dayjs.locale("es");
 
 const Activity = () => {
@@ -18,11 +19,11 @@ const Activity = () => {
   const [selectedActivity, setSelectedActivity] = useState(null);
   const {
     accountData,
-    setAccountData,
     accountActivity,
     setAccountActivity,
-    currentPage,
+    setAccountData,
     setCurrentPage,
+    currentPage,
     filter,
   } = useActivity();
 
@@ -30,23 +31,22 @@ const Activity = () => {
   const indexOfLastItem = currentPage * itemsPerPage;
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
 
-
+  // Filtrar las actividades según el tipo especificado en el filtro
   const filteredItems = Array.isArray(accountActivity)
     ? accountActivity.filter((activity) => {
         if (!filter) return true;
-        const typeMatch = activity.type === filter;
-        return typeMatch;
+        return activity.type === filter;
       })
     : [];
 
-  const currentItems = filteredItems?.slice(indexOfFirstItem, indexOfLastItem);
+  const currentItems = filteredItems.slice(indexOfFirstItem, indexOfLastItem);
   const { token } = useAuth();
 
   useEffect(() => {
     if (token) {
-      getAccountActivity(setAccountData, setAccountActivity, token);
+      getAccountActivity(setAccountData, (data) => setAccountActivity(data), token);
     }
-  }, [token]);
+  }, [token, setAccountData, setAccountActivity]);
 
   const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
@@ -99,21 +99,19 @@ const Activity = () => {
         )}
       </div>
       {isDashboard ? (
-        <>
-          <Link
-            className="flex justify-between font-bold py-2"
-            href={"/dashboard/activity"}
-          >
-            <h3 className="hover:scale-95">Ver toda tu actividad</h3>
-            <Image
-              src={"/arrowBlack.svg"}
-              width={20}
-              height={20}
-              alt="cruz"
-              className="h-auto w-auto"
-            />
-          </Link>
-        </>
+        <Link
+          className="flex justify-between font-bold py-2"
+          href={"/dashboard/activity"}
+        >
+          <h3 className="hover:scale-95">Ver toda tu actividad</h3>
+          <Image
+            src={"/arrowBlack.svg"}
+            width={20}
+            height={20}
+            alt="cruz"
+            className="h-auto w-auto"
+          />
+        </Link>
       ) : (
         <div className="flex justify-center mt-4">
           {Array.from({
