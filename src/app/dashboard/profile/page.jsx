@@ -69,9 +69,9 @@ const Page = () => {
     if (userData && accountData) {
       setFormState({
         email: userData.email,
-        fullname: `${userData.firstname} ${userData.lastname}`, // Combina firstname y lastname
+        fullname: `${userData.firstname} ${userData.lastname}`,
         cuit: userData.dni,
-        Télefono: userData.phone,
+        phone: userData.phone,
         Contraseña: "******",
       });
     }
@@ -90,13 +90,12 @@ const Page = () => {
     const tokenFromStorage = JSON.parse(window.localStorage.getItem("token"));
     setToken(tokenFromStorage);
     try {
-      // Dividir fullname en firstname y lastname
       const [firstname, ...lastnameParts] = formState.fullname.split(" ");
       const lastname = lastnameParts.join(" ");
       
       const updatedData =
         field === "fullname"
-          ? { firstname, lastname } // Actualiza firstname y lastname
+          ? { firstname, lastname } 
           : { [field]: formState[field] };
 
       await updateUser(updatedData, userData.id, tokenFromStorage);
@@ -169,14 +168,14 @@ const Page = () => {
                 />
               </div>
             </div>
-            {["fullname", "cuit", "Télefono", "Contraseña"].map((field, index) => (
+            {["fullname", "cuit", "phone", "Contraseña"].map((field, index) => (
               <div
                 key={index}
                 className="flex justify-between gap-2 w-full border-b py-1"
               >
                 <div className="flex flex-col tablet:flex-row tablet:gap-6   w-full tablet:items-center">
                   <h2 className="font-semibold min-w-[220px] capitalize ">
-                    {field === "fullname" ? "Nombre y apellido" : field}
+                  {field === "fullname" ? "Nombre y apellido" : field === "phone" ? "Télefono" : field}
                   </h2>
                   <input
                     type={field === "password" ? "password" : "text"}

@@ -6,7 +6,7 @@ function ExpiryInput() {
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
-    // Regex para validar el formato MM/YYYY
+ 
     const regex = /^(0[1-9]|1[0-2])\/\d{4}$/;
 
     setState((prev) => ({
@@ -14,12 +14,12 @@ function ExpiryInput() {
       [name]: value,
     }));
 
-    // Validar el formato de la fecha
+   
     if (value === "" || regex.test(value)) {
-      // Limpia el error si el input está vacío o cumple con el formato
+    
       setError("");
     } else {
-      // Muestra el mensaje de error si el formato no es correcto
+    
       setError(
         "Fecha inválida, deberá escribirse el mes seguido del año, ej: 05/2025"
       );
@@ -27,7 +27,7 @@ function ExpiryInput() {
   };
 
   const handleInputFocus = (e) => {
-    // Lógica adicional si se requiere al enfocar el input
+  
   };
 
   return (

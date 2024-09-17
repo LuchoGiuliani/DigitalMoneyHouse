@@ -112,7 +112,7 @@ const Navbar = () => {
           </Link>
         )}
       </section>
-      {/* Include the MenuBurguer component */}
+    
       <MenuBurguer isOpen={isMenuOpen} toggleMenu={toggleMenu} userData={userData} />
     </div>
   );

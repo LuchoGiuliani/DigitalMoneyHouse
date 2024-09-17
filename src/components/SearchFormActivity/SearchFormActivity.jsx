@@ -17,7 +17,7 @@ const SearchFormActivity = () => {
   };
 
   const onSubmit = (data) => {
-    setFilter(data.searchTerm); // Set the filter in the context based on the input
+    setFilter(data.searchTerm); 
   };
 
 

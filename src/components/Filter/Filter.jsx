@@ -28,7 +28,7 @@ const Filter = () => {
   const isDashboardPage = pathname === "/dashboard";
  
   useEffect(() => {
-    // Reset the activity list when the filter state changes
+ 
     if (filter) {
       setAccountActivity(accountData);
     } 

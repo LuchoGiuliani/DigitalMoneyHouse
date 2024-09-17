@@ -1,5 +1,5 @@
 "use client"
-import { useRouter, useSearchParams } from "next/navigation";
+import {  useSearchParams } from "next/navigation";
 import { useEffect, useState,Suspense } from "react";
 import Image from 'next/image';
 import { useActivity } from "@/context/activityContext";
@@ -7,14 +7,14 @@ import dayjs from "dayjs";
 import Link from "next/link";
 
 const ActivityDetailContent = () => {
-  const searchParams = useSearchParams(); // Para obtener los parámetros de la URL
-  const id = searchParams.get("id"); // Obtenemos el 'id' desde los parámetros de búsqueda
-  const { accountActivity } = useActivity(); // Acceder a accountActivity desde el hook useActivity
+  const searchParams = useSearchParams(); 
+  const id = searchParams.get("id"); 
+  const { accountActivity } = useActivity(); 
 
   const [activityDetails, setActivityDetails] = useState(null);
 
   useEffect(() => {
-    // Buscar la actividad con el id correspondiente en accountActivity
+   
     if (id && accountActivity.length > 0) {
       const selectedActivity = accountActivity.find(
         (activity) => activity.id === parseInt(id)
@@ -25,7 +25,6 @@ const ActivityDetailContent = () => {
     }
   }, [id, accountActivity]);
 
-  // Si no encuentra la actividad, mostramos un mensaje de error
   if (!activityDetails) {
     return <div>Cargando detalles de la actividad...</div>;
   }

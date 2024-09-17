@@ -1,5 +1,5 @@
 import axios from "axios";
-import { useEffect, useState } from "react";
+
 
 
 const BASE_URL = process.env.NEXT_PUBLIC_API_URL

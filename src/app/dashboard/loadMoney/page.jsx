@@ -1,4 +1,3 @@
-import LeftSidebar from '@/components/LeftSidebar/LeftSidebar'
 import Image from 'next/image'
 import Link from 'next/link'
 import React from 'react'

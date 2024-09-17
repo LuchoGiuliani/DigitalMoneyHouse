@@ -2,13 +2,12 @@ import Image from "next/image";
 import { useRouter } from "next/navigation";
 import React from "react";
 import { useFormContext } from "react-hook-form";
-import dayjs from "dayjs"; // Importa dayjs si lo estás usando, si no, usa .toLocaleDateString()
+import dayjs from "dayjs"; 
 
 const StepThree = ({ cvu }) => {
   const { getValues } = useFormContext();
-  const date = new Date(); // Objeto Date actual
-  const formattedDate = dayjs(date).format('DD/MM/YYYY'); // Formateo usando dayjs
-  // Alternativa sin dayjs: const formattedDate = date.toLocaleDateString(); 
+  const date = new Date(); 
+  const formattedDate = dayjs(date).format('DD/MM/YYYY'); 
 
   const router = useRouter();
 

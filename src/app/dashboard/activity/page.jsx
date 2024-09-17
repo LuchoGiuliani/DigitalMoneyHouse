@@ -1,12 +1,7 @@
-// pages/activityPage.js
-"use client";
 
-import { ActivityProvider, useActivity } from "@/context/activityContext";
+"use client";
 import Activity from "@/components/Activity/Activity";
 import Filter from "@/components/Filter/Filter";
-
-import { useState } from "react";
-import { useForm } from "react-hook-form";
 import SearchFormActivity from "@/components/SearchFormActivity/SearchFormActivity";
 import Image from "next/image";
 

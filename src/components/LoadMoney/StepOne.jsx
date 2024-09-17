@@ -27,7 +27,7 @@ const StepOne = ({ handleNextStep }) => {
         <div className="mt-9 w-full flex justify-end">
           <button
             onClick={handleNextStep}
-            className="bg-primary hover:bg-primary-dark focus:outline-2 focus:outline-primary w-full xl:w-60 bg-color-dark hover:bg-gray-300 p-4 rounded-lg "
+            className="bg-primary hover:bg-primary-dark focus:outline-2 focus:outline-primary w-full xl:w-60 bg-gray-300 hover:bg-gray-200 p-4 rounded-lg "
           >
             Continuar
           </button>

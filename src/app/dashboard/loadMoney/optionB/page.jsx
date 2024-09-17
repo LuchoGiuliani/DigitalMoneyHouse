@@ -1,5 +1,5 @@
 "use client";
-import LeftSidebar from '@/components/LeftSidebar/LeftSidebar';
+
 import StepOne from '@/components/LoadMoney/StepOne';
 import StepThree from '@/components/LoadMoney/StepThree';
 import StepTwo from '@/components/LoadMoney/StepTwo';
@@ -17,8 +17,8 @@ const Page = () => {
   const [accountData, setAccountData] = useState(null);
   const [accountActivity, setAccountActivity] = useState(null);
   const { token } = useAuth();
-  const [step, setStep] = useState(0); // Estado para manejar los pasos
-  const [selectedCard, setSelectedCard] = useState(null); // Estado para la tarjeta seleccionada
+  const [step, setStep] = useState(0); 
+  const [selectedCard, setSelectedCard] = useState(null); 
 
   const methods = useForm({
     defaultValues: {
@@ -43,7 +43,7 @@ console.log(account_id);
   const handleSelectCard = (card) => {
     setSelectedCard(card);
    
-    handleNextStep(); // Ir al siguiente paso
+    handleNextStep(); 
   };
 
   const handleSubmit = async (data) => {
@@ -51,11 +51,11 @@ console.log(account_id);
     const amountNumber = parseFloat(amount);
     
     try {
-      // Llama a postDeposit pasando todos los parámetros necesarios
+
       await postDeposit(token, account_id, amountNumber);
       console.log(amount);
       
-      handleNextStep(); // Ir al siguiente paso después de enviar los datos
+      handleNextStep(); 
     } catch (error) {
       console.error("Error al enviar el depósito:", error);
     }

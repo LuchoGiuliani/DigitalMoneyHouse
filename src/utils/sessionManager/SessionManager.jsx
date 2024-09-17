@@ -6,44 +6,44 @@ import { toast } from 'sonner';
 import { useAuth } from '@/hooks/useAuth';
 
 const SessionManager = ({ children }) => {
-  const { login } = useAuth() || {}; // Maneja el caso cuando useAuth() puede ser undefined
+  const { login } = useAuth() || {}; 
   const router = useRouter();
 
-  // Configura el temporizador de inactividad (10 minutos)
+  
   const handleOnIdle = () => {
     if (login) {
       logoutUser("inactividad");
     }
   };
 
-  // Configura el temporizador de expiración del token (30 minutos)
+
   useEffect(() => {
     const tokenExpirationTimer = setTimeout(() => {
       if (login) {
         logoutUser("expiracion");
       }
-    }, 1 * 60 * 1000); // 30 minutos en milisegundos
+    }, 1 * 60 * 1000); 
 
     return () => clearTimeout(tokenExpirationTimer);
   }, [login]);
 
-  // Lógica para cerrar sesión
+
   const logoutUser = (reason) => {  
     if (login) {
-      logout(); // Método para desloguear al usuario
+      logout(); 
     }
-    router.push('/'); // Redirigir a la página de inicio
+    router.push('/'); 
     toast(`Tu sesión ha expirado por ${reason}.`, { duration: 5000 });
   };
 
   const { start } = useIdleTimer({
-    timeout: 1 * 60 * 1000, // 10 minutos en milisegundos
+    timeout: 1 * 60 * 1000,
     onIdle: handleOnIdle,
     debounce: 500,
   });
 
   useEffect(() => {
-    start(); // Iniciar el temporizador de inactividad
+    start();
   }, [start]);
 
   return <>{children}</>;

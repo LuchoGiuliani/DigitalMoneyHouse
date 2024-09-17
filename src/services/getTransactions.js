@@ -2,7 +2,7 @@ import axios from "axios";
 
 const BASE_URL = process.env.NEXT_PUBLIC_API_URL
 
-// Function to fetch all transactions related to an account
+
 export const getTransactions = async (
   setAccountData,
   setTransactions,
@@ -58,7 +58,7 @@ export const getTransactions = async (
 };
 }
 
-// Function to add a new transaction to an account
+
 export const addTransaction = async (account_id, transactionData, token) => {
   try {
     const response = await axios.post(
@@ -81,7 +81,7 @@ export const addTransaction = async (account_id, transactionData, token) => {
   }
 };
 
-// Function to delete a transaction (if needed, depending on API support)
+
 export const deleteTransaction = async (account_id, transactionId, token) => {
   try {
     await axios.delete(

@@ -30,7 +30,7 @@ const Activity = () => {
   const indexOfLastItem = currentPage * itemsPerPage;
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
 
-  // Verificación de que accountActivity es un array válido antes de filtrar
+
   const filteredItems = Array.isArray(accountActivity)
     ? accountActivity.filter((activity) => {
         if (!filter) return true;
@@ -57,9 +57,9 @@ const Activity = () => {
       console.error("Activity data is invalid:", activity);
       return;
     }
-    // Guardar la actividad seleccionada y redirigir a la página de detalles
+
     setSelectedActivity(activity);
-    router.push(`/dashboard/activity/activityDetail?id=${activity.id}`); // Pasar el id como query param
+    router.push(`/dashboard/activity/activityDetail?id=${activity.id}`); 
   };
 
   console.log("Current accountActivity:", accountActivity);
@@ -72,7 +72,7 @@ const Activity = () => {
             <div
               key={index}
               onClick={() => handleSelectActivity(activity)}
-              className="flex justify-between items-start border-y py-2"
+              className="flex justify-between items-start border-y py-2 cursor-pointer"
             >
               <div className="flex items-center gap-2">
                 <div className="w-4 h-4 rounded-full bg-color-primary"></div>

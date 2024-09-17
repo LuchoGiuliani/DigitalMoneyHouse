@@ -3,7 +3,6 @@ import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import Cards from "react-credit-cards-2";
 import "react-credit-cards-2/dist/es/styles-compiled.css";
-import LeftSidebar from "@/components/LeftSidebar/LeftSidebar";
 import { addCard, getCards } from "@/services/getCards";
 import { useAuth } from "@/hooks/useAuth";
 import getAccountId from "@/services/getAccountId";

@@ -1,16 +1,15 @@
 "use client";
-import LeftSidebar from "@/components/LeftSidebar/LeftSidebar";
+
 import Link from "next/link";
 import React, { useEffect, useState } from "react";
 import dayjs from "dayjs";
 import getAccountActivity from "@/services/getAccountActivity";
 import { useAuth } from "@/hooks/useAuth";
 import Image from "next/image";
-import search from "../../../public/search.svg";
 import "dayjs/locale/es";
 import Activity from "@/components/Activity/Activity";
 import SearchFormActivity from "@/components/SearchFormActivity/SearchFormActivity";
-import Filter from "@/components/Filter/Filter";
+
 dayjs.locale("es");
 
 const Page = () => {
