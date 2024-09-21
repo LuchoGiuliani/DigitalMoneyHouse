@@ -140,7 +140,7 @@ const Page = () => {
         position="bottom-right"
       />
       <section className="flex">
-        <div className="min-h-screen px-6 py-4 flex flex-col gap-4 w-full">
+        <div className="min-h-screen px-6 py-6 tablet:px-[79px] tablet:py-[40px] flex flex-col gap-4 w-full">
         <div className="flex gap-2 tablet:hidden">
           <Image
            src="/arrowGray.svg"
@@ -164,7 +164,7 @@ const Page = () => {
                   name="email"
                   value={formState.email || ""}
                   disabled
-                  className="bg-white text-gray-300 py-1"
+                  className="bg-white text-gray-300 py-1 w-full"
                 />
               </div>
             </div>

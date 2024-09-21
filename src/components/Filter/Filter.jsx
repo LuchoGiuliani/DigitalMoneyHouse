@@ -1,20 +1,19 @@
 "use client";
 import { useActivity } from "@/context/activityContext";
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import dayjs from "dayjs";
 import isBetween from "dayjs/plugin/isBetween";
 import isYesterday from "dayjs/plugin/isYesterday";
 import isToday from "dayjs/plugin/isToday";
 import "dayjs/locale/es";
-import { usePathname, useRouter } from "next/navigation";
+import { usePathname } from "next/navigation";
 
 dayjs.extend(isBetween);
 dayjs.extend(isYesterday);
 dayjs.extend(isToday);
 
 const Filter = () => {
-  
   const { register, handleSubmit, reset } = useForm();
   const {
     setAccountActivity,
@@ -23,23 +22,22 @@ const Filter = () => {
     openFilter,
     setOpenFilter,
     filter,
-    setFilter
+    setFilter,
+    setOriginalAccountActivity,
+    originalAccountActivity,
   } = useActivity();
   const pathname = usePathname();
-  const router = useRouter();
   const isDashboardPage = pathname === "/dashboard";
- console.log("accountActivityFilter", accountActivity);
- 
+
   useEffect(() => {
- 
-    if (filter) {
-      setAccountActivity(accountData);
-    } 
-  }, [filter, accountData, setAccountActivity]);
+    if (!originalAccountActivity && accountActivity.length) {
+      setOriginalAccountActivity(accountActivity);
+    }
+  }, [accountActivity, originalAccountActivity, setOriginalAccountActivity]);
 
   const clearFilter = () => {
     setFilter("");
-    setAccountActivity(Array.isArray(accountData) ? accountData : []);
+    setAccountActivity(originalAccountActivity || accountData);
     reset();
     setOpenFilter(false);
   };
@@ -47,33 +45,34 @@ const Filter = () => {
   const applyFilter = (data) => {
     const { period } = data;
 
-  if (!Array.isArray(accountActivity)) {
-    console.error("accountActivity no es un array");
-    return;
-  }
-
-  const filteredActivities = accountActivity.filter((activity) => {
-    const activityDate = dayjs(activity.dated, "YYYY-MM-DDTHH:mm:ss.SSSZ"); // Asegúrate de que el formato sea correcto
-
-    switch (period) {
-      case "today":
-        return activityDate.isToday();
-      case "yesterday":
-        return activityDate.isYesterday();
-      case "lastWeek":
-        return activityDate.isBetween(dayjs().subtract(1, "week"), dayjs());
-      case "lastMonth":
-        return activityDate.isBetween(dayjs().subtract(1, "month"), dayjs());
-      case "lastYear":
-        return activityDate.isBetween(dayjs().subtract(1, "year"), dayjs());
-      default:
-        return true;
+    if (!Array.isArray(accountActivity)) {
+      console.error("accountActivity no es un array");
+      return;
     }
-  });
 
-  setAccountActivity(filteredActivities);
-  setFilter(period);
-};
+    const filteredActivities = accountActivity.filter((activity) => {
+      const activityDate = dayjs(activity.dated, "YYYY-MM-DDTHH:mm:ss.SSSZ");
+
+      switch (period) {
+        case "today":
+          return activityDate.isToday();
+        case "yesterday":
+          return activityDate.isYesterday();
+        case "lastWeek":
+          return activityDate.isBetween(dayjs().subtract(1, "week"), dayjs());
+        case "lastMonth":
+          return activityDate.isBetween(dayjs().subtract(1, "month"), dayjs());
+        case "lastYear":
+          return activityDate.isBetween(dayjs().subtract(1, "year"), dayjs());
+        default:
+          return true;
+      }
+    });
+
+    setAccountActivity(filteredActivities);
+    setFilter(period);
+  };
+
   return (
     <div
       className={` ${

@@ -26,21 +26,21 @@ const LoginForm = () => {
     return (
     <FormProvider {...methods}>
       
-  <form className="flex flex-col gap-4" onSubmit={handleSubmit(onSubmit)}>
+  <form className="flex flex-col gap-4 tablet:min-w-72 pt-6" onSubmit={handleSubmit(onSubmit)}>
     <input
       {...methods.register("email")}
       placeholder="Correo electrónico"
       type="email"
-      autoComplete="off"
-      className={`rounded-md p-2 ${errors.email ? "border border-red-600" : "border border-gray-300"}`}
+      autoComplete="on"
+      className={`rounded-md p-4 ${errors.email ? "border border-red-600" : "border border-gray-300"}`}
     />
     {errors.email && (
       <p className="text-red-600 italic">{errors.email.message}</p>
     )}
-    <button className="w-full p-2 rounded-md bg-color-primary font-semibold" type="submit">
+    <button className="w-full p-4 rounded-md bg-color-primary font-semibold" type="submit">
       Continuar
     </button>
-    <Link href="/register" className="w-full text-center p-2 rounded-md bg-[#CECECE] font-semibold">
+    <Link href="/register" className="w-full text-center p-4 rounded-md bg-[#CECECE] font-semibold">
       Crear cuenta
     </Link>
   </form>

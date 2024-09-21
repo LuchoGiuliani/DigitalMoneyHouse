@@ -12,7 +12,7 @@ const LeftSidebar = () => {
   
 
   return (
-    <main className='tablet:flex flex-col min-h-screen bg-color-primary w-fit min-w-[220px] p-4 gap-2 hidden '>
+    <main className='tablet:flex flex-col min-h-screen bg-color-primary w-fit min-w-[276px] tablet:p-[40px] gap-2 hidden '>
       <Link href="/dashboard" className={pathname === '/dashboard' ? 'font-bold' : ''}>
         Inicio
       </Link>

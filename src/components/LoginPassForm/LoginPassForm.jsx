@@ -44,7 +44,7 @@ const LoginPassForm = () => {
 
   return (
     <FormProvider {...methods}>
-      <form className="flex flex-col gap-4" onSubmit={handleSubmit(onSubmit)}>
+      <form className="flex flex-col gap-4 pt-4 tablet:min-w-72" onSubmit={handleSubmit(onSubmit)}>
         <input
           {...methods.register("email")}
           placeholder="Correo electrónico"
@@ -58,10 +58,10 @@ const LoginPassForm = () => {
           placeholder="Contraseña"
           type="password"
           autoComplete="current-password"
-          className="p-2 rounded-md"
+          className="p-4 rounded-md"
         />
-        <button className="p-2 rounded-md bg-color-primary" type="submit">
-          Ingresar
+        <button className="p-4 rounded-md bg-color-primary font-bold" type="submit">
+          Continuar
         </button>
         {serverError && (
           <div className="text-red-600 italic">{serverError}</div>

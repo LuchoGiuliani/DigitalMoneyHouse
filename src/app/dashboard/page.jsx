@@ -29,11 +29,10 @@ const Page = () => {
     return <div>Cargando...</div>;
   }
   return (
-    <main>
-      <section className="flex text-[16px] tablet:text-[24px] min-h-screen">
-       
-        <div className=" px-6 py-4 flex flex-col gap-2 w-full bg-[#EEEAEA]">
-        <div className="flex gap-2 tablet:hidden">
+    <main className="">
+      <section className="flex text-[16px] tablet:text-[24px] min-h-screen ">      
+        <div className="px-6 py-6 tablet:px-[79px] tablet:py-[40px] flex flex-col gap-2 w-full bg-[#EEEAEA]">
+        <div className="flex gap-2 tablet:hidden ">
           <Image
            src="/arrowGray.svg"
            width={12}
@@ -43,26 +42,26 @@ const Page = () => {
            <h3 className="underline text-color-dark">Inicio</h3>
         </div>
           {accountData && (
-            <article className="bg-color-darker p-4 rounded-lg drop-shadow-lg">
+            <article className="bg-color-darker p-4 rounded-lg drop-shadow-lg tablet:min-h-[230px] ">
               <div className="flex justify-end gap-2">
                 <Link
-                  className="text-white underline hover:text-color-primary"
+                  className="text-white underline hover:text-color-primary text-[16px]"
                   href="/dashboard/cards"
                 >
                   Ver tarjetas
                 </Link>
                 <Link
-                  className="text-white underline hover:text-color-primary"
+                  className="text-white underline hover:text-color-primary text-[16px]"
                   href="/dashboard/profile"
                 >
                   Ver CVU
                 </Link>
               </div>
               <div>
-                <h3 className="text-white p-2 font-bold tablet:text-2xl">
+                <h3 className="text-white p-2 font-bold tablet:text-[24px]">
                   Dinero disponible
                 </h3>
-                <h1 className="text-white border border-color-primary w-fit p-2 rounded-full text-[24px] tablet:text-4xl font-bold">
+                <h1 className="text-white border border-color-primary w-fit p-2 rounded-full text-[24px] tablet:text-[46px] font-bold">
                   ${" "}
                   {accountData.available_amount.toLocaleString("es-AR", {
                     minimumFractionDigits: 2,
@@ -74,13 +73,13 @@ const Page = () => {
           )}
           <article className="flex gap-2 justify-center items-center flex-col desktop:flex-row">
             <Link
-              className="bg-color-primary w-full text-center p-4  font-bold rounded-lg drop-shadow-lg hover:scale-95"
+              className="bg-color-primary w-full text-center p-4  font-bold rounded-lg drop-shadow-lg "
               href="/dashboard/loadMoney"
             >
               Cargar dinero
             </Link>
             <Link
-              className="bg-color-primary w-full text-center p-4  font-bold rounded-lg drop-shadow-lg hover:scale-95"
+              className="bg-color-primary w-full text-center p-4  font-bold rounded-lg drop-shadow-lg "
               href="/dashboard/payServices"
             >
               Pago de servicios

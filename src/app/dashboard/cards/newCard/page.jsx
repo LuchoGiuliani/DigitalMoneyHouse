@@ -75,8 +75,9 @@ const Page = () => {
 
   return (
     <div>
-      <div className="flex  min-h-screen">
-        <div className="px-8 py-6 w-full flex flex-col items-center">
+      <div className="flex  min-h-screen ">
+        <div className="px-2 py-6 tablet:px-[96px] tablet:py-[58px] w-full flex flex-col  items-center bg-[#EEEAEA]">
+          <div className="bg-[#FFFFFF] rounded-lg py-12 px-12 w-full flex flex-col justify-center items-center gap-4">
           <Cards
             number={state.number}
             expiry={state.expiry}
@@ -88,7 +89,7 @@ const Page = () => {
             className="flex flex-col  gap-4 tablet:items-end w-full mobile:w-fit"
             onSubmit={handleSubmit}
           >
-            <div className="grid tablet:grid-cols-2 gap-4 w-full mobile:w-fit p-2  ">
+            <div className="grid tablet:grid-cols-2 gap-9 w-full mobile:w-fit  ">
               <input
                 type="text"
                 name="number"
@@ -96,7 +97,7 @@ const Page = () => {
                 value={state.number}
                 onChange={handleInputChange}
                 onFocus={handleInputFocus}
-                className="p-2 rounded-md drop-shadow-lg w-full "
+                className="p-2 rounded-md drop-shadow-lg w-full  "
               />
              
                 <input
@@ -130,11 +131,12 @@ const Page = () => {
             </div>
             <button
               type="submit"
-              className="bg-gray-300 p-4 rounded-md w-fit hover:bg-color-primary hover:scale-95"
+              className="bg-gray-300 p-4 mt-3 rounded-md w-fit hover:bg-color-primary hover:scale-95 tablet:min-w-[360px]"
             >
               Continuar
             </button>
           </form>
+        </div>
         </div>
       </div>
     </div>

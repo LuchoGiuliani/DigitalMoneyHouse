@@ -10,18 +10,21 @@ html, body {
 }
 
 .background_hero {
-  background-image: url("/bg-hero.png");
+  background-image: url("/bg_hero.png");
   background-repeat: no-repeat;
-  background-size: cover;
+  background-size:cover;
   background-position: center;
   width: 100%;
-  height: 86vh;
+  height: 100%;
+  background-color: #201F22; 
+ 
  
 }
 
-@media (min-width: 594px) {
+@media (min-width: 1594px) {
   .background_hero {
-    background-image: url("/bg_hero.png");
+    background-image: url("/bg-hero.png");
+    
     
   }
 }

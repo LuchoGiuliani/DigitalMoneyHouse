@@ -18,11 +18,13 @@ export default function RootLayout({ children }) {
       
         <link rel="icon" href="/logoNavegador.svg" type="image/x-icon" />
       </head>
-      <body className={`${open_sans.className}  flex flex-col`}>
+      <body className={`${open_sans.className} flex flex-col min-h-screen`}>
         <AppProvider>
+         
           <Navbar />
-          <main className="">{children}</main>
+          <main className="flex-grow  ">{children}</main>
           <Footer />
+      
         </AppProvider>
       </body>
     </html>

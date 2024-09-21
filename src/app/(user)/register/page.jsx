@@ -177,7 +177,7 @@ const Page = () => {
             )}
             </div>
             <button
-              className="bg-color-primary rounded-md text-center max-w-[300px] w-full"
+              className="bg-color-primary rounded-md text-center max-w-[300px] w-full max-h-[50px]"
               type="submit"
             >
               Crear Cuenta

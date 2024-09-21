@@ -17,36 +17,56 @@ const Activity = () => {
   const router = useRouter();
   const pathname = usePathname();
   const [selectedActivity, setSelectedActivity] = useState(null);
+  
   const {
     accountData,
     accountActivity,
     setAccountActivity,
+    originalAccountActivity,       // Referencia al estado original
+    setOriginalAccountActivity,    // Setter del estado original
     setAccountData,
     setCurrentPage,
     currentPage,
     filter,
   } = useActivity();
 
-  const itemsPerPage = 10;
+  const itemsPerPage = pathname === "/dashboard" ? 4 : 10;
+ 
   const indexOfLastItem = currentPage * itemsPerPage;
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
 
   // Filtrar las actividades según el tipo especificado en el filtro
   const filteredItems = Array.isArray(accountActivity)
-    ? accountActivity.filter((activity) => {
-        if (!filter) return true;
-        return activity.type === filter;
-      })
-    : [];
+  ? accountActivity.filter((activity) => {
+      if (!filter) return true;
+
+      const lowerCaseFilter = filter.toLowerCase();
+
+      // Concatenar los valores relevantes de la actividad en una sola cadena
+      const activityText = `
+        ${activity.type} 
+        ${activity.description || ""} 
+        ${activity.destination || ""} 
+        ${activity.origin || ""}
+      `.toLowerCase();
+
+      // Comparar la cadena con el filtro
+      return activityText.includes(lowerCaseFilter);
+    })
+  : [];
 
   const currentItems = filteredItems.slice(indexOfFirstItem, indexOfLastItem);
   const { token } = useAuth();
 
   useEffect(() => {
     if (token) {
-      getAccountActivity(setAccountData, (data) => setAccountActivity(data), token);
+      // Guarda una copia de las actividades originales
+      getAccountActivity(setAccountData, (data) => {
+        setAccountActivity(data);
+        setOriginalAccountActivity(data); // Guarda el estado original aquí
+      }, token);
     }
-  }, [token, setAccountData, setAccountActivity]);
+  }, [token, setAccountData, setAccountActivity, setOriginalAccountActivity]);
 
   const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
@@ -95,7 +115,7 @@ const Activity = () => {
             </div>
           ))
         ) : (
-          <p>No hay actividades para mostrar.</p>
+          <p className="text-[16px] font-thin">No hay actividades para mostrar.</p>
         )}
       </div>
       {isDashboard ? (
@@ -103,7 +123,7 @@ const Activity = () => {
           className="flex justify-between font-bold py-2"
           href={"/dashboard/activity"}
         >
-          <h3 className="hover:scale-95">Ver toda tu actividad</h3>
+          <h3 className="hover:scale-95 text-[20px]">Ver toda tu actividad</h3>
           <Image
             src={"/arrowBlack.svg"}
             width={20}
