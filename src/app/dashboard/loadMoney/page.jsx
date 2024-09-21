@@ -29,7 +29,7 @@ const page = () => {
           <Image src={"/cardIcon.svg"} width={26} height={26} className='w-auto h-auto' alt='cardIcon' />
          <h2>Seleccionar tarjeta</h2>
          </div>
-         <Image src={"/arrow.png"} width={26} height={26} className='w-auto h-auto' alt='arrow' />
+         <Image src={"/arrow.svg"} width={26} height={26} className='w-auto h-auto' alt='arrow' />
 
           </Link>
       </div>
