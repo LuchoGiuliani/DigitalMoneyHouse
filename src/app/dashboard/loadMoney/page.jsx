@@ -21,7 +21,7 @@ const page = () => {
           <Image src={"/userIcon.svg"} width={26} height={26} className='w-auto h-auto' alt='userIcon' />
          <h2>Transferencia bancaria</h2>
           </div>
-          <Image src={"/arrow.png"} width={26} height={26} className='w-auto h-auto' alt='arrow' />
+          <Image src={"/arrow.svg"} width={26} height={26} className='w-auto h-auto' alt='arrow' />
 
           </Link>
           <Link className='bg-color-darker drop-shadow-lg rounded-lg  font-bold gap-2 text-color-primary flex justify-between items-center p-6  min-h-[200px]' href={"/dashboard/loadMoney/optionB"}>

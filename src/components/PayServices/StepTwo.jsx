@@ -2,40 +2,68 @@ import React, { useEffect, useState } from "react";
 import useCards from "@/hooks/useCards"; // Hook para traer las tarjetas
 import { useAuth } from "@/hooks/useAuth";
 import getAccountActivity from "@/services/getAccountActivity";
+import { addTransaction } from "@/services/getTransactions"; // Import the addTransaction function
+import dayjs from "dayjs";
 
-const StepTwo = ({ serviceData, handleBackStep, handleNextStep }) => {
+const StepTwo = ({ serviceData, handleBackStep, handleNextStep,handleSelectCardInStepThree  }) => {
   const { name, invoice_value } = serviceData;
   const [accountData, setAccountData] = useState(null);
   const [accountActivity, setAccountActivity] = useState(null);
+  const [selectedCard, setSelectedCard] = useState(null); // To keep track of the selected card
   const { token } = useAuth();
-  
-  
+  const date = new Date();
+  const formattedDate = dayjs(date).toISOString();
+  console.log(accountData);
   
   const account_id = accountData?.id;
-  
   const { cards } = useCards(account_id); // Hook que trae las tarjetas asociadas
-  console.log(cards);
 
- useEffect(() => {
-   if (token) {
-     getAccountActivity(setAccountData, setAccountActivity, token);
-   }
- }, [token, account_id]);
+  useEffect(() => {
+    if (token) {
+      getAccountActivity(setAccountData, setAccountActivity, token);
+    }
+  }, [token, account_id]);
 
   const handleSelectCard = (card) => {
-    // Al seleccionar una tarjeta, pasa al siguiente paso
-    handleNextStep();
+    setSelectedCard(card); // Set the selected card when a user clicks
+    handleSelectCardInStepThree(card);
+  };
+
+  const handlePayment = async () => {
+    if (!selectedCard) {
+      alert("Por favor, selecciona una tarjeta para continuar.");
+      return;
+    }
+
+    // Create transaction data
+    const transactionData = {
+      amount: -Math.abs(invoice_value),
+      dated: formattedDate,
+      destination: "string",
+      origin: accountData.cvu
+    }
+
+    try {
+      // Call the addTransaction function to make the transaction
+      await addTransaction(account_id, transactionData, token);
+
+      // If successful, move to the next step
+      handleNextStep();
+    } catch (error) {
+      console.error("Error processing payment:", error);
+      alert("Error al procesar el pago. Inténtalo de nuevo.");
+    }
   };
 
   return (
     <main className="bg-color-gray flex flex-col gap-2">
       <article className="bg-color-darker rounded-lg drop-shadow-lg flex flex-col gap-4 tablet:p-[50px]">
-        <div className=" flex justify-between  ">
+        <div className="flex justify-between">
           <h1 className="text-color-primary font-bold text-[24px]">{name}</h1>
           <button className="underline text-white">Ver detalles del pago</button>
         </div>
-        <div className="border-t flex  justify-between pt-4">
-          <h1 className="text-white font-bold text-[32px] ">Total a pagar</h1>
+        <div className="border-t flex justify-between pt-4">
+          <h1 className="text-white font-bold text-[32px]">Total a pagar</h1>
           <h1 className="text-white font-bold text-[32px]">${invoice_value}</h1>
         </div>
       </article>
@@ -52,9 +80,17 @@ const StepTwo = ({ serviceData, handleBackStep, handleNextStep }) => {
               >
                 <div className="flex gap-4">
                   <div className="rounded-full h-6 w-6 bg-color-primary"></div>
-                  <h2 className="font-thin">Terminada en {card.cod.toString().slice(-4)}</h2>
+                  <h2 className="font-thin">
+                    Terminada en {card.cod.toString().slice(-4)}
+                  </h2>
                 </div>
-                <span className="font-semibold">Seleccionar</span>
+                <span
+                  className={`font-semibold ${
+                    selectedCard?.id === card.id ? "text-color-primary" : ""
+                  }`}
+                >
+                  {selectedCard?.id === card.id ? "Seleccionada" : "Seleccionar"}
+                </span>
               </div>
             ))
           ) : (
@@ -62,10 +98,14 @@ const StepTwo = ({ serviceData, handleBackStep, handleNextStep }) => {
           )}
         </div>
       </article>
-<div className="flex justify-end">
-      <button className="bg-color-primary rounded-lg text-color-darker w-fit px-10  py-4 drop-shadow-lg" onClick={handleNextStep}>
-        Pagar
-      </button>
+
+      <div className="flex justify-end">
+        <button
+          className="bg-color-primary rounded-lg text-color-darker w-fit px-10 py-4 drop-shadow-lg"
+          onClick={handlePayment} // Call handlePayment on button click
+        >
+          Pagar
+        </button>
       </div>
     </main>
   );

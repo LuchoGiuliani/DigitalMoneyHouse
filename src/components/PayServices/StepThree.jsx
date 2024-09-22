@@ -4,7 +4,7 @@ import React from "react";
 import { useFormContext } from "react-hook-form";
 import dayjs from "dayjs";
 
-const StepThree = ({ serviceData }) => {
+const StepThree = ({ serviceData, card }) => {
   const { getValues } = useFormContext();
   const date = new Date();
   const formattedDate = dayjs(date).format('DD/MM/YYYY');
@@ -14,6 +14,8 @@ const StepThree = ({ serviceData }) => {
   const handleBackToDashboard = () => {
     router.push("/dashboard");
   };
+  console.log(card);
+  
 
   return (
     <section className="flex flex-col gap-5 text-white">
@@ -22,10 +24,10 @@ const StepThree = ({ serviceData }) => {
         <h2 className="text-xl text-black font-bold">Ya realizaste tu pago</h2>
       </div>
 
-      <div className="bg-black-primary p-5 xl:pt-9 xl:pl-16 xl:pb-11 rounded-lg">
+      <div className="bg-black-primary p-5 xl:pt-9 xl:pl-16 xl:pb-11 rounded-lg bg-color-darker">
         <div className="flex flex-col gap-2 mb-8">
           <p className="text-white font-normal">{formattedDate}</p>
-          <span className="font-bold text-base text-color-primary">${amount}</span>
+          <span className="font-bold text-base text-color-primary">${serviceData?.invoice_value}</span>
         </div>
         <div className="flex flex-col gap-2 mb-6">
           <p className="font-normal">Para</p>
@@ -33,7 +35,7 @@ const StepThree = ({ serviceData }) => {
         </div>
         <div className="flex flex-col gap-2">
           <p>Tarjeta</p>
-          <p>Número de tarjeta</p>
+          <p>{card.cod.toString().slice(-4)}</p>
         </div>
       </div>
 
