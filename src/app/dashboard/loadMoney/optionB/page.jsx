@@ -29,7 +29,7 @@ const Page = () => {
 
   const account_id = accountData?.id;
   const { cards } = useCards(account_id);
-console.log(account_id);
+
 
   useEffect(() => {
     if (token) {
@@ -53,7 +53,7 @@ console.log(account_id);
     try {
 
       await postDeposit(token, account_id, amountNumber);
-      console.log(amount);
+     
       
       handleNextStep(); 
     } catch (error) {
@@ -86,7 +86,7 @@ console.log(account_id);
                           <div className="rounded-full h-6 w-6 bg-color-primary"></div>
                           <h2 className='font-thin'>Terminada en {card.cod.toString().slice(-4)}</h2>
                         </div>
-                        <span className="font-semibold">Seleccionar</span>
+                        <span className="text-[14px] tablet:text-[16px]">Seleccionar</span>
                       </div>
                     ))
                   ) : (

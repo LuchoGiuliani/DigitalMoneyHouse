@@ -5,11 +5,11 @@ const StepOne = ({ handleNextStep }) => {
   const { control } = useFormContext();
   return (
     <section className="flex min-h-fit">
-      <div className="bg-color-darker p-8 rounded-lg flex flex-col gap-2 w-full ">
-        <h1 className="text-color-primary font-bold text-[24px]">
+      <div className="bg-color-darker tablet:p-8 rounded-lg flex flex-col gap-2 w-full ">
+        <h1 className="text-color-primary font-bold text-[14px] tablet:text-[22px]">
           ¿Cuánto quéres ingresar a la cuenta?
         </h1>
-        <div className="w-[360px] p-5 flex flex-row gap-2 items-center rounded-lg bg-white text-black mt-11">
+        <div className="tablet:w-[360px] p-5 flex flex-row gap-2 items-center rounded-lg bg-white text-black mt-11">
           <span className="text-md text-black/50">$</span>
           <Controller
             name="amount"

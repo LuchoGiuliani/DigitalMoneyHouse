@@ -19,7 +19,7 @@ const StepThree = ({ cvu }) => {
     <section className="flex flex-col gap-5 text-white ">
       <div className="w-full flex flex-col gap-3 items-center justify-center bg-primary py-4 rounded-lg bg-color-primary">
         <Image src={"/checkBlack.svg"} width={12} height={12} className="fill-black w-auto h-auto" alt="imagen" />
-        <h2 className="text-xl text-black font-bold">
+        <h2 className="text-[16px] tablet:text-[24px] text-center text-black font-bold">
           Ya cargamos el dinero en tu cuenta
         </h2>
       </div>
