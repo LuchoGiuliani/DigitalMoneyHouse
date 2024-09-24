@@ -28,7 +28,7 @@ const SearchFormActivity = () => {
     const searchTerm = data.searchTerm.toLowerCase();
 
     if (!searchTerm) {
-      // Si no hay término de búsqueda, restauramos las actividades originales
+    
       setAccountActivity(originalAccountActivity || accountData);
       setFilter(null);
       return;
@@ -39,7 +39,7 @@ const SearchFormActivity = () => {
       return;
     }
 
-    // Filtrar actividades basadas en el término de búsqueda
+   
     const filteredActivities = originalAccountActivity.filter((activity) => {
       const description = activity.description.toLowerCase();
       const destination = activity.destination?.toLowerCase() || "";

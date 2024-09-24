@@ -14,11 +14,11 @@ const StepThree = ({ serviceData, card }) => {
   const handleBackToDashboard = () => {
     router.push("/dashboard");
   };
-  console.log(card);
+ 
   
 
   return (
-    <section className="flex flex-col gap-5 text-white">
+    <section className="flex flex-col gap-5 text-white p-6">
       <div className="w-full flex flex-col gap-3 items-center justify-center bg-primary py-4 rounded-lg bg-color-primary">
         <Image src={"/checkBlack.svg"} width={12} height={12} className="fill-black w-auto h-auto" alt="imagen" />
         <h2 className="text-xl text-black font-bold">Ya realizaste tu pago</h2>
@@ -35,7 +35,7 @@ const StepThree = ({ serviceData, card }) => {
         </div>
         <div className="flex flex-col gap-2">
           <p>Tarjeta</p>
-          <p>{card.cod.toString().slice(-4)}</p>
+          <p>****{card.cod.toString().slice(-4)}</p>
         </div>
       </div>
 

@@ -76,15 +76,18 @@ const Page = () => {
   return (
     <div>
       <div className="flex  min-h-screen ">
-        <div className="px-2 py-6 tablet:px-[96px] tablet:py-[58px] w-full flex flex-col  items-center bg-[#EEEAEA]">
-          <div className="bg-[#FFFFFF] rounded-lg py-12 px-12 w-full flex flex-col justify-center items-center gap-4">
+        <div className="px-6 py-6 tablet:px-[96px] tablet:py-[58px] w-full flex flex-col  items-center bg-[#EEEAEA]">
+          <div className="bg-[#FFFFFF] rounded-lg py-12 px-6 tablet:px-12 w-full flex flex-col justify-center items-center gap-4">
+            <div className="drop-shadow-lg mb-4"> 
           <Cards
             number={state.number}
             expiry={state.expiry}
             cvc={state.cvc}
             name={state.name}
             focused={state.focus}
+            
           />
+          </div>
           <form
             className="flex flex-col  gap-4 tablet:items-end w-full mobile:w-fit"
             onSubmit={handleSubmit}
@@ -131,7 +134,7 @@ const Page = () => {
             </div>
             <button
               type="submit"
-              className="bg-gray-300 p-4 mt-3 rounded-md w-fit hover:bg-color-primary hover:scale-95 tablet:min-w-[360px]"
+              className="bg-gray-300 p-4 mt-3 rounded-md w-fit hover:bg-color-primary hover:scale-95 min-w-[239px]"
             >
               Continuar
             </button>

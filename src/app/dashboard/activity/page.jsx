@@ -10,26 +10,26 @@ import { useEffect, useState } from "react";
 const Page = () => {
   const [accountData, setAccountData] = useState(null);
   const [accountActivity, setAccountActivity] = useState(null);
-  const [originalAccountActivity, setOriginalAccountActivity] = useState(null); // Para restaurar las actividades originales
+  const [originalAccountActivity, setOriginalAccountActivity] = useState(null); 
   const [loading, setLoading] = useState(true);
   const { token } = useAuth();
-  const [filter, setFilter] = useState(""); // Estado para el filtro de texto
-  const [periodFilter, setPeriodFilter] = useState(null); // Estado para el filtro de fecha
+  const [filter, setFilter] = useState(""); 
+  const [periodFilter, setPeriodFilter] = useState(null); 
 
   useEffect(() => {
     if (token) {
       getAccountActivity(setAccountData, (activities) => {
         setAccountActivity(activities);
-        setOriginalAccountActivity(activities); // Guardamos las actividades originales
+        setOriginalAccountActivity(activities);
       }, token).finally(() => setLoading(false));
     }
   }, [token]);
 
-  // Función para aplicar los filtros (texto y fecha)
+  
   const applyFilters = () => {
-    let filteredActivities = [...originalAccountActivity]; // Trabajamos sobre las actividades originales
+    let filteredActivities = [...originalAccountActivity]; 
 
-    // Filtrar por búsqueda de texto
+   
     if (filter) {
       filteredActivities = filteredActivities.filter((activity) => {
         const lowerCaseFilter = filter.toLowerCase();
@@ -44,7 +44,7 @@ const Page = () => {
       });
     }
 
-    // Filtrar por período (fecha)
+   
     if (periodFilter) {
       filteredActivities = filteredActivities.filter((activity) => {
         const activityDate = dayjs(activity.dated, "YYYY-MM-DDTHH:mm:ss.SSSZ");
@@ -66,22 +66,22 @@ const Page = () => {
       });
     }
 
-    // Actualizar la actividad filtrada
+   
     setAccountActivity(filteredActivities);
   };
 
-  // Aplicar los filtros cada vez que cambien
+ 
   useEffect(() => {
     if (originalAccountActivity) {
       applyFilters();
     }
   }, [filter, periodFilter, originalAccountActivity]);
 
-  // Función para limpiar los filtros y restaurar las actividades originales
+ 
   const clearFilters = () => {
-    setFilter(""); // Limpiamos el filtro de texto
-    setPeriodFilter(null); // Limpiamos el filtro de fecha
-    setAccountActivity(originalAccountActivity); // Restauramos las actividades originales
+    setFilter(""); 
+    setPeriodFilter(null); 
+    setAccountActivity(originalAccountActivity); 
   };
 
   return (
@@ -98,20 +98,13 @@ const Page = () => {
             />
             <h3 className="underline text-color-dark">Tu actividad</h3>
           </div>
-
-          {/* Componente de búsqueda por texto */}
           <SearchFormActivity setFilter={setFilter} />
-
           <div className="w-full h-full bg-white rounded-lg drop-shadow-lg p-4">
             <h2 className="font-bold pb-6">Tu actividad</h2>
-
-            {/* Componente de lista de actividades */}
             <Activity accountActivity={accountActivity} />
           </div>
         </div>
       </section>
-
-      {/* Componente de filtro por fechas */}
       <Filter setPeriodFilter={setPeriodFilter} clearFilters={clearFilters} />
     </main>
   );

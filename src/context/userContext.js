@@ -13,7 +13,7 @@ export const UserProvider = ({ children }) => {
   const [accountData, setAccountData] = useState(null);
   const [user_id, setUserId] = useState(null);
   const router = useRouter()
-console.log("userData del useUser", userData);
+
 
 
   useEffect(() => {

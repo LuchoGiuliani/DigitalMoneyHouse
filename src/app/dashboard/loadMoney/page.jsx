@@ -4,9 +4,8 @@ import React from 'react'
 
 const page = () => {
   return (
-    <div className='flex min-h-screen'>
-   
-      <div className='bg-color-gray w-full px-12 py-6 flex flex-col gap-4'>
+    <div className='flex min-h-screen'>  
+      <div className='bg-color-gray w-full px-12 py-6 tablet:py-12 flex flex-col gap-4'>
       <div className="flex gap-2 tablet:hidden">
           <Image
            src="/arrowGray.svg"

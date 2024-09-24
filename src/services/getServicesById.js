@@ -9,16 +9,16 @@ const getServicesById = async (id) => {
         "Content-Type": "application/json",
       },
     });
-    console.log(response.data);
+   
 
     if (!response.data) {
       throw new Error("Error al obtener los detalles de la cuenta");
     }
 
-    return response.data; // Devuelve los datos
+    return response.data; 
   } catch (error) {
     console.error("Error:", error);
-    throw error; // Lanza el error para que el componente lo maneje
+    throw error; 
   }
 };
 

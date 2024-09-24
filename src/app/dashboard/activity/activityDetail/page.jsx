@@ -10,11 +10,9 @@ const ActivityDetailContent = () => {
   const searchParams = useSearchParams(); 
   const id = searchParams.get("id"); 
   const { accountActivity } = useActivity(); 
-
   const [activityDetails, setActivityDetails] = useState(null);
 
   useEffect(() => {
-   
     if (id && accountActivity.length > 0) {
       const selectedActivity = accountActivity.find(
         (activity) => activity.id === parseInt(id)

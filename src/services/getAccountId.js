@@ -23,7 +23,7 @@ const getAccountId = async (token) => {
   
       const account_id = responseAccountDetail.data.id;
   
-      console.log("account_id:", account_id);
+     
   
       return account_id;
     } catch (error) {

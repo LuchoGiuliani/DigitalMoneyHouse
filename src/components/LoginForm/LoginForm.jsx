@@ -17,9 +17,7 @@ const LoginForm = () => {
     const { setEmail } = useEmail();
 
     const onSubmit = (data) => {
-        setEmail(data.email); 
-    
-        
+        setEmail(data.email);  
         router.push('/login/loginPassword');
     }
 

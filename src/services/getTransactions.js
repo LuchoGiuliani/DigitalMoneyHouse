@@ -28,7 +28,7 @@ export const getTransactions = async (
     setAccountData(responseAccountDetail.data);
     account_id = responseAccountDetail.data.id;
 
-    console.log(account_id);
+   
   } catch (error) {
     console.error(error);
     return;

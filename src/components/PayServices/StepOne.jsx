@@ -2,15 +2,15 @@ import React from "react";
 import { useFormContext } from "react-hook-form";
 
 const StepOne = ({ service, handleNextStep }) => {
-  const { register, handleSubmit, formState: { errors } } = useFormContext(); // Añadido formState para capturar errores de validación
+  const { register, handleSubmit, formState: { errors } } = useFormContext(); 
 
   const onSubmit = (data) => {
-    console.log("Datos del formulario StepOne: ", data);
-    handleNextStep(); // Pasa al siguiente paso
+  
+    handleNextStep(); 
   };
 
   return (
-    <main className="bg-color-gray tablet:px-16 tablet:py-8">
+    <main className="bg-color-gray px-4 py-4 tablet:px-16 tablet:py-8">
       <div className="bg-color-darker rounded-lg tablet:p-12 flex flex-col tablet:gap-6">
         <h1 className="text-color-primary font-bold text-[16px] tablet:text-[32px] p-4">
           Número de cuenta sin el primer 2
@@ -27,7 +27,7 @@ const StepOne = ({ service, handleNextStep }) => {
               minLength: { value: 11, message: "Debe tener 11 dígitos" }
             })}
           />
-          {errors.accountNumber && ( // Muestra un mensaje de error si hay un problema
+          {errors.accountNumber && (
             <p className="text-red-500">{errors.accountNumber.message}</p>
           )}
           <p className="text-[14px] text-white font-thin">

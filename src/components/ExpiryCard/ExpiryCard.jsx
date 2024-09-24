@@ -6,7 +6,7 @@ function ExpiryInput() {
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
- 
+
     const regex = /^(0[1-9]|1[0-2])\/\d{4}$/;
 
     setState((prev) => ({
@@ -14,21 +14,16 @@ function ExpiryInput() {
       [name]: value,
     }));
 
-   
     if (value === "" || regex.test(value)) {
-    
       setError("");
     } else {
-    
       setError(
         "Fecha inválida, deberá escribirse el mes seguido del año, ej: 05/2025"
       );
     }
   };
 
-  const handleInputFocus = (e) => {
-  
-  };
+  const handleInputFocus = (e) => {};
 
   return (
     <div>

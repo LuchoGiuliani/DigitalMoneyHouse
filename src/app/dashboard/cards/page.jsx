@@ -13,9 +13,7 @@ const Page = () => {
   const [accountActivity, setAccountActivity] = useState(null);
   const { token } = useAuth();
   const router = useRouter();
-
   const account_id = accountData?.id;
-
   const { cards, handleAddCard, handleDeleteCard } = useCards(account_id);
 
   useEffect(() => {
@@ -57,16 +55,12 @@ const Page = () => {
     } catch (error) {
       console.error("Error:", error);
     }
-  };
-
-
-
-  
+  }; 
   return (
     <div>
       <div className="flex min-h-screen">
       
-        <div className="flex flex-col bg-gray-300 w-full px-8 py-4 gap-4">
+        <div className="flex flex-col bg-[#EEEAEA] w-full px-6 tablet:px-12 py-6 tablet:py-12 gap-4">
         <div className="flex gap-2 tablet:hidden">
           <Image
            src="/arrowGray.svg"

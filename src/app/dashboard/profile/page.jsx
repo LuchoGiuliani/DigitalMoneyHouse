@@ -94,7 +94,7 @@ const Page = () => {
   }
 
   return (
-    <main className="bg-gray-200">
+    <main className="bg-[#EEEAEA]">
       <Toaster
         toastOptions={{
           unstyled: true,

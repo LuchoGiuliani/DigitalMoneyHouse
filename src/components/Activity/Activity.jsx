@@ -22,8 +22,8 @@ const Activity = () => {
     accountData,
     accountActivity,
     setAccountActivity,
-    originalAccountActivity,       // Referencia al estado original
-    setOriginalAccountActivity,    // Setter del estado original
+    originalAccountActivity,      
+    setOriginalAccountActivity,   
     setAccountData,
     setCurrentPage,
     currentPage,
@@ -35,14 +35,14 @@ const Activity = () => {
   const indexOfLastItem = currentPage * itemsPerPage;
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
 
-  // Filtrar las actividades según el tipo especificado en el filtro
+ 
   const filteredItems = Array.isArray(accountActivity)
   ? accountActivity.filter((activity) => {
       if (!filter) return true;
 
       const lowerCaseFilter = filter.toLowerCase();
 
-      // Concatenar los valores relevantes de la actividad en una sola cadena
+     
       const activityText = `
         ${activity.type} 
         ${activity.description || ""} 
@@ -50,7 +50,7 @@ const Activity = () => {
         ${activity.origin || ""}
       `.toLowerCase();
 
-      // Comparar la cadena con el filtro
+      
       return activityText.includes(lowerCaseFilter);
     })
   : [];
@@ -60,10 +60,10 @@ const Activity = () => {
 
   useEffect(() => {
     if (token) {
-      // Guarda una copia de las actividades originales
+    
       getAccountActivity(setAccountData, (data) => {
         setAccountActivity(data);
-        setOriginalAccountActivity(data); // Guarda el estado original aquí
+        setOriginalAccountActivity(data); 
       }, token);
     }
   }, [token, setAccountData, setAccountActivity, setOriginalAccountActivity]);
@@ -82,7 +82,7 @@ const Activity = () => {
     router.push(`/dashboard/activity/activityDetail?id=${activity.id}`); 
   };
 
-  console.log("Current accountActivity:", accountActivity);
+ 
 
   return (
     <>

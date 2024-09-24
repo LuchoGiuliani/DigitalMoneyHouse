@@ -28,7 +28,7 @@ export const postDeposit = async (token, account_id, amount) => {
         },
       }
     );
-    console.log('Request Data:', transferenceRequest);
+   
     return response.data;
   } catch (error) {
     console.error("Error al realizar el depósito:", error);

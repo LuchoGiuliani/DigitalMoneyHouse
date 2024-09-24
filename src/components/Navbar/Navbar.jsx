@@ -16,7 +16,7 @@ const Navbar = () => {
   const pathname = usePathname();
   const router = useRouter();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
- console.log("userData Navbar", userData);
+
  
   useEffect(() => {
     const fetchData = () => {

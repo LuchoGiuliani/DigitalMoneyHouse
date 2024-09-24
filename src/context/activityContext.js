@@ -9,7 +9,7 @@ export const useActivity = () => useContext(ActivityContext);
 export const ActivityProvider = ({ children }) => {
   const [accountData, setAccountData] = useState([]);
   const [accountActivity, setAccountActivity] = useState([]);
-  const [originalAccountActivity, setOriginalAccountActivity] = useState([]); // Agregar estado original
+  const [originalAccountActivity, setOriginalAccountActivity] = useState([]); 
   const [currentPage, setCurrentPage] = useState(1);
   const [openFilter, setOpenFilter] = useState(false);
   const [filter, setFilter] = useState(null);
@@ -21,8 +21,8 @@ export const ActivityProvider = ({ children }) => {
         setAccountData,
         accountActivity,
         setAccountActivity,
-        originalAccountActivity,       // Exponer estado original
-        setOriginalAccountActivity,    // Exponer setter del estado original
+        originalAccountActivity,      
+        setOriginalAccountActivity,  
         currentPage,
         setCurrentPage,
         openFilter,

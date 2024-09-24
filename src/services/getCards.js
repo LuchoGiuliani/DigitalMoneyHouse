@@ -31,7 +31,7 @@ export const addCard = async (account_id, cardData, token) => {
         "Content-Type": "application/json",
       },
     });
-    console.log("responseAddCard", response.data);
+    
     return response.data;
     
   } catch (error) {

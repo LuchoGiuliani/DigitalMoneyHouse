@@ -51,8 +51,10 @@ const Filter = () => {
     }
 
     const filteredActivities = accountActivity.filter((activity) => {
-      const activityDate = dayjs(activity.dated, "YYYY-MM-DDTHH:mm:ss.SSSZ");
-
+      const activityDate = dayjs(activity.dated);
+     console.log("activityDated:", activity.dated);
+     console.log("activityDate:", activityDate);
+ 
       switch (period) {
         case "today":
           return activityDate.isToday();

@@ -7,13 +7,13 @@ import { useSimpleFilter } from "@/hooks/useFilter";
 import getServicesById from "@/services/getServicesById";
 import StepOne from "@/components/PayServices/StepOne";
 import StepTwo from "@/components/PayServices/StepTwo";
-import StepThree from "@/components/PayServices/StepThree"; // Import StepThree
+import StepThree from "@/components/PayServices/StepThree"; 
 import { FormProvider, useForm } from "react-hook-form";
 
 const Page = () => {
-  const methods = useForm(); // Initialize react-hook-form here
-  const [services, setServices] = useState([]); // Service list
-  const [selectedService, setSelectedService] = useState(null); // Selected service state
+  const methods = useForm();
+  const [services, setServices] = useState([]);
+  const [selectedService, setSelectedService] = useState(null); 
   const [step, setStep] = useState(0); 
   const [selectedCard, setSelectedCard] = useState(null);
   const { filteredList, searchInput, handleSearchInputChange } = useSimpleFilter(
@@ -22,15 +22,15 @@ const Page = () => {
   );
 
   useEffect(() => {
-    getServices(setServices); // Fetch the list of services from the backend
+    getServices(setServices); 
   }, []);
 
   const handleSelectService = async (id) => {
     try {
       const serviceData = await getServicesById(id);
       if (serviceData) {
-        setSelectedService(serviceData); // Update selected service state
-        setStep(1); // Move to StepOne
+        setSelectedService(serviceData); 
+        setStep(1); 
       }
     } catch (error) {
       console.error("Error selecting service:", error);
@@ -38,20 +38,20 @@ const Page = () => {
   };
 
   const handleNextStep = () => {
-    setStep(step + 1); // Go to the next step
+    setStep(step + 1); 
   };
 
   const handleBackStep = () => {
-    setStep(step - 1); // Go to the previous step
+    setStep(step - 1);
   };
   const handleSelectCardInStepThree = (card) => {
-    setSelectedCard(card); // Almacena la tarjeta seleccionada para usarla en StepThree
+    setSelectedCard(card); 
   };
 
   return (
-    <FormProvider {...methods}> {/* Provide form context to all steps */}
-      <div className="bg-color-gray min-h-screen p-8 flex flex-col gap-4">
-        {step === 0 && ( // Step 0: Service List
+    <FormProvider {...methods}> 
+      <div className="bg-color-gray min-h-screen tablet:p-8 flex flex-col gap-4">
+        {step === 0 && ( 
           <div className="rounded-lg flex flex-col gap-4 p-6">
             <div className="flex gap-2 tablet:hidden">
               <Image
@@ -92,10 +92,10 @@ const Page = () => {
                               className="w-[46px] h-[24px]"
                               alt={service[sv.id]?.alt || "Servicio"}
                             />
-                            <h1>{sv.name}</h1>
+                            <h1 className="font-semibold text-[18px]">{sv.name}</h1>
                           </div>
                           <button
-                            className="font-bold"
+                            className="text-[16px] tablet:text-[18px]"
                             onClick={() => handleSelectService(sv.id)}
                           >
                             Seleccionar
@@ -112,28 +112,28 @@ const Page = () => {
           </div>
         )}
 
-        {step === 1 && selectedService && ( // Step 1: Service Details in StepOne
+        {step === 1 && selectedService && (
           <StepOne
-            service={selectedService} // Pass the selected service to StepOne
-            handleNextStep={handleNextStep} // Pass the function to move to the next step
+            service={selectedService} 
+            handleNextStep={handleNextStep} 
           />
         )}
 
-        {step === 2 && selectedService && ( // Step 2: Confirmation in StepTwo
+        {step === 2 && selectedService && ( 
           <StepTwo
-            serviceData={selectedService} // Pass the selected service to StepTwo
-            handleNextStep={handleNextStep} // Function to go to the next step (or finish)
-            handleBackStep={handleBackStep} // Function to go back to the previous step
+            serviceData={selectedService} 
+            handleNextStep={handleNextStep} 
+            handleBackStep={handleBackStep} 
             handleSelectCardInStepThree={handleSelectCardInStepThree}
           />
         )}
 
-        {step === 3 && selectedService && ( // Step 3: Final Confirmation in StepThree
+        {step === 3 && selectedService && ( 
           <StepThree
             card={selectedCard} 
-            serviceData={selectedService} // Pass the selected service to StepThree
-            handleNextStep={handleNextStep} // Function to finalize or move forward
-            handleBackStep={handleBackStep} // Function to go back to StepTwo
+            serviceData={selectedService} 
+            handleNextStep={handleNextStep} 
+            handleBackStep={handleBackStep}
           />
         )}
       </div>
