@@ -100,7 +100,7 @@ const Page = () => {
              >
                <div className="flex gap-4">
                  <Image
-                   src={"/cruz.png"}
+                   src={"/cruz.svg"}
                    width={22}
                    height={22}
                    alt="Cruz"

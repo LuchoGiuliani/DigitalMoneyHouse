@@ -6,15 +6,33 @@ import { useAuth } from "@/hooks/useAuth";
 import getAccountActivity from "@/services/getAccountActivity";
 import Image from "next/image";
 import { useEffect, useState } from "react";
+import dayjs from "dayjs";
+import "dayjs/locale/es";
+import isBetween from "dayjs/plugin/isBetween";
+import isYesterday from "dayjs/plugin/isYesterday";
+import isToday from "dayjs/plugin/isToday";
+import { useActivity } from "@/context/activityContext";
+dayjs.extend(isBetween);
+dayjs.extend(isYesterday);
+dayjs.extend(isToday);
 
 const Page = () => {
-  const [accountData, setAccountData] = useState(null);
-  const [accountActivity, setAccountActivity] = useState(null);
-  const [originalAccountActivity, setOriginalAccountActivity] = useState(null); 
   const [loading, setLoading] = useState(true);
   const { token } = useAuth();
-  const [filter, setFilter] = useState(""); 
   const [periodFilter, setPeriodFilter] = useState(null); 
+  const {
+    setAccountActivity,
+    accountData,
+    accountActivity,
+    openFilter,
+    setOpenFilter,
+    setAccountData,
+    filter,
+    setFilter,
+    setOriginalAccountActivity,
+    originalAccountActivity,
+  } = useActivity();
+
 
   useEffect(() => {
     if (token) {
@@ -47,7 +65,7 @@ const Page = () => {
    
     if (periodFilter) {
       filteredActivities = filteredActivities.filter((activity) => {
-        const activityDate = dayjs(activity.dated, "YYYY-MM-DDTHH:mm:ss.SSSZ");
+        const activityDate = dayjs(activity.dated)
 
         switch (periodFilter) {
           case "today":
@@ -105,7 +123,7 @@ const Page = () => {
           </div>
         </div>
       </section>
-      <Filter setPeriodFilter={setPeriodFilter} clearFilters={clearFilters} />
+      <Filter />
     </main>
   );
 };

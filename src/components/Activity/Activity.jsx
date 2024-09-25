@@ -10,8 +10,13 @@ import { usePathname } from "next/navigation";
 import Link from "next/link";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
-
+import isBetween from "dayjs/plugin/isBetween";
+import isYesterday from "dayjs/plugin/isYesterday";
+import isToday from "dayjs/plugin/isToday";
 dayjs.locale("es");
+dayjs.extend(isBetween);
+dayjs.extend(isYesterday);
+dayjs.extend(isToday);
 
 const Activity = () => {
   const router = useRouter();
