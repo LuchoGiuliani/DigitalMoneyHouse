@@ -6,101 +6,25 @@ import { useAuth } from "@/hooks/useAuth";
 import getAccountActivity from "@/services/getAccountActivity";
 import Image from "next/image";
 import { useEffect, useState } from "react";
-import dayjs from "dayjs";
-import "dayjs/locale/es";
-import isBetween from "dayjs/plugin/isBetween";
-import isYesterday from "dayjs/plugin/isYesterday";
-import isToday from "dayjs/plugin/isToday";
 import { useActivity } from "@/context/activityContext";
-dayjs.extend(isBetween);
-dayjs.extend(isYesterday);
-dayjs.extend(isToday);
 
 const Page = () => {
   const [loading, setLoading] = useState(true);
   const { token } = useAuth();
-  const [periodFilter, setPeriodFilter] = useState(null); 
   const {
     setAccountActivity,
-    accountData,
-    accountActivity,
-    openFilter,
-    setOpenFilter,
     setAccountData,
-    filter,
-    setFilter,
     setOriginalAccountActivity,
-    originalAccountActivity,
   } = useActivity();
-
 
   useEffect(() => {
     if (token) {
       getAccountActivity(setAccountData, (activities) => {
         setAccountActivity(activities);
-        setOriginalAccountActivity(activities);
+        setOriginalAccountActivity(activities); // Guardamos las actividades originales
       }, token).finally(() => setLoading(false));
     }
   }, [token]);
-
-  
-  const applyFilters = () => {
-    let filteredActivities = [...originalAccountActivity]; 
-
-   
-    if (filter) {
-      filteredActivities = filteredActivities.filter((activity) => {
-        const lowerCaseFilter = filter.toLowerCase();
-        const activityText = `
-          ${activity.type} 
-          ${activity.description || ""} 
-          ${activity.destination || ""} 
-          ${activity.origin || ""}
-        `.toLowerCase();
-
-        return activityText.includes(lowerCaseFilter);
-      });
-    }
-
-   
-    if (periodFilter) {
-      filteredActivities = filteredActivities.filter((activity) => {
-        const activityDate = dayjs(activity.dated)
-
-        switch (periodFilter) {
-          case "today":
-            return activityDate.isToday();
-          case "yesterday":
-            return activityDate.isYesterday();
-          case "lastWeek":
-            return activityDate.isBetween(dayjs().subtract(1, "week"), dayjs());
-          case "lastMonth":
-            return activityDate.isBetween(dayjs().subtract(1, "month"), dayjs());
-          case "lastYear":
-            return activityDate.isBetween(dayjs().subtract(1, "year"), dayjs());
-          default:
-            return true;
-        }
-      });
-    }
-
-   
-    setAccountActivity(filteredActivities);
-  };
-
- 
-  useEffect(() => {
-    if (originalAccountActivity) {
-      applyFilters();
-    }
-  }, [filter, periodFilter, originalAccountActivity]);
-
- 
-  const clearFilters = () => {
-    setFilter(""); 
-    setPeriodFilter(null); 
-    setAccountActivity(originalAccountActivity); 
-  };
 
   return (
     <main className="bg-color-gray min-h-screen text-[18px] tablet-[12px]">
@@ -116,14 +40,14 @@ const Page = () => {
             />
             <h3 className="underline text-color-dark">Tu actividad</h3>
           </div>
-          <SearchFormActivity setFilter={setFilter} />
+          <SearchFormActivity /> {/* setFilter ya está en el contexto */}
           <div className="w-full h-full bg-white rounded-lg drop-shadow-lg p-4">
             <h2 className="font-bold pb-6">Tu actividad</h2>
-            <Activity accountActivity={accountActivity} />
+            <Activity /> {/* Las actividades ya vienen del contexto */}
           </div>
         </div>
       </section>
-      <Filter />
+      <Filter /> {/* Aplicamos los filtros */}
     </main>
   );
 };

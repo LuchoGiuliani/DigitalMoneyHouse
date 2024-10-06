@@ -65,10 +65,12 @@ const Activity = () => {
 
   useEffect(() => {
     if (token) {
-    
       getAccountActivity(setAccountData, (data) => {
-        setAccountActivity(data);
-        setOriginalAccountActivity(data); 
+       
+        const sortedData = data.sort((a, b) => dayjs(b.dated).diff(dayjs(a.dated)));
+  
+        setAccountActivity(sortedData);
+        setOriginalAccountActivity(sortedData); 
       }, token);
     }
   }, [token, setAccountData, setAccountActivity, setOriginalAccountActivity]);

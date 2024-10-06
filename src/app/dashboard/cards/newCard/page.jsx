@@ -53,6 +53,12 @@ const Page = () => {
       );
       return;
     }
+    const expiryRegex = /^(0[1-9]|1[0-2])\/20\d{2}$/;
+  if (!expiryRegex.test(state.expiry)) {
+    alert('Datos inválidos: la fecha de expiración debe contener "MM/AÑO" y comenzar con "20".');
+    return;
+  }
+
 
     const cardData = {
       cod: parseInt(state.number, 10),
@@ -101,6 +107,7 @@ const Page = () => {
                 onChange={handleInputChange}
                 onFocus={handleInputFocus}
                 className="p-2 rounded-md drop-shadow-lg w-full  "
+                 maxLength="16"
               />
              
                 <input

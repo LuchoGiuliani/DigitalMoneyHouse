@@ -17,12 +17,9 @@ const Filter = () => {
   const { register, handleSubmit, reset } = useForm();
   const {
     setAccountActivity,
-    accountData,
     accountActivity,
     openFilter,
     setOpenFilter,
-    filter,
-    setFilter,
     setOriginalAccountActivity,
     originalAccountActivity,
   } = useActivity();
@@ -36,8 +33,7 @@ const Filter = () => {
   }, [accountActivity, originalAccountActivity, setOriginalAccountActivity]);
 
   const clearFilter = () => {
-    setFilter("");
-    setAccountActivity(originalAccountActivity || accountData);
+    setAccountActivity(originalAccountActivity || []); // Resetear actividades
     reset();
     setOpenFilter(false);
   };
@@ -45,15 +41,9 @@ const Filter = () => {
   const applyFilter = (data) => {
     const { period } = data;
 
-    if (!Array.isArray(accountActivity)) {
-      console.error("accountActivity no es un array");
-      return;
-    }
-
-    const filteredActivities = accountActivity.filter((activity) => {
+    const filteredActivities = originalAccountActivity.filter((activity) => {
       const activityDate = dayjs(activity.dated);
-
- 
+      
       switch (period) {
         case "today":
           return activityDate.isToday();
@@ -70,17 +60,13 @@ const Filter = () => {
       }
     });
 
-    setAccountActivity(filteredActivities);
-    setFilter(period);
+    setAccountActivity(filteredActivities); // Actualizar actividades filtradas
+    setOpenFilter(false); // Cerrar el filtro
   };
 
   return (
     <div
-      className={` ${
-        isDashboardPage ? "hidden " : ""
-      } fixed top-0 right-0 tablet:w-1/4 bg-white p-4 shadow-lg transform transition-transform duration-300 ${
-        openFilter ? "translate-x-0" : "translate-x-full"
-      }`}
+      className={` ${isDashboardPage ? "hidden " : ""} fixed top-0 right-0 tablet:w-1/4 bg-white p-4 shadow-lg transform transition-transform duration-300 ${openFilter ? "translate-x-0" : "translate-x-full"}`}
     >
       <form onSubmit={handleSubmit(applyFilter)}>
         <h3 className="font-bold mb-4">Filtrar</h3>
