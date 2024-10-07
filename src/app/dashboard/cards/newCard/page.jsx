@@ -6,6 +6,7 @@ import "react-credit-cards-2/dist/es/styles-compiled.css";
 import { addCard, getCards } from "@/services/getCards";
 import { useAuth } from "@/hooks/useAuth";
 import getAccountId from "@/services/getAccountId";
+import { Toaster, toast } from "sonner";
 
 const MAX_CARDS = 10;
 
@@ -55,7 +56,8 @@ const Page = () => {
     }
     const expiryRegex = /^(0[1-9]|1[0-2])\/20\d{2}$/;
   if (!expiryRegex.test(state.expiry)) {
-    alert('Datos inválidos: la fecha de expiración debe contener "MM/AÑO" y comenzar con "20".');
+    
+    toast.error("Datos inválidos: la fecha de expiración debe contener MM/AÑO y comenzar con 20.")
     return;
   }
 
@@ -81,10 +83,21 @@ const Page = () => {
 
   return (
     <div>
+          <Toaster
+        toastOptions={{
+          unstyled: true,
+          classNames: {
+            toast: "bg-color-primary rounded-lg p-4 flex items-center gap-2",
+            title: "text-black",
+          },
+        }}
+        position="bottom-right"
+      />
       <div className="flex  min-h-screen ">
         <div className="px-6 py-6 tablet:px-[96px] tablet:py-[58px] w-full flex flex-col  items-center bg-[#EEEAEA]">
           <div className="bg-[#FFFFFF] rounded-lg py-12 px-6 tablet:px-12 w-full flex flex-col justify-center items-center gap-4">
             <div className="drop-shadow-lg mb-4"> 
+        
           <Cards
             number={state.number}
             expiry={state.expiry}

@@ -35,7 +35,7 @@ const Activity = () => {
     filter,
   } = useActivity();
 
-  const itemsPerPage = pathname === "/dashboard" ? 4 : 10;
+  const itemsPerPage = pathname === "/dashboard" ? 10 : 10;
  
   const indexOfLastItem = currentPage * itemsPerPage;
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;

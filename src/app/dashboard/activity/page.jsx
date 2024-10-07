@@ -40,14 +40,14 @@ const Page = () => {
             />
             <h3 className="underline text-color-dark">Tu actividad</h3>
           </div>
-          <SearchFormActivity /> {/* setFilter ya está en el contexto */}
+          <SearchFormActivity />
           <div className="w-full h-full bg-white rounded-lg drop-shadow-lg p-4">
             <h2 className="font-bold pb-6">Tu actividad</h2>
-            <Activity /> {/* Las actividades ya vienen del contexto */}
+            <Activity />
           </div>
         </div>
       </section>
-      <Filter /> {/* Aplicamos los filtros */}
+      <Filter /> 
     </main>
   );
 };
